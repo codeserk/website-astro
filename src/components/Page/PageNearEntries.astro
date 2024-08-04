@@ -1,0 +1,64 @@
+---
+import { getNearEntries, type Collection, type Entry } from '~/utils/content'
+import Container from '../Container.astro'
+import PageLink from './PageLink.astro'
+
+interface Props {
+  readonly collection: Collection
+  readonly entry: Entry
+}
+
+const { collection, entry } = Astro.props
+const { previous, next } = await getNearEntries(collection, entry)
+---
+
+{
+  (previous || next) && (
+    <div class="PageNearEntries">
+      <Container layout="one-column">
+        <h2 class="section-header">
+          <a>🚩 Related</a>
+        </h2>
+
+        <div class="linksContainer">
+          {previous && (
+            <div class="link previous">
+              <PageLink
+                title={'< PREV'}
+                link={`/${previous.collection}/${previous.slug}`}
+                image={previous.data.featuredImage}
+                summary={previous.data.name}
+              />
+            </div>
+          )}
+          {next && (
+            <div class="link next">
+              <PageLink
+                title={'NEXT >'}
+                link={`/${next.collection}/${next.slug}`}
+                image={next.data.featuredImage}
+                summary={next.data.name}
+              />
+            </div>
+          )}
+        </div>
+      </Container>
+    </div>
+  )
+}
+
+<style>
+  .PageNearEntries {
+    .linksContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1em;
+
+      .pageLink {
+        margin: 0;
+      }
+    }
+  }
+</style>

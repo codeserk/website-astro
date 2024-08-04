@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets'
+
+interface Props {
+  readonly absolute?: boolean
+  readonly align?: 'flex-start' | 'center' | 'flex-end'
+  readonly grey?: boolean
+}
+
+const { absolute, align = 'center', grey } = Astro.props
+---
+
+<div class:list={['socialLinks', { absolute, grey }]}>
+  <a href="https://github.com/codeserk" target="_blank">
+    <Image class="icon" src="/image/social/github.png" width={50} height={50} alt="GitHub" loading="eager" />
+  </a>
+  <a href="https://buymeacoffee.com/codeserk" target="_blank">
+    <Image class="icon" src="/image/social/coffee.png" width={50} height={50} alt="BuyMeACoffee" loading="eager" />
+  </a>
+  <a href="https://www.instagram.com/codeserk.es" target="_blank">
+    <Image class="icon" src="/image/social/instagram.png" width={50} height={50} alt="Instagram" loading="eager" />
+  </a>
+  <a href="https://www.linkedin.com/in/jos%C3%A9-manuel-c%C3%A1mara-iglesias-60b617127/" target="_blank">
+    <Image class="icon" src="/image/social/linkedin.png" width={50} height={50} alt="LinkedIn" loading="eager" />
+  </a>
+
+  <a href="mailto:info@codeserk.es" target="_blank" aria-label="Email"><span class="icon">✉️</span></a>
+</div>
+
+<style define:vars={{ align }}>
+  .socialLinks {
+    display: flex;
+    align-items: center;
+    justify-content: var(--align);
+    gap: 1em;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .icon {
+      font-size: 50px;
+      color: white;
+      display: inline-block;
+      filter: grayscale(50%);
+    }
+
+    a {
+      display: block;
+      width: 50px;
+      height: 50px;
+
+      &:hover {
+        cursor: pointer;
+        .icon {
+          transform: translate3d(0px, -5px, 0px);
+          filter: grayscale(0%) saturate(500%);
+        }
+      }
+    }
+
+    &.absolute {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      z-index: 100;
+      gap: 0.5em;
+
+      a:hover .icon {
+        transform: translate3d(0px, 10px, 0px);
+      }
+    }
+
+    &.grey {
+      a .icon {
+        filter: grayscale(100%);
+      }
+      a:hover .icon {
+        filter: grayscale(0%) saturate(500%);
+      }
+    }
+
+    @media (max-width: 640px) {
+      left: 0;
+      width: 100%;
+      display: flex;
+      gap: 0;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+
+      a,
+      .icon {
+        width: 40px;
+        height: 40px;
+        font-size: 40px;
+      }
+    }
+  }
+</style>

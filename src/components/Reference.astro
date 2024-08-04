@@ -1,0 +1,80 @@
+---
+import { getEntryFromReference, type Entry, type EntryReference } from '~/utils/content'
+
+interface Props {
+  readonly entry?: Entry
+  readonly reference?: EntryReference
+  readonly block?: boolean
+}
+
+const { entry, reference, block } = Astro.props
+const entryToUse = entry || (reference ? await getEntryFromReference(reference) : undefined)
+---
+
+{
+  entryToUse && (
+    <a
+      class:list={['Reference reference ', { block }, entryToUse.collection]}
+      href={`/${entryToUse.collection}/${entryToUse.slug}`}>
+      {entryToUse.data.name}
+    </a>
+  )
+}
+
+<style>
+  .reference {
+    display: inline-block;
+    color: white !important;
+    text-transform: uppercase;
+    line-height: 20px;
+    padding: 0 4px 0 2px;
+
+    &:hover,
+    &:focus,
+    &:active {
+      filter: brightness(1.25) saturate(1.5);
+
+      &.noLink {
+        filter: none;
+      }
+    }
+
+    &.block {
+      padding: 2px 8px;
+      border: 1px solid white;
+    }
+
+    &.development,
+    &.development-area {
+      background: #d09706;
+    }
+
+    &.language {
+      background: #d86830;
+    }
+
+    &.framework {
+      background: #b22741;
+    }
+
+    &.database {
+      background: #247a94;
+    }
+
+    &.message-broker {
+      background: #156f1e;
+    }
+
+    &.technology {
+      background: #931977;
+    }
+
+    &.project {
+      background: #d09706;
+    }
+
+    &.career {
+      background: #4995f3;
+    }
+  }
+</style>

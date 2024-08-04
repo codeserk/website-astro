@@ -1,0 +1,15 @@
+---
+slug: sonarqube
+name: SonarQube
+featuredImage: technology/sonarqube
+order: 5
+status: adopted
+knowledge: 80
+scopes:
+  - devops
+references:
+  - development/web
+summary:
+  format: mdx
+  raw: Nice self-hosted solution to analyze your code _(and cry afterwards 🐶)_
+---

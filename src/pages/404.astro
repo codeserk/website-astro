@@ -1,0 +1,52 @@
+---
+import PageContainer from '~/components/Page/PageContainer.astro'
+import PageContent from '~/components/Page/PageContent.astro'
+import Layout from '~/layouts/Layout.astro'
+---
+
+<Layout full overlay>
+  <PageContainer overlay>
+    <PageContent layout="one-column">
+      <h1>(╯°□°)╯︵ ┻━┻</h1>
+      <p class="content">The page you are looking for doesn't exist or an error ocurred.</p>
+
+      <p class="link-back green">
+        <a href="/">...come back Home</a>
+      </p>
+    </PageContent>
+  </PageContainer>
+</Layout>
+
+<style>
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  .content {
+    margin: 1em 0;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .link-back {
+    text-align: right;
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 6rem;
+    }
+    .content,
+    .link-back {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    h1 {
+      font-size: 8rem;
+    }
+  }
+</style>

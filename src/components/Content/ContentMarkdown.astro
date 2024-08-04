@@ -1,0 +1,15 @@
+---
+import RemoteMarkdown from '../Remote/RemoteMarkdown.astro'
+import Image from './Image.astro'
+import Link from './Link.astro'
+
+interface Props {
+  readonly content?: string
+}
+
+const { content } = Astro.props
+---
+
+<div class="ContentMarkdown">
+  {content && <RemoteMarkdown content={content} components={{ a: Link, img: Image }} />}
+</div>

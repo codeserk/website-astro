@@ -1,0 +1,132 @@
+---
+import { getCollection } from 'astro:content'
+import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import ProgressBar from '~/components/ProgressBar.astro'
+import Block from '../../Block.astro'
+
+const languages = (await getCollection('language')).sort((a, b) => a.data.order - b.data.order)
+---
+
+<div class="HomeLanguages">
+  <Block padding shadow>
+    {
+      languages.map((language, index) => (
+        <>
+          <div class="language">
+            <div class="languageProgress">
+              <a href={`/language/${language.slug}`} class="languageName">
+                <h3>{language.data.name}</h3>
+              </a>
+
+              <ProgressBar text={language.data.status} percent={language.data.knowledge} />
+            </div>
+
+            <div class:list={['languageSummary', { left: index % 2 === 0, right: index % 2 !== 0 }]}>
+              <Block padding="small" shadow>
+                <div class="content no-margin">
+                  <ContentMarkdown content={language.data.summary.raw} />
+                </div>
+              </Block>
+            </div>
+          </div>
+        </>
+      ))
+    }
+  </Block>
+</div>
+
+<style>
+  .HomeLanguages {
+    width: 500px;
+    max-width: 100%;
+    margin: auto;
+
+    .language {
+      position: relative;
+      z-index: 1;
+      margin: 5rem 0;
+
+      .languageProgress {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: space-between;
+
+        .languageName {
+          flex: 1;
+          font-weight: bold;
+          min-width: 100px;
+        }
+
+        .ProgressBar {
+          width: 300px;
+        }
+      }
+
+      .languageSummary {
+        position: absolute;
+        width: 400px;
+        font-size: 22px;
+
+        &.left {
+          top: -100%;
+          left: -450px;
+
+          &::after {
+            right: -16px;
+          }
+        }
+
+        &.right {
+          top: -100%;
+          left: 480px;
+
+          &::after {
+            left: -16px;
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          z-index: -1;
+          top: 45px;
+          width: 16px;
+          border-bottom: 4px solid white;
+        }
+      }
+    }
+
+    @media (max-width: 1350px) {
+      width: 600px;
+
+      .language {
+        margin: 0;
+
+        .languageSummary {
+          position: relative;
+          left: unset !important;
+          right: unset !important;
+          top: unset !important;
+          margin: 1em 0 2em 0;
+          width: 100%;
+
+          &:after {
+            display: none;
+          }
+
+          .Block .blockContainer {
+            border: none;
+            padding: 0;
+
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

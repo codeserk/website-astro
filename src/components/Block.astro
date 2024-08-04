@@ -1,0 +1,160 @@
+---
+interface Props {
+  readonly borderless?: boolean
+  readonly small?: boolean
+  readonly skew?: true | 'left' | 'right'
+  readonly compensateSkew?: boolean
+  readonly shadow?: true | 'left' | 'right' | 'center'
+  readonly padding?: true | 'small'
+  readonly title?: string
+  readonly titleTag?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
+  readonly link?: string
+  readonly class?: string
+}
+
+const {
+  borderless,
+  small,
+  skew,
+  compensateSkew,
+  shadow,
+  padding,
+  title,
+  titleTag,
+  link,
+  class: className,
+} = Astro.props
+
+const TitleTag = titleTag ?? 'span'
+---
+
+<div class={`Block block ${className}`}>
+  {
+    title && (
+      <div class="titleContainer">
+        <TitleTag class="title">{link ? <a href={link}>{title}</a> : title}</TitleTag>
+      </div>
+    )
+  }
+  <div
+    class:list={[
+      'blockContainer',
+      {
+        borderless,
+        small,
+        skewLeft: skew === true || skew === 'left',
+        skewRight: skew === 'right',
+        compensateSkew,
+        withPadding: padding === true,
+        withSmallPadding: padding === 'small',
+        withShadowLeft: shadow === true || shadow === 'left',
+        withShadowRight: shadow === 'right',
+        withShadowCenter: shadow === 'center',
+      },
+    ]}
+  >
+    <div class="blockContent">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .block {
+    .blockContainer {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 12px;
+      border: 4px solid white;
+      border-radius: 0;
+      background: #07080d;
+
+      &.borderless {
+        border: 0;
+
+        &.withShadowLeft::before {
+          left: 0;
+        }
+      }
+
+      &.small {
+        max-width: 600px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      &.skewLeft {
+        transform: skewY(-1deg);
+        transform-origin: top right;
+      }
+      &.skewRight {
+        transform: skewY(1deg);
+        transform-origin: top left;
+      }
+
+      &.withPadding {
+        padding: 32px;
+      }
+      &.withSmallPadding {
+        padding: 24px;
+      }
+
+      &.withShadowLeft::before {
+        content: '';
+        position: absolute;
+        right: 40px;
+        bottom: -1em;
+        left: -4px;
+        z-index: -2;
+        border-bottom: 1em solid white;
+      }
+
+      &.withShadowRight::before {
+        content: '';
+        position: absolute;
+        top: 40px;
+        right: -4px;
+        bottom: -4px;
+        left: 40px;
+        z-index: -1;
+        box-shadow: 0 1em 0 white;
+      }
+
+      &.withShadowCenter::before {
+        content: '';
+        position: absolute;
+        top: 40px;
+        right: -4px;
+        bottom: -4px;
+        left: -4px;
+        z-index: -1;
+        box-shadow: 0 1em 0 white;
+      }
+
+      &.compensateSkew {
+        /* padding-top: 3em;
+    padding-bottom: 2em; */
+      }
+
+      &.compensateSkew.skewLeft > .blockContent {
+        transform: skewY(1deg);
+        transform-origin: top right;
+      }
+
+      &.compensateSkew.skewRight > .blockContent {
+        transform: skewY(-1deg);
+        transform-origin: top left;
+      }
+    }
+
+    .titleContainer {
+      background-color: white;
+      color: black;
+      padding: 0.5em 1em;
+    }
+
+    .title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

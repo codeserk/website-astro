@@ -1,0 +1,203 @@
+---
+interface Props {
+  readonly color: string
+  readonly animated?: boolean
+}
+
+const SCENE_IMAGE_SRC = {
+  background: '/image/scene/background.png',
+  moon: '/image/scene/moon.png',
+  cloudsFar: '/image/scene/clouds-far.png',
+  cloudsNear: '/image/scene/clouds-near.png',
+  mountainFar: '/image/scene/mountain-far.png',
+  mountainFarCover: '/image/scene/mountain-far-cover.png',
+  mountainsNear: '/image/scene/mountains-near.png',
+  treesFar: '/image/scene/trees-far.png',
+  treesNear: '/image/scene/trees-near.png',
+} as const satisfies Record<string, string>
+
+const { color } = Astro.props
+---
+
+<div class="backgroundContainer" style={{ backgroundColor: color }}>
+  <div class="crt-scanlines"></div>
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.background}')` }} class="layer layerTop background"></div>
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.moon}')` }} class="layer layertTop moon"></div>
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.cloudsFar}')` }} class="layer layerTop cloudsFar"></div>
+  <div
+    style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.mountainFarCover}')` }}
+    class="layer layerBottom mountainFarCover"
+  >
+  </div>
+
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.mountainFar}')` }} class="layer layerBottom mountainFar"></div>
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.cloudsNear}')` }} class="layer layerBottom cloudsNear"></div>
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.mountainsNear}')` }} class="layer layerBottom mountainsNear">
+  </div>
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.treesFar}')` }} class="layer layerBottom treesFar"></div>
+  <div style={{ backgroundImage: `url('${SCENE_IMAGE_SRC.treesNear}')` }} class="layer layerBottom treesNear"></div>
+</div>
+
+<style>
+  .layer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    background-size: contain;
+    background-repeat: repeat-x;
+    image-rendering: pixelated !important;
+  }
+
+  .layerTop {
+    background-position: top;
+  }
+  .layerBottom {
+    background-position: bottom;
+  }
+
+  .backgroundContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    user-select: none;
+    transition: opacity 0.4s ease-in;
+    height: 100rvh;
+  }
+
+  .background {
+    bottom: 10vh;
+    height: 70vh;
+    max-height: 60vw;
+  }
+
+  .moon {
+    top: 5vw;
+    right: 5vw;
+    height: 20vh;
+    background-position: top right;
+    background-repeat: no-repeat;
+  }
+
+  .cloudsFar {
+    top: 0;
+    left: -100vw;
+    width: 200vw;
+    height: 20vh;
+    background-size: contain;
+    animation: moveRight 500s infinite steps(500);
+  }
+
+  .cloudsNear {
+    bottom: 20vh;
+    left: -100vw;
+    width: 200vw;
+    height: 20vh;
+    background-size: contain;
+    animation: moveRight 10s infinite steps(10);
+  }
+
+  .mountainFar {
+    right: 0;
+    bottom: 14vh;
+    left: 0;
+    height: 60vh;
+    background-position: bottom right;
+    background-size: contain;
+  }
+
+  .mountainFarCover {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 15vh;
+    background-repeat: repeat;
+  }
+
+  .mountainsNear {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 40vh;
+    background-position: bottom right;
+    background-size: contain;
+  }
+
+  .treesFar {
+    bottom: 0px;
+    left: 0;
+    width: calc(100vw + 20px);
+    max-width: 100vw;
+    height: 30vh;
+    background-position: bottom right;
+    background-size: contain;
+  }
+
+  .treesNear {
+    bottom: 0;
+    left: 0;
+    width: calc(100vw + 20px);
+    max-width: 100vw;
+    height: 30vh;
+    background-position: bottom right;
+    background-size: contain;
+    animation: pivot 4s infinite steps(1);
+  }
+
+  .crt-scanlines {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100000;
+    background: linear-gradient(rgba(16, 16, 16, 0) 50%, rgba(100, 80, 80, 0.1) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 0, 255, 0.06), rgba(0, 0, 255, 0.06));
+    background-size:
+      100% 10px,
+      4px 100%;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .background {
+      bottom: 0;
+    }
+
+    .mountainFar {
+      bottom: 10vh;
+    }
+    .mountainFarCover {
+      height: 11vh;
+    }
+    .cloudsNear {
+      bottom: 12vh;
+      height: 10vh;
+    }
+  }
+
+  /* animations */
+
+  @keyframes moveRight {
+    0% {
+      transform: translate3d(0px, 0px, 0px);
+    }
+    100% {
+      transform: translate3d(100vw, 0px, 0px);
+    }
+  }
+
+  @keyframes pivot {
+    0% {
+      transform: translate3d(-5px, -1px, 0px);
+    }
+    50% {
+      transform: translate3d(1px, 0px, 0px);
+    }
+    100% {
+      transform: translate3d(-5px, -1px, 0px);
+    }
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+name: React
+featuredImage: /framework/react.png
+order: 1
+status: adopted
+knowledge: 90
+yearsLearning: 3
+scopes:
+  - frontend
+references:
+  - development/web
+  - language/typescript
+summary:
+  format: mdx
+  raw: Recently adopted, works great when you only want to see TS in your code. Easy transition Vue -> React.
+---
+
+I have started using React in my projects, and I think right now is my preferred frontend framework (over [vue](framework/vue), which was my preferred framework until now).
+React's approach is way more direct, almost without any kind of _magic_ that makes _reactivity_ work behind the scenes. That ensures you can write simple easy-to-follow [typescript](framework/typescript) code.
+
+It has some drawbacks though, and it's also easier to make simple mistakes.
+For instance, it's quite simple to create `computed` properties in your Vue components, and they _just work_. But in React you need to be explicit about which variables should be _cached_ (using `memo`), and what are the variables they depend on. This makes the learning curve a bit stepper, but **I really like the fact that there is no magic behind this behavior**: You create your memos, you decide which variables it depend on, everything is clear.
+
+Another **big plus** for this technology is that learning React opens the doors to [React Native](framework/react-native) which is just awesome :)

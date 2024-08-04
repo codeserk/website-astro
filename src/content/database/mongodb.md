@@ -1,0 +1,16 @@
+---
+slug: mongodb
+name: MongoDB
+featuredImage: database/mongodb
+order: 2
+status: adopted
+knowledge: 90
+yearsLearning: 10+
+scopes:
+  - backend
+references:
+  - development/web
+summary:
+  format: mdx
+  raw: My default _no-sql_ database, works well in combination with libraries like Mongoose.
+---

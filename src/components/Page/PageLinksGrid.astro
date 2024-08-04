@@ -1,0 +1,51 @@
+---
+import type { Entry } from '~/utils/content'
+import PageGeneralLink from './Link/PageGeneralLink.astro'
+import type { BreadcrumbLink } from './PageBreadcrumbs.astro'
+
+interface Props {
+  readonly header?: BreadcrumbLink
+  readonly links: Entry[]
+  readonly component?: any
+}
+
+const { header, links, component: LinkComponent = PageGeneralLink } = Astro.props
+---
+
+{
+  links.length > 0 && (
+    <div class="PageLinksGrid">
+      {header && (
+        <h2 class="header">
+          <a href={header.link}>{header.title}</a>
+        </h2>
+      )}
+
+      <div class="linksContainer">
+        {links.map((item) => (
+          <LinkComponent item={item} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .PageLinksGrid {
+    .linksContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    h2 {
+      font-size: 3rem;
+      margin-bottom: 0;
+      text-align: center;
+
+      @media (min-width: 640px) {
+        font-size: 4em;
+      }
+    }
+  }
+</style>

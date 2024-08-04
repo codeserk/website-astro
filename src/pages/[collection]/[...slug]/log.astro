@@ -1,0 +1,86 @@
+---
+import type { ImageMetadata } from 'astro'
+import type { AnyEntryMap } from 'astro:content'
+import { getCollection } from 'astro:content'
+import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import PageContainer from '~/components/Page/PageContainer.astro'
+import PageContent from '~/components/Page/PageContent.astro'
+import PageHeader from '~/components/Page/PageHeader.astro'
+import PageLogs from '~/components/Page/Logs/PageLogs.astro'
+import PageMeta from '~/components/Page/PageMeta.astro'
+import Layout from '~/layouts/Layout.astro'
+import { getEntrySummary, getEntryBreadcrumbs, getEntryLink, getEntrySummaryContent } from '~/utils/content'
+
+export async function getStaticPaths() {
+  const COLLECTIONS = [
+    'article',
+    'development',
+    'language',
+    'framework',
+    'database',
+    'message-broker',
+    'technology',
+    'project',
+    'career',
+    'challenge',
+  ] satisfies (keyof AnyEntryMap)[]
+
+  const data = await Promise.all(
+    COLLECTIONS.map(async (collection) => ({
+      collection,
+      entries: await getCollection(collection),
+    })),
+  )
+
+  const result = data.flatMap(({ collection, entries }) =>
+    entries?.map((entry: any) => ({
+      params: { collection, slug: entry.slug },
+      props: { collection, entry },
+    })),
+  )
+
+  return result
+}
+
+const { collection, entry } = Astro.props
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/image/**/*.{jpeg,jpg,png,gif}')
+const image = (await Object.entries(images).find((it) => it[0].includes(entry.data.featuredImage))?.[1]?.())?.default
+const summary = await getEntrySummary(entry)
+const summaryContent = await getEntrySummaryContent(entry)
+const breadcrumbs = [...getEntryBreadcrumbs(entry), { title: entry.data.name, link: getEntryLink(entry) }]
+---
+
+<Layout full overlay seo={{ title: 'Log', breadcrumbs, description: summary, image: image?.src }}>
+  <PageContainer overlay>
+    <PageHeader layout="two-columns" title={'Logs'} breadcrumbs={breadcrumbs} image={image} imageType="bordered md" />
+
+    <PageContent layout="two-columns">
+      <div slot="right">
+        <PageMeta entry={entry} />
+      </div>
+
+      <div class="summary">
+        <ContentMarkdown content={summaryContent} />
+      </div>
+    </PageContent>
+
+    <aside>
+      <PageLogs collection={collection} entry={entry} />
+    </aside>
+  </PageContainer>
+</Layout>
+
+<style>
+  .summary {
+    padding-left: 1em;
+    border-left: 8px solid white;
+  }
+
+  aside {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+</style>

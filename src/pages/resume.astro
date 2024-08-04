@@ -1,0 +1,617 @@
+---
+import { getCollection, getEntry } from 'astro:content'
+import dayjs from 'dayjs'
+import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import PageContainer from '~/components/Page/PageContainer.astro'
+import PageHeader from '~/components/Page/PageHeader.astro'
+import ProgressBar from '~/components/ProgressBar.astro'
+import ReferencesList from '~/components/ReferencesList.astro'
+import Layout from '~/layouts/Layout.astro'
+
+const baseURL = 'https://www.codeserk.es/'
+
+const social = [
+  { label: '➿', link: 'https://www.codeserk.es', title: 'www.codeserk.es' },
+  { image: '/image/social/github.png', link: 'https://github.com/codeserk', title: 'GitHub' },
+  {
+    image: '/image/social/linkedin.png',
+    link: 'https://www.linkedin.com/in/jos%C3%A9-manuel-c%C3%A1mara-iglesias-60b617127/',
+    title: 'LinkedIn',
+  },
+  { label: '✉️', link: 'mailto:info@codeserk.es', title: 'Email' },
+]
+const skillBlockSlugs = [
+  ['language/typescript', 'language/javascript'],
+  ['framework/nestjs', 'framework/react', 'framework/react-native', 'framework/vue'],
+  ['database/mongodb', 'database/mysql'],
+  ['message-broker/rabbitmq', 'message-broker/kafka'],
+  ['technology/docker', 'technology/kubernetes'],
+]
+const skillBlocks = await Promise.all(
+  skillBlockSlugs.map(
+    async (block) =>
+      await Promise.all(
+        block.map((parts) => {
+          const [collection, slug] = parts.split('/') as [string, string]
+          return getEntry(collection as any, slug)
+        }),
+      ),
+  ),
+)
+const tongues = [
+  { name: 'Spanish', level: 'Native', knowledge: 100 },
+  { name: 'English', level: 'Proficient', knowledge: 85 },
+]
+
+const getStartDateText = (company: any) => {
+  if (!company.data.startDate) {
+    return
+  }
+
+  return dayjs(company.data.startDate).format('DD/MM/YYYY')
+}
+
+const getEndDateText = (company: any) => {
+  if (!company.data.endDate) {
+    return 'NOW'
+  }
+
+  return dayjs(company.data.endDate).format('DD/MM/YYYY')
+}
+
+const getPeriod = (company: any) => {
+  const startDate = dayjs(company.data.startDate)
+  const endDate = company.data.endDate ? dayjs(company.data.endDate) : undefined
+  const years = endDate ? endDate.diff(startDate, 'years') : dayjs().diff(startDate, 'years')
+  const months = endDate ? endDate.diff(startDate, 'months') % 12 : dayjs().diff(startDate, 'months') % 12
+  const days = endDate ? endDate.diff(startDate, 'days') % 365 : dayjs().diff(startDate, 'days') % 365
+
+  const timeParts = []
+  if (years > 0) {
+    timeParts.push(years > 1 ? `${years} years` : `${years} year`)
+  }
+  if (months > 0) {
+    timeParts.push(months > 1 ? `${months} months` : `${months} month`)
+  }
+  if (years === 0 && months === 0) {
+    timeParts.push(days > 1 ? `${days} days` : `${days} day`)
+  }
+
+  return timeParts.join(', ')
+}
+
+const career = (await getCollection('career'))
+  .sort((a, b) => {
+    const dateA = a.data.startDate
+    const dateB = b.data.startDate
+    if (dateA && !dateB) {
+      return -1
+    }
+    if (!dateA && dateB) {
+      return 1
+    }
+    if (!dateA && !dateB) {
+      return 0
+    }
+
+    return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
+  })
+  .map((item) => ({
+    ...item,
+    startDateText: getStartDateText(item),
+    endDateText: getEndDateText(item),
+    period: getPeriod(item),
+  }))
+const education = (await getCollection('education'))
+  .sort((a, b) => {
+    const dateA = a.data.startDate
+    const dateB = b.data.startDate
+    if (dateA && !dateB) {
+      return -1
+    }
+    if (!dateA && dateB) {
+      return 1
+    }
+    if (!dateA && !dateB) {
+      return 0
+    }
+
+    return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
+  })
+  .map((item) => ({
+    ...item,
+    startDateText: getStartDateText(item),
+    endDateText: getEndDateText(item),
+    period: getPeriod(item),
+  }))
+---
+
+<div class="resumeContainer">
+  <Layout full seo={{ title: 'Resume' }}>
+    <PageContainer overlay>
+      <PageHeader layout="small" title="Resume" breadcrumbs={[]} />
+
+      <div class="resume bordered sm">
+        <div class="info">
+          <div class="info-container">
+            <div class="header">
+              <div class="me">
+                <img width={150} height={150} alt="Jose Camara" class="image bordered sm" src="/image/me.png" />
+              </div>
+              <h1 class="name">José Cámara</h1>
+
+              <div class="title">Full-Stack Engineer</div>
+            </div>
+
+            <div class="details">
+              <h2>Info</h2>
+
+              <div class="details-items">
+                {
+                  social.map((item) => (
+                    <div class="details-item">
+                      <div class="details-item-label">
+                        <a href={item.link} target="_blank" rel="noreferrer noopener">
+                          {item.image && <img class="icon" src={item.image} alt={item.title} />}
+                          {item.label && item.label}
+                        </a>
+                      </div>
+                      <div class="details-item-content">
+                        <a href={item.link} target="_blank" rel="noreferrer noopener">
+                          {item.title}
+                        </a>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <div class="skills">
+              {
+                skillBlocks.map((block) => (
+                  <div class="skills-section">
+                    {block.map((item: any) => (
+                      <div class="skill item">
+                        <a href={`${baseURL}/${item.collection}/${item.slug}`} class="item-name">
+                          <h3 class="label">{item.data.name}</h3>
+                        </a>
+                        <ProgressBar percent={item.data.knowledge} text={`${item.data.yearsLearning} years`} small />
+                      </div>
+                    ))}
+                  </div>
+                ))
+              }
+
+              <div class="skills-section tongues">
+                {
+                  tongues.map((tongue) => (
+                    <div class="skill tongue">
+                      <h3 class="label">{tongue.name}</h3>
+                      <ProgressBar percent={tongue.knowledge} text={tongue.level} small />
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="resume-content">
+          <div class="profile">
+            <h2>Profile</h2>
+            <p>
+              I'm <strong>José Cámara</strong> and I'm passionate about innovative technologies and computer programming.
+              Although the main focus of my career is <a href={`${baseURL}/development/web`}>Web development</a>, I have
+              acquired skills in other areas of development, such as:
+              <a href={`${baseURL}/development/game`}>Games</a>,
+              <a href={`${baseURL}/development/android`}>Android</a> and
+              <a href={`${baseURL}/development/ios`}>iOS</a>.
+            </p>
+          </div>
+
+          <div class="career">
+            <h2>Career</h2>
+
+            {
+              career.map((item, index) => (
+                <div class="item">
+                  <div class="item-header">
+                    {item.data.featuredImage && (
+                      <img
+                        src={`/image/${item.data.featuredImage}`}
+                        alt={`${item.data.name} logo`}
+                        class="image bordered"
+                        width={32}
+                        height={32}
+                      />
+                    )}
+                    <div class="item-header-info">
+                      <div class="title">
+                        <a href={`/career/${item.slug}`}>
+                          <h3>{item.data.name}</h3>
+                        </a>
+                        {item.data.position && <span class="position">{item.data.position}</span>}
+                      </div>
+                      <div class="time">
+                        <span class="start-date">{item.startDateText}</span>
+                        <span class="end-date">{item.endDateText}</span>
+                        <span class="period">{item.period}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-content">
+                    {index < 4 && <ContentMarkdown content={item.data.summary.raw} />}
+                    <ReferencesList references={item.data.mainReferences} />
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="education">
+            <h2>Education</h2>
+
+            {
+              education.map((item) => (
+                <div class="item">
+                  <div class="item-header">
+                    {item.data.featuredImage && (
+                      <img
+                        src={`/image/${item.data.featuredImage}`}
+                        alt={`${item.data.name} logo`}
+                        class="image bordered"
+                        width={32}
+                        height={32}
+                      />
+                    )}
+
+                    <div class="item-header-info">
+                      <div class="title">
+                        <h3>{item.data.name}</h3>
+                      </div>
+                      <div class="time">
+                        <span class="start-date">{item.startDateText}</span>
+                        <span class="end-date">{item.endDateText}</span>
+                        <span class="period">{item.period}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-content">
+                    <ContentMarkdown content={item.data.summary.raw} />
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </PageContainer>
+  </Layout>
+</div>
+
+<style>
+  .resumeContainer {
+    margin: auto;
+  }
+
+  .resume {
+    font-size: 12px;
+    font-family: 'Web_DOS-V_TWN16', og-emoji, monospace !important;
+
+    display: block;
+    display: flex;
+    overflow: hidden;
+    width: 21cm;
+    height: 29.7cm;
+    margin: 0.5cm auto;
+    background: white;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Web_DOS-V_TWN16', og-emoji, monospace !important;
+    }
+
+    .resume-content {
+      flex: 1;
+    }
+  }
+
+  .info {
+    position: relative;
+    width: 33%;
+    background: black;
+    color: white;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      background: black;
+      background-image: url(/image/background.png);
+      background-position-x: -25%;
+      background-size: cover;
+      opacity: 0.4;
+      filter: grayscale(100%);
+    }
+
+    .info-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2em 2em;
+      color: white;
+
+      .header {
+        text-align: center;
+        .me {
+          width: 100%;
+          img {
+            margin: auto;
+          }
+        }
+
+        .name {
+          margin-top: 6px;
+          font-size: 36px;
+        }
+        .title {
+          color: #ddd;
+          font-size: 20px;
+        }
+      }
+
+      .details {
+        width: 100%;
+        margin: 1em 0;
+
+        h2 {
+          margin-bottom: 10px;
+          font-size: 20px;
+        }
+
+        .details-items {
+          .details-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 0.5em;
+
+            .details-item-label {
+              display: flex;
+              margin-right: 1em;
+              font-weight: bold;
+              font-size: 14px;
+              width: 14px;
+              height: 14px;
+              text-align: right;
+            }
+
+            .details-item-content {
+              flex: 1;
+              font-size: 13px;
+            }
+          }
+        }
+      }
+
+      .skills {
+        width: 100%;
+
+        .skills-section {
+          position: relative;
+          margin-bottom: 3em;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          &.tongues {
+            margin-top: 4em;
+          }
+        }
+
+        .skill {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 1em;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .label {
+            min-width: 100px;
+            margin-right: 1em;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: left;
+          }
+
+          .ProgressBar {
+            flex: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .resume-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 2em 2em;
+
+    img.lazy {
+      image-rendering: auto;
+    }
+
+    .profile {
+      a {
+        text-decoration: dotted;
+        color: #222;
+      }
+      p {
+        color: #444;
+        strong {
+          color: #333;
+        }
+      }
+    }
+
+    h2 {
+      margin-bottom: 6px;
+      color: black;
+      font-size: 18px;
+      font-display: bold;
+    }
+
+    .career,
+    .education {
+      .item {
+        margin: 0 0 2.5em 0;
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .item-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.5em;
+          padding-bottom: 0.5em;
+          border-bottom: 1px dashed #ddd;
+
+          .item-header-info {
+            margin-left: 1em;
+
+            h3 {
+              display: inline-block;
+              color: black;
+              font-size: 14px;
+            }
+            .position {
+              display: inline-block;
+              color: #666;
+              line-height: 14px;
+
+              &::before {
+                content: ' / ';
+              }
+            }
+
+            .time {
+              color: #555;
+              font-size: 10px;
+
+              .end-date {
+                &::before {
+                  content: ' - ';
+                }
+              }
+
+              .period {
+                margin-left: 2px;
+
+                &::before {
+                  content: '(';
+                }
+                &::after {
+                  content: ')';
+                }
+              }
+            }
+          }
+        }
+
+        .image {
+          width: 32px;
+          height: 32px;
+        }
+
+        .ContentMarkdown {
+          margin-bottom: 0.75em;
+
+          p {
+            color: #444;
+            strong {
+              color: #333;
+            }
+          }
+          .Reference {
+            padding: 0 4px;
+            line-height: 12px;
+          }
+        }
+
+        .Reference {
+          padding-top: 2px;
+          font-size: 10px;
+          font-weight: normal;
+          word-spacing: 200%;
+          filter: saturate(0.4);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: theme('screens.md')) {
+    .resume {
+      display: block;
+      width: 100%;
+      height: auto;
+
+      .info {
+        width: 100%;
+
+        .info-container {
+          position: relative;
+          max-width: 400px;
+          margin: auto;
+
+          .header {
+            margin-bottom: 2em;
+          }
+        }
+      }
+    }
+  }
+
+  @media only print {
+    .resume {
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+</style>
+
+<style is:global>
+  @media only print {
+    .pageWrapper {
+      margin: 0 !important;
+      padding: 0 !important;
+      .overlay {
+        display: none;
+      }
+    }
+    .PageHeader {
+      display: none;
+    }
+    footer.footer {
+      display: none !important;
+    }
+  }
+</style>

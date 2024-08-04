@@ -1,0 +1,23 @@
+---
+name: Ludum Dare 28
+featuredImage: /project/ludum-dare-28/icon.png
+galleryImages:
+  - project/ludum-dare-28/screenshot-1
+  - project/ludum-dare-28/screenshot-2
+progress: 100
+status: completed
+repository: https://bitbucket.org/josec89/ld28/src
+startDate: 2013-12-14
+endDate: 2013-12-17
+references:
+  - development/game
+  - framework/unity
+  - language/csharp
+summary:
+  format: mdx
+  raw: Unity game for _Ludum Dare 28_
+---
+
+This is a game I developed for the 28th edition of [Ludum Dare](http://ludumdare.com/compo/ludum-dare-28/). It was made in 72h by me and my brother David Cámara.
+
+I'm afraid this was built using a very old version of [](framework/unity), so I was barely able to make it run again to take some screenshots.

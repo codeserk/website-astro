@@ -1,0 +1,52 @@
+---
+interface Props {
+  readonly percent: number
+  readonly text?: string
+
+  readonly small?: boolean
+}
+
+const { percent, text, small } = Astro.props
+---
+
+<div class:list={['ProgressBar', { small }]}>
+  <span class="bar" style={{ width: `${percent}%` }}></span>
+  <span class="text">{text}</span>
+</div>
+
+<style>
+  .ProgressBar {
+    position: relative;
+    height: 2rem;
+    border: 4px solid white;
+    background: black;
+
+    .bar {
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      left: 0;
+      background: white;
+    }
+
+    .text {
+      position: absolute;
+      top: -0.25rem;
+      right: 0;
+      left: 0;
+      line-height: 2rem;
+      text-align: center;
+      text-transform: uppercase;
+      mix-blend-mode: difference;
+    }
+
+    &.small {
+      height: 1.5rem;
+
+      .text {
+        top: -0.19rem;
+        line-height: 1.5rem;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+import dayjs from 'dayjs'
+import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import { getEntrySummaryContent, type Entry } from '~/utils/content'
+
+interface Props {
+  readonly entry: Entry
+  readonly isCurrent?: boolean
+}
+
+const { entry, isCurrent } = Astro.props
+const summary = await getEntrySummaryContent(entry, false)
+---
+
+<div class="PageLog">
+  <h3 class:list={['title', { current: isCurrent }]}>
+    <a href={`/${entry.collection}/${entry.slug}`}>{entry.data.name}</a>
+  </h3>
+
+  <div class="content">{(<ContentMarkdown content={summary} />)}</div>
+
+  <div class={'timeAgo'}>{dayjs(entry.data.createdAt).format('LL')}</div>
+</div>
+
+<style>
+  .PageLog {
+    padding: 12px;
+    padding-bottom: 5em;
+
+    .title {
+      font-size: 1.25em;
+      line-height: 1em;
+      &.current {
+        color: #ffe727;
+      }
+    }
+
+    .content {
+      margin: 2rem 0 1rem 0;
+      padding-left: 1em;
+      border-left: 8px solid white;
+    }
+
+    .timeAgo {
+      text-align: right;
+    }
+  }
+</style>

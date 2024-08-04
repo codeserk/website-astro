@@ -1,0 +1,33 @@
+---
+import { getSortedGroupedEntriesFromReferences, type EntryReference } from '../utils/content'
+import ReferencesList from './ReferencesList.astro'
+
+interface Props {
+  readonly references: EntryReference[]
+  readonly block?: boolean
+}
+
+const { references, block } = Astro.props
+
+const entries = await getSortedGroupedEntriesFromReferences(references)
+---
+
+<div class={'grid'}>
+  {
+    Object.values(entries).map((collectionEntries) => (
+      <div class={'gridGroup'}>
+        <ReferencesList references={collectionEntries} block={block} />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .gridGroup {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+</style>

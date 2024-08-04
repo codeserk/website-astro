@@ -1,0 +1,113 @@
+---
+name: Given an NxN array, rotate it 90 degrees without making a new array
+authorId: codeserk
+status: published
+featuredImage: challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/header
+references:
+  - language/typescript
+links:
+  - name: Source
+    href: https://twitter.com/cassidoo/status/1353529637318569985
+  - name: github
+    href: https://gist.github.com/codeserk/c6efdf67b42ae3ff5c574202cf252917
+  - name: Tests
+    href: https://github.com/codeserk/website/blob/master/tests/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array.spec.ts
+tests:
+  - description: should not do anything when n=0
+    valid: true
+  - description: should rotate the matrix when n=1
+    valid: true
+  - description: should rotate the matrix when n=2
+    valid: true
+  - description: should rotate the matrix when n=3
+    valid: true
+  - description: should rotate the matrix when n=4
+    valid: true
+createdAt: 2020-10-10
+---
+
+Example:
+
+> rotate90(\[\[1,2,3],\[4,5,6],\[7,8,9]])
+> \[\[7,4,1],\[8,5,2],\[9,6,3]]
+
+---
+
+Oh boy, _matrix operations_, isn't that fun?
+
+This problem seems to require some visualization first, so I'll grab my pen and I'll start drawing stuff before trying to implement it, _will that help?_ (I'm writing this post after figuring it out, so I guess it did! /shrug)
+
+## Looking for the simplest case (n=2)
+
+![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-1.png)
+
+In this matrix _(2x2)_ we need to make 4 operations:
+
+- Top-Left --> Top-Right
+- Bottom-Left --> Top-Left
+- Bottom-Right --> Bottom-Left
+- Top-Right --> Bottom-Right
+
+Sounds easy, but what happens when we have more?
+
+### Moving rings!
+
+We can imagine our matrices as compositions of rings, and we need to rotate every ring _individually_
+
+For the example given, we just need to rotate the external ring, and the `5` in the middle stays as it is.
+
+![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-2.png)
+
+It gets more interesting when we have a higher `n`:
+
+![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-3.png)
+
+With `n = 4` we have to rotate 2 rings, and the number of rings increases with every 2 increments in `n` (we can probably say that number of rings = `n / 2`).
+
+### Rotating a ring, general case
+
+Let's try to extract the general rule for rotating an individual ring, I'll use a higher `n` for that, since it was difficult to extract it from the simplest case:
+
+![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-4.png)
+
+We need to traverse all the positions - 1 inside a ring and make the move operations. The exact operations depend on the movement, and we need to keep one item in memory since it will be overriden after one of the operations.
+
+This is the operation for `Top` --> `Right`
+
+![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-5.png)
+
+We need to write similar operations for the other movements.
+
+### Solution
+
+```ts
+/**
+ * Rotates the incoming matrix 90deg
+ * @param matrix
+ */
+function rotate90deg(matrix: unknown[][]): void {
+  const n = matrix.length === 0 ? 0 : matrix[0].length
+
+  for (let ring = 0; ring < Math.floor(n / 2); ring++) {
+    for (let position = ring; position < n - ring - 1; position++) {
+      const backupRight = matrix[position][n - ring - 1]
+
+      // Top -> Right
+      matrix[position][n - ring - 1] = matrix[ring][position]
+
+      // Left -> Top
+      matrix[ring][position] = matrix[n - position - 1][ring]
+
+      // Bottom -> Left
+      matrix[n - position - 1][ring] = matrix[n - ring - 1][n - position - 1]
+
+      // Right -> Bottom
+      matrix[n - ring - 1][n - position - 1] = backupRight
+    }
+  }
+}
+```
+
+This should do the trick, I have to confess that I needed to implement _tests_ to ensure I didn't mess up with the movement operations (**TDD FTW!**).
+
+Big-O complexity for this one should be something like `O(n / 2 * n / 2)` -> `O(n^2)` although I'm not completely sure if this is correct... so we can leave it as _trust me, this is fine_ :D

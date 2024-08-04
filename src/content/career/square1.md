@@ -1,0 +1,47 @@
+---
+name: Square 1
+featuredImage: /career/square1.jpg
+references:
+  - development/web
+  - language/php
+  - language/javascript
+  - framework/laravel
+  - database/mysql
+  - database/mongodb
+  - database/redis
+  - database/elasticsearch
+  - technology/websockets
+  - technology/docker
+mainReferences:
+  - development/web
+  - development/php
+  - language/javascript
+  - framework/laravel
+  - database/mysql
+  - database/elasticsearch
+  - database/mongodb
+  - technology/docker
+startDate: 2015-09-01
+endDate: 2017-05-01
+position: Full-Stack Web developer
+website: https://www.square1.io
+summary:
+  format: mdx
+  raw: |
+    I worked for Square1 as Full-stack Developer for one year and eight months. The job was always _challenging_, since we had many projects of different kinds, and **deadlines were often haunting us** D:
+---
+
+The main framework I used was [](framework/laravel) ([](language/php)), which I learnt and started to love. Most of the projects we developed for were public websites or small enterprise apps, and [](framework/laravel) did a great job for those.
+We didn't do anything fancy for the Frontend, just some _good old `jQuery`_ here and there. It made sense though, since `SSR` was not as sophisticated as it is nowadays, so integrating any modern Framework like [](framework/vue) or `React` would have meant **deadly loading time penalisations** and **horrendous SEO results** (time is _gold_ in public websites' business).
+
+This was my first experience working in a big team with _real-world constraints_ and _day-to-day habits_. In general, I learnt a lot during my time in this company, and I keep only good memories :)
+
+- I created my first _professional_ `pull requests` (and I received my first hundreds of **this is wrong**).
+- I learnt how to plan for _long-term projects_, where a certain customer has some expectations.
+- I started to be more aware of the importance of a good _product quality_ (real customers have real complains!).
+- I had to improve my communication and soft skills, it was not _just me_ anymore, and these things started to matter.
+- After almost 2 years in a 100% business environment, I improved my skills as developer a lot, especially since I was surrounded by great devs (and better people).
+
+---
+
+At some point I decided that I had to go though, and the main reason is that working for a company of this kind involves a lot of _context switching_, since you are responsible for a lot of projects (that are often very different one from the other). THat's why I started looking for other opportunities, especially interested on positions in companies that owned a _development product_.

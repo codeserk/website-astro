@@ -1,0 +1,25 @@
+---
+import type { EntryReference } from '~/utils/content'
+import Reference from './Reference.astro'
+import { getEntriesFromReferences } from '../utils/content.ts'
+
+interface Props {
+  readonly references: EntryReference[]
+  readonly block?: boolean
+}
+
+const { references, block } = Astro.props
+const entries = await getEntriesFromReferences(references)
+---
+
+<div class={'referencesList'}>
+  {entries?.map((value) => <Reference entry={value} block={block} />)}
+</div>
+
+<style>
+  .referencesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+</style>

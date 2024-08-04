@@ -1,0 +1,95 @@
+---
+import dayjs from 'dayjs'
+import { getEntryCreatedAt, getReferencesForEntry, type Entry } from '~/utils/content'
+import { classes } from '~/utils/style'
+
+interface Props {
+  readonly item: Entry
+}
+
+const { item } = Astro.props
+
+const date = getEntryCreatedAt(item)
+const formattedDate = date ? dayjs(date).format('LL') : undefined
+const references = await getReferencesForEntry(item, ['language'])
+const language = references[0]
+---
+
+<div class={classes('PageChallengeLink bordered sm')}>
+  <div class="buttons">
+    <div class="button button-close"></div>
+    <div class="button button-minimize"></div>
+    <div class="button button-maximize"></div>
+  </div>
+
+  <a class="title" href={`/challenge/${item.slug}`}>
+    <h3>
+      {item.data.name}
+    </h3>
+  </a>
+
+  <div class="aside">
+    {formattedDate ? <span class="timeAgo">{formattedDate}</span> : <span />}
+    {language && <span class="languageCode">{language.data.name}</span>}
+  </div>
+</div>
+
+<style>
+  .PageChallengeLink {
+    width: 400px;
+    margin: 1em 2em;
+    padding: 1em;
+    background-color: #273238;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .buttons {
+      display: flex;
+      gap: 7px;
+      border-radius: 1px;
+      margin-bottom: 10px;
+
+      .button {
+        width: 10px;
+        height: 10px;
+      }
+
+      .button-close {
+        background-color: #ff5f56;
+      }
+      .button-minimize {
+        background-color: #ffbd2e;
+      }
+      .button-maximize {
+        background-color: #27c93f;
+      }
+    }
+
+    .title {
+      color: #dfca72;
+      font-size: 1.25em;
+      line-height: 1.1em;
+      text-align: center;
+      flex: 1;
+    }
+
+    .aside {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8em;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .PageChallengeLink {
+      width: 100%;
+      margin: 1.5em 0.5em;
+
+      .linkContent {
+        font-size: 0.9em;
+      }
+    }
+  }
+</style>

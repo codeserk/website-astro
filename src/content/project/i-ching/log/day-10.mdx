@@ -1,0 +1,17 @@
+---
+name: '#10 Lazy-load is not great'
+createdAt: 2020-12-23
+---
+
+I've just discovered that _lazy loading_ components is not that great for this kind of apps.
+
+## Lazy load
+
+The app has _tabs_ as main router, and when you click on another tab, it **lazy loads** that page.
+
+That behavior is completely weird (you don't expect that in mobile apps!), not sure why that's the recommended way of doing /shrug
+
+## Final tweaks
+
+I'm doing some final tweaks (code style and such), and I might even test some _cypress_ tests.
+I've also noticed that it takes some time to load the _Journal_, so maybe there is something I can do to make it faster. I think the problem that is that it's calculating the hexagram figure from the hexagram number for **EVERY SAVED ITEM**, which is probably not great (O(n<sup>2</sup>))

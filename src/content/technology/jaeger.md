@@ -1,0 +1,15 @@
+---
+slug: jaeger
+name: Jaeger
+featuredImage: technology/jaeger
+order: 3
+status: adopted
+knowledge: 80
+scopes:
+  - devops
+references:
+  - development/web
+summary:
+  format: mdx
+  raw: Self-hosted easy-to-install solution for Tracing.
+---

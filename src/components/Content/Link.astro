@@ -1,0 +1,30 @@
+---
+import { getEntryFromReference } from '~/utils/content'
+import Reference from '../Reference.astro'
+
+interface Props {
+  readonly href: string
+}
+
+const { href } = Astro.props
+const entry = await getEntryFromReference(href)
+const body = await Astro.slots.render('default')
+const block = body?.includes('block')
+---
+
+{
+  entry ? (
+    <Reference entry={entry} block={block} />
+  ) : (
+    <a class="link" href={href}>
+      {body}
+    </a>
+  )
+}
+
+<style>
+  .link {
+    text-decoration: dotted;
+    color: #00e232;
+  }
+</style>

@@ -1,0 +1,196 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+import { extractPeriodFromDates } from '../../utils/time'
+import Block from '../Block.astro'
+import ReferencesGrid from '../ReferencesGrid.astro'
+import type { EntryReference } from '~/utils/content'
+
+dayjs.extend(localizedFormat)
+
+interface Props {
+  readonly references: EntryReference[]
+  readonly mainReferences?: boolean
+  readonly createdAt?: Date
+  readonly startDate?: Date
+  readonly endDate?: Date
+  readonly image?: ImageMetadata
+  readonly imageType?: `${'circled' | 'bordered'} ${'sm' | 'md' | 'lg'}`
+}
+
+const { references, createdAt, startDate, endDate, image, imageType = 'bordered md' } = Astro.props
+
+const showDates = startDate || endDate
+const period = showDates ? extractPeriodFromDates(startDate, endDate) : undefined
+---
+
+<div class={'pageMetaBlock'}>
+  {image && <Image class={`image ${imageType ?? ''}`} src={image} width={290} height={290} alt="" loading="eager" />}
+
+  <aside class={'pageMetaBlockContainer'}>
+    {
+      showDates && (
+        <div class={'dateContainer endDateContainer'}>{endDate ? dayjs(endDate).format('YYYY-MM-DD') : 'Now'}</div>
+      )
+    }
+
+    <Block padding="small" shadow small>
+      <div class={'pageMetaBlockContent'}>
+        <slot name="before" />
+
+        {
+          references.length > 0 && (
+            <div class="references">
+              <ReferencesGrid references={references} block />
+            </div>
+          )
+        }
+        {createdAt && <span class={'timeAgo'}>{dayjs(createdAt).format('LL')}</span>}
+
+        <slot />
+      </div>
+    </Block>
+
+    {
+      showDates && (
+        <div class={'dateContainer startDateContainer'}>{startDate ? dayjs(startDate).format('YYYY-MM-DD') : ''}</div>
+      )
+    }
+    {
+      showDates && (
+        <div class={'durationContainer'}>
+          <div class={'barAbove'} />
+          <span class={'duration'}>{period}</span>
+          <div class={'barBelow'} />
+        </div>
+      )
+    }
+  </aside>
+</div>
+
+<style>
+  .pageMetaBlock {
+    .pageMetaBlockContainer {
+      position: relative;
+      margin-right: 30px;
+    }
+
+    .pageMetaBlockContent {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .references {
+      margin-bottom: 8px;
+    }
+
+    .dateContainer {
+      padding: 48px 0;
+      margin: auto;
+      position: relative;
+      font-size: 20px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        background: white;
+        width: 4px;
+        top: 0;
+        left: calc(50% - 1px);
+        height: 150px;
+      }
+      &::after {
+        content: '*';
+        font-size: 40px;
+        position: absolute;
+        width: 20px;
+        top: calc(50% - 28px);
+        left: calc(50% - 10px);
+      }
+    }
+
+    .endDateContainer {
+    }
+    .startDateContainer {
+      padding: 60px 0;
+    }
+
+    .durationContainer {
+      position: absolute;
+      top: 48px;
+      bottom: 48px;
+      right: -70px;
+      z-index: 2;
+      width: 24px;
+      text-align: center;
+
+      @media (max-width: 6850px) {
+        width: 0;
+        right: -40px;
+      }
+
+      .duration {
+        position: absolute;
+        top: calc(50% - 5em);
+        display: block;
+        width: 10em;
+        color: white;
+        text-align: center;
+        transform: rotate(90deg);
+        transform-origin: 0 0;
+      }
+
+      .barAbove {
+        position: absolute;
+        top: 6px;
+        bottom: calc(50% + 6em);
+        left: -20px;
+        display: block;
+        border-left: 2px solid white;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 80px;
+          border-top: 4px solid white;
+        }
+      }
+      .barBelow {
+        position: absolute;
+        top: calc(50% + 6em);
+        bottom: 20px;
+        left: -20px;
+        display: block;
+        border-left: 2px solid white;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 80px;
+          border-top: 4px solid white;
+        }
+      }
+    }
+
+    .image {
+      display: none;
+      width: 270px;
+      height: 270px;
+      margin-bottom: 1em;
+      object-fit: cover;
+    }
+
+    @media (min-width: 850px) {
+      .image {
+        display: block;
+      }
+    }
+  }
+</style>

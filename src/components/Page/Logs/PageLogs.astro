@@ -1,0 +1,41 @@
+---
+import { getEntryLink, getEntryLogs, type Collection, type Entry } from '~/utils/content'
+import Container from '../../Container.astro'
+import PageLog from './PageLog.astro'
+
+interface Props {
+  readonly collection: Collection
+  readonly entry: Entry
+}
+
+const { collection, entry } = Astro.props
+const entries = await getEntryLogs(collection, entry.slug)
+---
+
+{
+  entries.length > 0 && (
+    <div class="PageLogs">
+      <h2 class="section-header">
+        <a href={`/${getEntryLink(entry)}/log`}>📝 Log</a>
+      </h2>
+
+      <Container layout="small">
+        {entries.map((it) => (
+          <PageLog entry={it} isCurrent={it.slug === entry.slug} />
+        ))}
+      </Container>
+    </div>
+  )
+}
+
+<style>
+  h2.header {
+    font-size: 3rem;
+    margin-bottom: 0;
+    text-align: center;
+
+    @media (min-width: 640px) {
+      font-size: 4em;
+    }
+  }
+</style>

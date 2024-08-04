@@ -1,0 +1,32 @@
+---
+name: Television (Spain)
+featuredImage: /project/television/logo.png
+galleryImages:
+  - project/television/screenshot-1
+  - project/television/screenshot-2
+  - project/television/screenshot-3
+  - project/television/screenshot-4
+  - project/television/screenshot-5
+  - project/television/screenshot-6
+  - project/television/screenshot-7
+  - project/television/screenshot-8
+  - project/television/screenshot-9
+progress: 100
+status: abandoned
+order: 5
+startDate: 2018-03-20
+endDate: 2018-04-01
+references:
+  - development/ios
+  - language/swift
+  - technology/firebase
+summary:
+  format: mdx
+  raw: Mobile app to watch Spanish TV.
+---
+
+This is the first [](development/ios) application I developed. It was great stepping out from [](development/web) and trying something completely new.
+
+Learning [](language/swift) was nice, although it was a bit chaotic since I couldn't find a good place with tutorials, guides and such. The fact that `Apple` decided to completely change the API from one version to another didn't help a lot either...
+
+I **couldn't publish this application** though, since the way I got the video streams was a bit _fishy_. It was a good opportunity to work in this environment.

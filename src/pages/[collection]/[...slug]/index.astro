@@ -1,0 +1,125 @@
+---
+import { getCollection, type AnyEntryMap } from 'astro:content'
+import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import AstroGallery from '~/components/Content/Gallery.astro'
+import Image from '~/components/Content/Image.astro'
+import Link from '~/components/Content/Link.astro'
+import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
+import PageGeneralLink from '~/components/Page/Link/PageGeneralLink.astro'
+import PageContainer from '~/components/Page/PageContainer.astro'
+import PageContent from '~/components/Page/PageContent.astro'
+import PageHeader from '~/components/Page/PageHeader.astro'
+import PageLinksGrid from '~/components/Page/PageLinksGrid.astro'
+import PageLogs from '~/components/Page/Logs/PageLogs.astro'
+import PageMeta from '~/components/Page/PageMeta.astro'
+import PageNearEntries from '~/components/Page/PageNearEntries.astro'
+import Layout from '../../../layouts/Layout.astro'
+import {
+  getEntryBreadcrumbs,
+  getEntryCollectionConfig,
+  getEntryGalleryImages,
+  getEntryImage,
+  getEntrySummary,
+  getEntrySummaryContent,
+  getReferencesForEntry,
+} from '../../../utils/content'
+
+export async function getStaticPaths() {
+  const COLLECTIONS = [
+    'article',
+    'development',
+    'language',
+    'framework',
+    'database',
+    'message-broker',
+    'technology',
+    'project',
+    'career',
+    'challenge',
+  ] satisfies (keyof AnyEntryMap)[]
+
+  const data = await Promise.all(
+    COLLECTIONS.map(async (collection) => ({
+      collection,
+      entries: await getCollection(collection),
+    })),
+  )
+
+  const result = data.flatMap(({ collection, entries }) =>
+    entries?.map((entry: any) => ({
+      params: { collection, slug: entry.slug },
+      props: { collection, entry },
+    })),
+  )
+
+  return result
+}
+
+const { collection, entry } = Astro.props
+const { Content } = await entry.render()
+
+const config = getEntryCollectionConfig(entry)
+const image = await getEntryImage(entry)
+const galleryImages = await getEntryGalleryImages(entry)
+const references = await getReferencesForEntry(entry, config.referencesInPage)
+const career = await getReferencesForEntry(entry, ['career'])
+const projects = await getReferencesForEntry(entry, ['project'])
+const articles = await getReferencesForEntry(entry, ['article'])
+const summary = await getEntrySummary(entry)
+const summaryContent = await getEntrySummaryContent(entry)
+const breadcrumbs = getEntryBreadcrumbs(entry)
+---
+
+<Layout full overlay seo={{ title: entry.data.name, breadcrumbs, description: summary, image: image?.src }}>
+  <PageContainer overlay>
+    <PageHeader
+      layout="two-columns"
+      title={entry.data.name}
+      breadcrumbs={breadcrumbs}
+      image={image}
+      imageType="bordered md"
+    />
+
+    <PageContent layout="two-columns">
+      {
+        (references.length > 0 || entry.data.createdAt || image) && (
+          <div slot="right">
+            <PageMeta entry={entry} />
+          </div>
+        )
+      }
+      {
+        summaryContent && (
+          <div class="summary">
+            <ContentMarkdown content={summaryContent} />
+          </div>
+        )
+      }
+      <Content components={{ a: Link, img: Image }} />
+    </PageContent>
+
+    <AstroGallery items={galleryImages} />
+    <aside>
+      <PageNearEntries collection={collection} entry={entry} />
+      <PageLogs collection={collection} entry={entry} />
+
+      <PageLinksGrid header={{ title: '📺 Blog', link: '/article' }} links={articles} component={PageGeneralLink} />
+      <PageLinksGrid header={{ title: '📱 Career', link: '/career' }} links={career} component={PageCareerLink} />
+      <PageLinksGrid header={{ title: '🎵 Projects', link: '/project' }} links={projects} component={PageGeneralLink} />
+    </aside>
+  </PageContainer>
+</Layout>
+
+<style>
+  .summary {
+    padding-left: 1em;
+    border-left: 8px solid white;
+  }
+
+  aside {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 92px;
+  }
+</style>

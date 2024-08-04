@@ -1,0 +1,18 @@
+plugins:
+  - remark-frontmatter
+  - remark-parse-frontmatter
+  - - remark-preset-lint-consistent
+    - consistent
+  - - remark-preset-lint-markdown-style-guide
+    - fenced
+  - remark-preset-lint-recommended
+  - - remark-lint-maximum-heading-length
+    - 140
+  - - remark-lint-maximum-line-length
+    - 600
+  - - remark-lint-emphasis-marker
+    - '_'
+  - - remark-lint-no-file-name-irregular-characters
+    - '/\[^\-+\dA-Za-z\]/'
+  - - remark-lint-first-heading-level
+    - 2

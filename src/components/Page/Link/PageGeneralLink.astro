@@ -1,0 +1,25 @@
+---
+import ProgressBar from '~/components/ProgressBar.astro'
+import ReferencesList from '~/components/ReferencesList.astro'
+import { getEntryCollectionConfig, getEntrySummaryContent, getReferencesForEntry, type Entry } from '~/utils/content'
+import PageLink from '../PageLink.astro'
+
+interface Props {
+  readonly item: Entry
+}
+
+const { item } = Astro.props
+const config = getEntryCollectionConfig(item)
+const references = await getReferencesForEntry(item, config.referencesInLink)
+const summary = await getEntrySummaryContent(item, false)
+---
+
+<PageLink
+  title={item.data.name}
+  link={`/${item.collection}/${item.slug}`}
+  image={item.data.featuredImage}
+  summary={summary}
+>
+  {item.data.status && item.data.progress && <ProgressBar text={item.data.status} percent={item.data.progress} />}
+  <ReferencesList references={references} block />
+</PageLink>

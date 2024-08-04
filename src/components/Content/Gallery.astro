@@ -1,0 +1,170 @@
+---
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+import type { ImageMetadata } from 'astro'
+
+export interface GalleryImage {
+  readonly image: ImageMetadata
+  readonly title?: string
+}
+
+interface Props {
+  readonly items: GalleryImage[]
+}
+
+const { items } = Astro.props
+---
+
+{
+  items.length > 0 && (
+    <div class="Gallery swiper circled responsive">
+      <div class="swiper-wrapper">
+        {items.map((item) => (
+          <div class="swiper-slide">
+            <img src={item.image.src} alt={item.title} class="bordered responsive" />
+          </div>
+        ))}
+      </div>
+
+      <div class="swiper-button-prev" />
+      <div class="swiper-button-next" />
+
+      <div class="swiper-scrollbar" />
+    </div>
+  )
+}
+
+<script>
+  import Swiper from 'swiper'
+  import { Navigation, Scrollbar, Pagination, EffectCards, Mousewheel } from 'swiper/modules'
+
+  document.addEventListener('astro:page-load', () => {
+    // eslint-disable-next-line no-new
+    new Swiper('.swiper', {
+      modules: [Navigation, Mousewheel, Scrollbar, Pagination, EffectCards],
+      centeredSlides: true,
+      loop: true,
+      direction: 'horizontal',
+      mousewheel: {
+        enabled: true,
+        forceToAxis: true,
+      },
+      effect: 'cards',
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+      cardsEffect: {
+        perSlideOffset: 50,
+        perSlideRotate: 0,
+        rotate: true,
+        slideShadows: true,
+      },
+      allowTouchMove: false,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    })
+  })
+</script>
+
+<style>
+  .Gallery {
+    margin: 48px auto;
+    padding: 48px 0;
+    width: 1200px;
+    background-color: #00000066;
+
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      img {
+        max-width: 900px;
+        max-height: 800px;
+      }
+
+      .swiper-slide-shadow {
+        background-color: #000000cc;
+      }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5rem;
+      height: auto;
+      margin: 0 !important;
+    }
+
+    .swiper-button-prev {
+      left: 0;
+      justify-content: flex-end;
+      &::after {
+        content: '<';
+      }
+    }
+    .swiper-button-next {
+      right: 0;
+      justify-content: flex-start;
+      &::after {
+        content: '>';
+      }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      margin: 0 24px;
+
+      &::after {
+        color: white;
+        text-shadow: 0px 0px 0px black;
+        font-size: 120px !important;
+        font-family: 'Web_DOS-V_TWN16', og-emoji, monospace !important;
+      }
+    }
+
+    .swiper-scrollbar {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      .swiper-scrollbar-drag {
+        height: 5px;
+        background-color: white;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      width: 900px;
+      .swiper-slide {
+        img {
+          max-width: 850px;
+          max-height: 60vh;
+        }
+      }
+    }
+
+    @media (max-width: 900px) {
+      width: 95vw;
+      .swiper-slide {
+        img {
+          max-width: 90vw;
+          max-height: 60vh;
+        }
+      }
+
+      .swiper-button-prev,
+      .swiper-button-next {
+        margin: 0 6px;
+      }
+    }
+  }
+</style>

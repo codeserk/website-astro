@@ -1,0 +1,26 @@
+---
+import type { ContainerLayout } from '../Container.astro'
+import Container from '../Container.astro'
+
+interface Props {
+  readonly layout?: ContainerLayout
+}
+
+const { layout = 'one-column' } = Astro.props
+---
+
+<Container layout={layout}>
+  <div class={'PageContent content'}>
+    <slot />
+  </div>
+
+  <slot slot="right" name="right" />
+</Container>
+
+<style>
+  @media (max-width: 768px) {
+    .PageContent {
+      margin-bottom: 1em;
+    }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+import type { Entry } from '~/utils/content'
+import ProgressBar from '../ProgressBar.astro'
+import PageExternalLink from './PageExternalLink.astro'
+import PageMetaBlock from './PageMetaBlock.astro'
+import { getEntryCollectionConfig, getEntryImage, getReferencesForEntry } from '~/utils/content'
+
+interface Props {
+  readonly entry: Entry
+}
+
+const { entry } = Astro.props
+
+const config = getEntryCollectionConfig(entry)
+const image = await getEntryImage(entry)
+const references = await getReferencesForEntry(entry, config.referencesInPage)
+---
+
+<PageMetaBlock
+  references={references}
+  image={image}
+  imageType="bordered lg"
+  createdAt={entry.data.createdAt}
+  startDate={entry.data.startDate}
+  endDate={entry.data.endDate}
+>
+  {entry.data.position && <span slot="before">{entry.data.position}</span>}
+  {entry.data.status && entry.data.knowledge && <ProgressBar text={entry.data.status} percent={entry.data.knowledge} />}
+  {entry.data.yearsLearning && <span class="yearsLearning">{entry.data.yearsLearning} year(s)</span>}
+
+  {
+    entry.data.links?.length > 0 && (
+      <div class="externalLinks">
+        {entry.data.links?.map((link: { name: string; href: string }) => (
+          <PageExternalLink name={link.name} href={link.href} />
+        ))}
+      </div>
+    )
+  }
+</PageMetaBlock>

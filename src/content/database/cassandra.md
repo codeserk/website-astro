@@ -1,0 +1,21 @@
+---
+name: Cassandra
+featuredImage: database/cassandra
+order: 5
+status: deprecated
+knowledge: 20
+references:
+  - development/web
+  - career/coosto
+summary:
+  format: mdx
+  raw: _Oh boy this database_. I'm probably biased by my own experience but I'd rather skip this database if possible 😖.
+---
+
+_Oh boy this database_. I'm probably biased by my own experience but I'd rather skip this database if possible 😖.
+
+## Update
+
+As it turns out, it was not because the database _was bad or anything_. It was all our fault (not a big _surprise_).
+
+Use this database as it's meant to be used and is really powerful in some situations.

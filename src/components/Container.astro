@@ -1,0 +1,207 @@
+---
+export type ContainerLayout = 'one-column' | 'two-columns' | 'three-columns' | 'small' | 'full'
+
+interface Props {
+  readonly layout?: ContainerLayout
+}
+
+const { layout = 'one-column' } = Astro.props
+---
+
+<div class:list={['Container container', layout]}>
+  <div class="left">
+    <slot name="left" />
+  </div>
+
+  <div class="contentContainer">
+    <slot />
+  </div>
+
+  <div class="right">
+    <slot name="right" />
+  </div>
+</div>
+
+<style>
+  /* One column */
+
+  .container.one-column {
+    width: 100%;
+    margin: auto auto;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  @media (min-width: 640px) {
+    .container.one-column {
+      max-width: 640px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container.one-column {
+      max-width: 768px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container.one-column {
+      max-width: 1024px;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+
+  @media (min-width: 1170px) {
+    .container.one-column {
+      max-width: 1170px;
+    }
+  }
+
+  /* Two columns */
+
+  .container.two-columns {
+    position: relative;
+    margin: auto auto;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  @media (min-width: 850px) {
+    .container.two-columns {
+      margin: auto auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      max-width: 800px;
+
+      .contentContainer {
+        padding: 0 1em;
+        padding-right: 2em;
+        min-width: 500px;
+        width: 500px;
+      }
+
+      .right {
+        min-width: 300px;
+        width: 300px;
+      }
+    }
+  }
+
+  @media (min-width: 1300px) {
+    .container.two-columns {
+      max-width: 950px;
+      padding-left: 300px;
+      flex-wrap: nowrap;
+
+      .contentContainer {
+        min-width: 650px;
+        width: 650px;
+      }
+      .right {
+        min-width: 300px;
+        width: 300px;
+      }
+    }
+  }
+
+  /* Three columns */
+
+  .container.three-columns {
+    position: relative;
+    margin: auto auto;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  @media (min-width: 900px) {
+    .container.three-columns {
+      margin: auto auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      max-width: 900px;
+
+      .contentContainer {
+        padding: 0 1em;
+        padding-right: 2em;
+        min-width: 500px;
+        width: 500px;
+      }
+
+      .left,
+      .right {
+        min-width: 200px;
+        width: 200px;
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .container.three-columns {
+      flex-wrap: nowrap;
+
+      .contentContainer {
+        min-width: 650px;
+        width: 650px;
+      }
+
+      .left,
+      .right {
+        min-width: 300px;
+        width: 300px;
+      }
+    }
+  }
+
+  /* Small */
+
+  .container.small {
+    margin: auto auto;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  @media (min-width: 640px) {
+    .container.small {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container.small {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container.small {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+
+  /* Full */
+
+  .container.full {
+    margin: auto auto;
+    padding-left: 0em;
+    padding-right: 0em;
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import type { BreadcrumbLink } from '~/types/breadcrumbs.types'
+
+interface Props {
+  readonly links: BreadcrumbLink[]
+}
+
+const { links } = Astro.props
+---
+
+<nav aria-label="breadcrumb" class="breadcrumbs">
+  <ul>
+    <li class="item">
+      <a href="/">Codeserk</a>
+    </li>
+
+    {
+      links.map((link) => (
+        <li class="item">
+          <a href={link.link}>{link.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

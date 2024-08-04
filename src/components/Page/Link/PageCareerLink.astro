@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets'
+import Block from '~/components/Block.astro'
+import Container from '~/components/Container.astro'
+import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import {
+  getEntryCollectionConfig,
+  getEntrySummaryContent,
+  getImageMetadata,
+  getReferencesForEntry,
+  type Entry,
+} from '~/utils/content'
+import PageMetaBlock from '../PageMetaBlock.astro'
+
+interface Props {
+  readonly item: Entry
+}
+
+const { item } = Astro.props
+const config = getEntryCollectionConfig(item)
+const references = await getReferencesForEntry(item, config.referencesInLink)
+const summary = await getEntrySummaryContent(item)
+const image = item.data.featuredImage
+const imageMeta = await getImageMetadata(image)
+---
+
+<div class="PageCareerLink">
+  <Container layout="two-columns">
+    <PageMetaBlock slot="right" references={references} startDate={item.data.startDate} endDate={item.data.endDate}>
+      {
+        item.data.position && (
+          <span slot="before" class="position">
+            {item.data.position}
+          </span>
+        )
+      }
+      {
+        item.data.website && (
+          <a class="linkWebsite" href={item.data.website} target="_blank">
+            Website
+          </a>
+        )
+      }
+    </PageMetaBlock>
+
+    <div class="PageCareeerLink_blockContainer">
+      <Block title={item.data.name} link={`/career/${item.slug}`} padding="small" shadow>
+        {
+          imageMeta && (
+            <Image
+              class="image bordered lg"
+              src={imageMeta}
+              width={150}
+              height={150}
+              alt={item.data.name}
+              loading="eager"
+            />
+          )
+        }
+        <ContentMarkdown content={summary} />
+
+        <p class="clearfix"></p>
+      </Block>
+    </div>
+  </Container>
+</div>
+
+<style>
+  .PageCareerLink {
+    width: 100%;
+
+    .image {
+      width: 150px;
+      height: 150px;
+      float: right;
+      margin-left: 0.25em;
+    }
+
+    .clearfix {
+      clear: both;
+    }
+
+    .PageCareeerLink_blockContainer {
+      margin-top: 116px;
+      position: relative;
+
+      @media (min-width: 850px) {
+        &::before {
+          content: '';
+          position: absolute;
+          top: 26px;
+          right: -100px;
+          width: 100px;
+          background-color: white;
+          height: 5px;
+        }
+      }
+    }
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+import type { ContainerLayout } from '../Container.astro'
+import Container from '../Container.astro'
+import type { BreadcrumbLink } from './PageBreadcrumbs.astro'
+import Breadcrumb from './PageBreadcrumbs.astro'
+
+interface Props {
+  readonly layout?: ContainerLayout
+  readonly title: string
+  readonly image?: ImageMetadata
+  readonly imageType?: `${'circled' | 'bordered'} ${'sm' | 'md' | 'lg'}`
+  readonly breadcrumbs?: BreadcrumbLink[]
+}
+
+const { layout = 'one-column', title, image, imageType, breadcrumbs } = Astro.props
+---
+
+<div class="PageHeader">
+  <Container layout={layout}>
+    <div class:list={['pageHeader', layout, { withImage: !!image }]}>
+      <div class="titleContainer">
+        {breadcrumbs && <Breadcrumb links={breadcrumbs} />}
+        <h1 class={'title'}>{title}</h1>
+      </div>
+    </div>
+
+    <div class={'imageContainerMobile'}>
+      {
+        image && (
+          <Image
+            class={`image ${imageType ?? ''}`}
+            src={image}
+            width={270}
+            height={270}
+            alt={title}
+            decoding="async"
+            loading="eager"
+          />
+        )
+      }
+    </div>
+  </Container>
+</div>
+
+<style>
+  .pageHeader {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 2em;
+  }
+
+  .titleContainer {
+    margin-top: 1em;
+    margin-right: 1em;
+    text-align: left;
+  }
+
+  .title {
+    font-size: 4rem;
+    line-height: 1em;
+    text-transform: capitalize;
+
+    @media (max-width: 640px) {
+      font-size: 3rem;
+      line-height: 1em;
+    }
+  }
+
+  .imageContainerMobile {
+    display: none;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    margin-bottom: 2em;
+
+    img {
+      width: 270px;
+      height: 270px;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 849px) {
+    .imageContainerMobile {
+      display: flex;
+    }
+  }
+</style>

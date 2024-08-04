@@ -1,0 +1,77 @@
+---
+slug: coosto
+name: Coosto
+featuredImage: /career/coosto.png
+references:
+  - development/web
+  - development/ios
+  - language/php
+  - language/javascript
+  - language/typescript
+  - language/kotlin
+  - language/swift
+  - framework/nestjs
+  - framework/vue
+  - database/mysql
+  - database/mongodb
+  - database/redis
+  - database/elasticsearch
+  - database/cassandra
+  - message-broker/rabbitmq
+  - message-broker/kafka
+  - technology/websockets
+  - technology/docker
+  - technology/kubernetes
+  - technology/jaeger
+  - technology/jenkins
+  - technology/sonarqube
+mainReferences:
+  - development/web
+  - language/typescript
+  - language/javascript
+  - framework/nestjs
+  - framework/vue
+  - database/mysql
+  - database/mongodb
+  - message-broker/rabbitmq
+  - message-broker/kafka
+  - technology/docker
+  - technology/kubernetes
+startDate: 2017-05-01
+endDate: 2022-06-01
+position: Senior Full-Stack Engineer
+website: https://www.coosto.com/
+summary:
+  format: mdx
+  raw: I worked for Coosto as Full-stack Developer, using many different technologies that coexist in a micro-services' environment. I was usually the **🎩 Joker card** in my team, since I'm able to complete _any kind task_ (Frontend, Backend or DevOps, even [nolink](development/ios) sometimes).
+---
+
+I worked for Coosto as _Full-stack Developer_ for 5 years, using many different technologies that coexist in a _micro-services' environment_.
+
+The tech stack was quite diverse, but I was mostly working with _NodeJS_ in the Backend (using [](framework/nestjs) as main framework) and [](framework/vue) in the Frontend. The application is quite complex and it's composed by different smaller heterogeneous services, so [](technology/docker) and [](technology/kubernetes) are present in our daily work. We use a wide range of different databases:
+
+- **[](database/mysql)**: As default _relational_ database, useful when we have a complex data structure with meaningful relations (and we want to query based on them).
+- **[](database/mongodb)**: As default _no-sql_ database. Provides better scalability options and performance in some situations. It's also helpful when we don't know if the data schema is going to mutate a lot in the future. We discard it for the services where the entities have strong relationships and we want to query by them.
+- **[](database/redis)**: The main database to go for _cache_.
+- **[](database/cassandra)**: Useful in some cases where we have more writes than reads,
+- **[](database/elastic)**: Great indexer, used in different places for different reasons. It's not a vital part in any of the systems that we manage in our team, so I haven't used this _that much_.
+
+_Async communication_ plays an important role in our landscape, since our architecture consists on multiple micro-services. We use [](message-broker/rabbitmq) and [](message-broker/kafka) for our message communication.
+
+- [](message-broker/rabbitmq): Offers better routing capabilities, which is useful in some domains (to get only the messages you are interested in).
+- [](message-broker/kafka): This technology is relatively new in our ecosystem, but looks very promising. Scalability seems better, and offers _replay_ opportunities which is useful in some domains.
+
+I have been working in Coosto for about _5 years_, and I have passed through different phases:
+
+## Medior developer
+
+I started at Coosto as _medior full-stack developer_. My main focus in the team was to _burn points_ and learn the technologies they were using. It was a lot of fun and I worried **only** about the stories in the sprint. I was _just listening_ in most of the meetings (refinement, sprint planning, etc.), I was learning how things worked here.
+
+## Senior developer
+
+After some time, I started to get more and more involved in all the discussions, and I started to _show my opinion_. I had spent about 6 months _just learning_ how things worked, so I felt prepared to start contributing in something else than just _burning points_. This was quite challenging for me, since _soft skills_ were more important now than _coding skills_ and being involved in so many discussions was a bit new for me.
+I presented some of my ideas, like [block](technology/graphql), in what we call **Tech meeting** (a meeting were anyone can present new ideas/technologies). Besides, I started to work on a new vision for the company with some colleges, where we would share a set of packages (_an ecosystem_), instead of reinventing the wheel over and over.
+
+## Software architect
+
+My last role in the company is _software architect_ (apart from my normal role in the team as _full-stack developer_). In this role, we can discuss topics that has impact on multiple teams, and help them to make certain decisions (_what language fits best for this problem?_, _should we use [](message-broker/kafka) or [](message-broker/rabbitmq) here?_, etc.).

@@ -1,0 +1,19 @@
+---
+name: Moody
+featuredImage: /project/moody/header.png
+progress: 75
+status: pending
+order: 6
+startDate: 2018-06-07
+endDate: 2018-07-01
+references:
+  - development/web
+  - language/javascript
+summary:
+  format: mdx
+  raw: A card game to improve team collaboration.
+---
+
+This was an idea from some of my colleges at [Coosto](/career/coosto). The original idea was from our scrum master and one of our designers: they wanted to create a _social game_ to improve the atmosphere within a team.
+
+I'm afraid we couldn't finish the game, and now **I even forgot the rules D:**. But I want to come back to this project soon!

@@ -1,0 +1,13 @@
+---
+name: Laravel
+featuredImage: /framework/laravel.png
+status: deprecated
+knowledge: 70
+yearsLearning: 3
+references:
+  - development/web
+  - language/php
+summary:
+  format: mdx
+  raw: I have deprecated PHP since is very limited, but I have to admit this framework has a really good :)
+---

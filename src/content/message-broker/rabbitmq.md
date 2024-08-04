@@ -1,0 +1,15 @@
+---
+name: RabbitMQ
+featuredImage: message-broker/rabbitmq
+order: 1
+status: adopted
+knowledge: 60
+yearsLearning: 3+
+scopes:
+  - backend
+references:
+  - development/web
+summary:
+  format: mdx
+  raw: Especially good to route messages, but a bit difficult to make it scalable (**oh boy**, brain _split again_?)
+---

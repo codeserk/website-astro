@@ -1,0 +1,39 @@
+---
+interface Props {
+  readonly name: string
+  readonly href: string
+}
+
+const { name, href } = Astro.props
+---
+
+<a class={`link ${name}`} href={href} target="_blank">
+  {name === 'github' ? <img class="icon" src="/image/social/github.png" alt="GitHub" /> : <span class="icon">➿</span>}
+  {name}
+</a>
+
+<style>
+  .link {
+    display: flex;
+    line-height: 40px;
+    text-transform: uppercase;
+    align-items: center;
+    gap: 12px;
+
+    .icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    &.website {
+      &::before {
+        /* content: '➿ '; */
+        /* vertical-align: -5px; */
+      }
+      /* &&: privacy; */
+    }
+  }
+</style>

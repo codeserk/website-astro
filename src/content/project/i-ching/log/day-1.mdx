@@ -1,0 +1,30 @@
+---
+name: '#1 Native? React native? Vue native? Ionic!'
+featuredImage: framework/ionic
+createdAt: 2020-12-14
+references:
+  - framework/ionic
+  - framework/react
+  - framework/react-native
+  - framework/vue
+---
+
+I've spent the whole day researching what's the best technology to achieve this. This is meant to be a _very simple_ app, so we don't need the full power of Native apps, but... maybe it's easy to built those for any platform too?
+
+## Native app
+
+I've been checking [](language/kotlin) stuff to share some code (business logic). But still, you need to create two apps ([](development/ios) and [](development/android)) and you won't get any [](development/web) result! I'll check this further later, but that's not a good match for this project!
+
+## [react-native](framework/react-native)
+
+This looked quite promising (despite the fact that it was [](framework/react) - which I don't like that much). I created a sample project, but I realised soon enough that this was still a bit _overkill_: This library relies on the _native components_ that they provide, but they are quite limited (at least coming from [](development/web) environment). I might check this later, but for not it was a **no**.
+
+## Vue Native
+
+Well, I really like [](framewokr/vue), but this shares the same problems discovered with `React Native`, so I discarded this too.
+
+## [ionic](framework/ionic)
+
+I heard about [](framework/ionic) in the past, but I had never tested it. It looks _good enough_ for this project (although I still have some doubts!).
+
+I've created a sample project and it seems to do the trick, and I can make the app using [](vue), which is a **big plus**. I'll do more tests _tomorrow_.

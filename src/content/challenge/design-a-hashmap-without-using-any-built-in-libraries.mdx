@@ -1,0 +1,145 @@
+---
+name: Design a hashmap without using any built-in libraries
+authorId: codeserk
+status: published
+references:
+  - language/typescript
+---
+
+> Design a hashmap without using any built-in libraries. You should include the following functions
+>
+> - `put(key, value)`: Insert a (key, value) pair into the hashmap. If the value already exists, update the value.
+> - `get(key)`: Returns the value to which key is mapped, or -1 if this map contains nothing for key.
+> - `remove(key)`: Remove the mapping for the value in key if it exists.
+
+## With JS Objects
+
+I think the most direct way of implementing this would be using an JS `Object`, since it's essentially what we need for direct access, with `O(1)` and all good!.
+
+```ts
+class ObjectHashMap<T> {
+  constructor(protected readonly data: Record<string, T> = {}) {}
+
+  get(key: string): T | -1 {
+    return this.data[key] ?? -1
+  }
+
+  put(key: string, value: T): void {
+    this.data[key] = value
+  }
+
+  remove(key: string): void {
+    delete this.data[key]
+  }
+}
+```
+
+---
+
+## With Arrays (2D-Array)
+
+Cassidy will say that _using objects is cheating tho_, so we should probably try to achieve the same with arrays!. Good luck getting the same complexity :(
+
+```ts
+interface MapItem<T> {
+  readonly key: string
+  readonly value: T
+}
+
+/** HashMap implementation using a 2D array */
+class ArrayHashMap<T> {
+  /**
+   * Buckets where data will be stored
+   *
+   * <key hash % max> => [ <item1>, <item2>, ..., <itemN> ]
+   */
+  protected readonly buckets: MapItem<T>[][] = []
+
+  /**
+   * Constructor.
+   * @param bucketSize Size of the array, greater means less collisions.
+   */
+  constructor(protected readonly bucketSize: number = 1000) {}
+
+  /**
+   * Gets a value from the map.
+   * @param key
+   * @returns value if found, -1 otherwise.
+   */
+  get(key: string): T | -1 {
+    const bucket = this.getBucket(key)
+    const item = bucket.find((item) => item.key === key)
+
+    return item !== undefined ? item.value : -1
+  }
+
+  /**
+   * Adds a new value to the map, replaces it if it existed.
+   * @param key
+   * @param value
+   */
+  put(key: string, value: T): void {
+    const bucket = this.getBucket(key)
+    for (const item of bucket) {
+      if (item.key === key) {
+        item.value = value
+        return
+      }
+    }
+
+    const index = this.getBucketIndex(key)
+    bucket.push({ key, value })
+    this.buckets[index] = bucket
+  }
+
+  /**
+   * Removes a key from the map.
+   * @param key
+   */
+  remove(key: string): void {
+    const index = this.getBucketIndex(key)
+    const updatedBucket = this.getBucket(key).filter((item) => item.key !== key)
+
+    this.buckets[index] = updatedBucket
+  }
+
+  /**
+   * Gets the bucket where the key should be present.
+   * @param key
+   * @returns bucket or empty array if the key is not present.
+   */
+  protected getBucket(key: string): MapItem<T>[] {
+    const index = this.getHash(key) % this.bucketSize
+
+    return this.buckets[index] || []
+  }
+
+  /**
+   * Gets the bucket index from a key, ensures the index is not outside the
+   * boundaries of the array. (ha, as if that mattered at all here).
+   * @param key
+   * @returns index
+   */
+  protected getBucketIndex(key: string): number {
+    return this.getHash(key) % this.bucketSize
+  }
+
+  /**
+   * Gets a hash from a string,
+   * unsurprisingly, I took this from Stack-overflow (:
+   * @param key
+   * @returns numeric hash from a string
+   */
+  protected getHash(key: string): number {
+    return key.split('').reduce((result: number, char: string) => {
+      result = (result << 5) - result + char.charCodeAt(0)
+
+      return result & result
+    }, 0)
+  }
+}
+```
+
+Actually, this solution is a bit of a **lie**, since `arrays` are `objects` behind the scenes in JS, but okay... This solution is prepared for other languages where we have static arrays that allocate a specific amount of memory (`bucketSize`). The more array positions we reserve, the less probable collisions become (thus we get better performance). Complexity for this one goes from `O(1)` when the item is the only element in a bucket, to `O(n)` in the worst case where there is only one bucket and all the elements are placed in that one (oh boy, if that is not bad luck!).
+
+Using JS here feels a bit like _cheating_ though, since the first array and the array inside the buckets are the same kind of array (that are actually objects), and the `bucketSize` with the `%` operator is futile, since any _"position"_ of the array is alway accessible without reserving memory for all the positions before. It would be fun to implement this using `Rust`, for example, where I would need to use a _real_ array for the buckets, and a linked list (or whatever) for the list inside the buckets.

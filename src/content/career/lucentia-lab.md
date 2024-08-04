@@ -1,0 +1,29 @@
+---
+slug: lucentia-lab
+name: Lucentia Lab (EPS Alicante)
+featuredImage: /career/lucentia.png
+references:
+  - development/web
+  - development/business-intelligence
+  - language/javascript
+  - language/java
+  - framework/angular-1
+  - database/mysql
+  - database/mongodb
+  - technology/websockets
+  - technology/pentaho
+startDate: 2013-01-01
+endDate: 2015-01-01
+position: Software Engineer
+website: https://lucentialab.com/en/
+summary:
+  format: mdx
+  raw: |
+    Lucentia lab is a research group which performs analysis in companies applying [nolink](development/business-intelligence) technologies. My role in the company was to support the researchers using web technologies.
+---
+
+This was my first job after finishing the degree on `Computer Science`. _Lucentia lab_ is a research group based in the _University of Alicante_ which performs analysis to companies applying [](development/business-intelligence) technologies. My role in the company was to support the researchers: I helped them conducting the experiments and then presenting the findings using [](development/web) technologies.
+
+I learnt a lot about Business Intelligence, using tools like [](technology/pentaho). I also continued my journey into the [](development/web), and I had the opportunity to test new technologies in both Backend and Fronted. We used [](framework/sailsjs) (a Framework for NodeJS) for some of the backend solutions, and [](framework/angular-1) for the presentation layer.
+
+It was quite interesting period and I learnt a lot, but I realized I needed to move on, since I was not so interested on Business Intelligence.

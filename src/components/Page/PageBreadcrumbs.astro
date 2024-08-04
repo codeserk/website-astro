@@ -1,0 +1,53 @@
+---
+export interface BreadcrumbLink {
+  readonly title: string
+  readonly link: string
+}
+
+interface Props {
+  readonly links: BreadcrumbLink[]
+}
+
+const { links } = Astro.props
+---
+
+<nav aria-label="breadcrumb" class={'breadcrumb'}>
+  <ul>
+    <li class={'item'}>
+      <a href="/">Codeserk</a>
+    </li>
+
+    {
+      links.map((link) => (
+        <li class={'item'}>
+          <a href={link.link}>{link.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .breadcrumb ul {
+    list-style-position: outside;
+    list-style-type: none;
+  }
+
+  .item {
+    display: inline;
+    margin-right: 0.5rem;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .item::after {
+    content: '/';
+    padding-left: 0.5rem;
+  }
+
+  .item:hover,
+  .item:focus,
+  .item:active {
+    opacity: 1;
+  }
+</style>

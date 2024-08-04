@@ -1,0 +1,46 @@
+---
+import { getImageMetadata } from '~/utils/content'
+
+interface Props {
+  readonly src: string
+  readonly alt: string
+}
+
+const props = Astro.props
+
+const { src, alt } = props
+const image = await getImageMetadata(src)
+---
+
+{src && <img src={image?.src} class:list={['ContentImage', alt]} />}
+
+<style>
+  img.ContentImage {
+    &.full {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+</style>
+
+<style is:global>
+  p:has(.ContentImage.block) {
+    position: relative;
+    margin: 1em 0 2em 0;
+    position: relative;
+    z-index: 2;
+    border: 4px solid white;
+    border-radius: 0;
+    background: #07080d;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 40px;
+      bottom: -1em;
+      left: -4px;
+      z-index: -2;
+      border-bottom: 1em solid white;
+    }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+import type { ImageMetadata } from 'astro'
+import { getCollection, type CollectionEntry } from 'astro:content'
+import Link from '~/components/Content/Link.astro'
+import PageContainer from '~/components/Page/PageContainer.astro'
+import PageContent from '~/components/Page/PageContent.astro'
+import PageHeader from '~/components/Page/PageHeader.astro'
+import Layout from '../layouts/Layout.astro'
+import Image from '~/components/Content/Image.astro'
+import { getEntrySummary } from '~/utils/content'
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('page')
+
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }))
+}
+
+interface Props {
+  readonly entry: CollectionEntry<'page'>
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/image/**/*.{jpeg,jpg,png,gif}')
+const image = (await Object.entries(images).find((it) => it[0].includes(entry.data.featuredImage))?.[1]?.())?.default
+const summary = await getEntrySummary(entry)
+---
+
+<Layout full overlay seo={{ title: entry.data.name, description: summary, image: image?.src }}>
+  <PageContainer overlay>
+    <PageHeader layout="small" title={entry.data.name} breadcrumbs={[]} image={image} imageType="bordered md" />
+
+    <PageContent layout="small">
+      <Content components={{ a: Link, img: Image }} />
+    </PageContent>
+  </PageContainer>
+</Layout>

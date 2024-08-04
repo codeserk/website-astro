@@ -1,0 +1,13 @@
+---
+slug: firebase
+name: Firebase
+featuredImage: technology/firebase
+order: 10
+status: adopted
+knowledge: 60
+references:
+  - development/web
+summary:
+  format: mdx
+  raw: Useful tool from Google to bootstrap an app without any backend.
+---

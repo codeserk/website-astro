@@ -1,0 +1,413 @@
+---
+import { getCollection, getEntry } from 'astro:content'
+import dayjs from 'dayjs'
+import Block from '~/components/Block.astro'
+import Container from '~/components/Container.astro'
+import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import SocialLinks from '~/components/Layout/SocialLinks.astro'
+import LayoutContainer from '~/components/Page/PageContainer.astro'
+import PageContent from '~/components/Page/PageContent.astro'
+import PageLinksGrid from '~/components/Page/PageLinksGrid.astro'
+import ProgressBar from '~/components/ProgressBar.astro'
+import HomeLanguages from '../components/Page/Home/HomeLanguages.astro'
+import TypedStrings from '../components/TypedStrings'
+import Layout from '../layouts/Layout.astro'
+import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
+import PageChallengeLink from '~/components/Page/Link/PageChallengeLink.astro'
+
+const aboutMe = await getEntry('page', 'about-me')
+
+const recentArticles = (await getCollection('article'))
+  .sort((a, b) => {
+    if (a.data.publishedAt && !b.data.publishedAt) {
+      return -1
+    }
+    if (!a.data.publishedAt && b.data.publishedAt) {
+      return 1
+    }
+    if (!a.data.publishedAt && !b.data.publishedAt) {
+      return 0
+    }
+
+    return dayjs(a.data.publishedAt).isAfter(dayjs(b.data.publishedAt)) ? -1 : 1
+  })
+  .slice(0, 2)
+const lastChallenges = (await getCollection('challenge'))
+  .sort((a, b) => {
+    if (a.data.publishedAt && !b.data.publishedAt) {
+      return -1
+    }
+    if (!a.data.publishedAt && b.data.publishedAt) {
+      return 1
+    }
+    if (!a.data.publishedAt && !b.data.publishedAt) {
+      return 0
+    }
+
+    return dayjs(a.data.publishedAt).isAfter(dayjs(b.data.publishedAt)) ? -1 : 1
+  })
+  .slice(0, 2)
+const lastProjects = (await getCollection('project'))
+  .filter((project) => project.data.featuredImage && project.data.status !== 'abandoned')
+  .sort((a, b) => {
+    const dateA = a.data.endDate ?? a.data.startDate
+    const dateB = b.data.endDate ?? b.data.startDate
+    if (dateA && !dateB) {
+      return -1
+    }
+    if (!dateA && dateB) {
+      return 1
+    }
+    if (!dateA && !dateB) {
+      return 0
+    }
+
+    return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
+  })
+  .slice(0, 8)
+
+const frameworks = (await getCollection('framework')).sort(
+  (a, b) => (a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER),
+)
+const frontendFrameworks = frameworks.filter((it) => it.data.scopes?.includes('frontend'))
+const backendFrameworks = frameworks.filter((it) => it.data.scopes?.includes('backend'))
+const technolgies = (await getCollection('technology')).sort(
+  (a, b) => (a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER),
+)
+const frontendTechnologies = technolgies.filter((it) => it.data.scopes?.includes('frontend'))
+const devOpsTechnologies = technolgies.filter((it) => it.data.scopes?.includes('devops'))
+const backendTechnologies = technolgies.filter((it) => it.data.scopes?.includes('backend'))
+const databases = (await getCollection('database')).sort(
+  (a, b) => (a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER),
+)
+const messageBrokers = (await getCollection('message-broker')).sort(
+  (a, b) => (a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER),
+)
+const career = (await getCollection('career')).sort((a, b) => {
+  const dateA = a.data.startDate
+  const dateB = b.data.startDate
+  if (dateA && !dateB) {
+    return -1
+  }
+  if (!dateA && dateB) {
+    return 1
+  }
+  if (!dateA && !dateB) {
+    return 0
+  }
+
+  return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
+})
+---
+
+<Layout>
+  <SocialLinks absolute />
+
+  <header class="header">
+    <div class="heading-container">
+      <h1 class="title">
+        Jos<span class="color">é</span> C<span class="color">á</span>mara
+        <span class="subtitle yellow">@codeserk</span>
+      </h1>
+
+      <div class="titles-container content">
+        <TypedStrings
+          client:load
+          options={{
+            strings: [
+              'Software Engineer',
+              '<strong>Backend</strong> developer',
+              '<a href="https://nestjs.com/" target="__blank" rel="noreferrer noopener">NestJS</a> big Fan',
+              '<strong>Frontend</strong> developer',
+              '<a href="https://vuejs.org/" target="__blank" rel="noreferrer noopener">VueJS</a> lover!',
+              '<strong>DevOps</strong> initiated',
+              '<strong>Game</strong> developer (as <em>hobby</em>)',
+              '<strong>iOS</strong> and <strong>Android</strong> learner',
+              '<em>Cat</em> enthusiast! :3',
+            ],
+            typeSpeed: 100,
+            backSpeed: 20,
+            contentType: 'html',
+            loop: true,
+          }}
+        />
+      </div>
+    </div>
+  </header>
+
+  <LayoutContainer full overlay>
+    <div class="sections">
+      <section>
+        <h2>🐱 About Me</h2>
+
+        <PageContent layout="small">
+          <ContentMarkdown content={aboutMe.body} />
+        </PageContent>
+      </section>
+
+      <section>
+        <h2>📺 Blog</h2>
+
+        <PageLinksGrid links={recentArticles} />
+
+        <div class="more">
+          <a href="/article">More articles...</a>
+        </div>
+      </section>
+
+      <section>
+        <h2>👓 Languages</h2>
+
+        <HomeLanguages />
+      </section>
+
+      <section>
+        <h2>&lt;&gt; Last challenges</h2>
+
+        <PageLinksGrid links={lastChallenges} component={PageChallengeLink} />
+
+        <div class="more">
+          <a href="/challenge">More challenges...</a>
+        </div>
+      </section>
+
+      <section>
+        <h2>📱 Career</h2>
+
+        <PageLinksGrid links={career} component={PageCareerLink} />
+      </section>
+
+      <section>
+        <h2>@ Web development</h2>
+
+        <div class="web-technologies">
+          <Container layout="one-column">
+            <Block title="Frontend" padding="small" shadow>
+              <h3><a href="/framework">Frameworks</a></h3>
+              {
+                frontendFrameworks.map((framework) => (
+                  <div class="web-technologies-item">
+                    <h4>
+                      <a href={`/framework/${framework.slug}`}>{framework.data.name}</a>
+                    </h4>
+                    <ProgressBar text={framework.data.status} percent={framework.data.knowledge} />
+                    <ContentMarkdown content={framework.data.summary?.raw} />
+                  </div>
+                ))
+              }
+              <hr />
+              <h3><a href="/technology">Technologies</a></h3>
+              {
+                frontendTechnologies.map((technology) => (
+                  <div class="web-technologies-item">
+                    <h4>
+                      <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
+                    </h4>
+                    <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
+                    <ContentMarkdown content={technology.data.summary?.raw} />
+                  </div>
+                ))
+              }
+            </Block>
+            <Block title="DevOps" padding="small" shadow>
+              <h3><a href="/technology">Technologies</a></h3>
+              {
+                devOpsTechnologies.map((technology) => (
+                  <div class="web-technologies-item">
+                    <h4>
+                      <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
+                    </h4>
+                    <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
+                    <ContentMarkdown content={technology.data.summary?.raw} />
+                  </div>
+                ))
+              }
+            </Block>
+            <Block title="Backend" padding="small" shadow>
+              <h3><a href="/framework">Frameworks</a></h3>
+              {
+                backendFrameworks.map((framework) => (
+                  <div class="web-technologies-item">
+                    <h4>
+                      <a href={`/framework/${framework.slug}`}>{framework.data.name}</a>
+                    </h4>
+                    <ProgressBar text={framework.data.status} percent={framework.data.knowledge} />
+                    <ContentMarkdown content={framework.data.summary?.raw} />
+                  </div>
+                ))
+              }
+              <hr />
+              <h3><a href="/database">Databases</a></h3>
+              {
+                databases.map((database) => (
+                  <div class="web-technologies-item">
+                    <h4>
+                      <a href={`/database/${database.slug}`}>{database.data.name}</a>
+                    </h4>
+                    <ProgressBar text={database.data.status} percent={database.data.knowledge} />
+                    <ContentMarkdown content={database.data.summary?.raw} />
+                  </div>
+                ))
+              }
+              <hr />
+              <h3><a href="/message-broker">Message brokers</a></h3>
+              {
+                messageBrokers.map((messageBroker) => (
+                  <div class="web-technologies-item">
+                    <h4>
+                      <a href={`/message-broker/${messageBroker.slug}`}>{messageBroker.data.name}</a>
+                    </h4>
+                    <ProgressBar text={messageBroker.data.status} percent={messageBroker.data.knowledge} />
+                    <ContentMarkdown content={messageBroker.data.summary?.raw} />
+                  </div>
+                ))
+              }
+              <hr />
+              <h3><a href="/technology">Technologies</a></h3>
+              {
+                backendTechnologies.map((technology) => (
+                  <div class="web-technologies-item">
+                    <h4>
+                      <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
+                    </h4>
+                    <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
+                    <ContentMarkdown content={technology.data.summary?.raw} />
+                  </div>
+                ))
+              }
+            </Block>
+          </Container>
+        </div>
+      </section>
+
+      <section>
+        <h2>🎵 Projects</h2>
+
+        <PageLinksGrid links={lastProjects} />
+
+        <div class="more">
+          <a href="/project">More projects...</a>
+        </div>
+      </section>
+    </div>
+  </LayoutContainer>
+</Layout>
+
+<style>
+  .header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 110vh;
+    color: white;
+    font-size: 8vw;
+    line-height: 1.5em;
+    text-align: center;
+
+    .heading-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        color: white;
+        font-size: 2em;
+        line-height: 1;
+
+        .color {
+          opacity: 1;
+          animation-name: header-color;
+          animation-duration: 1s;
+          animation-timing-function: ease-in;
+          animation-delay: 1s;
+          animation-fill-mode: forwards;
+        }
+
+        .subtitle {
+          display: block;
+          font-size: 0.75em;
+        }
+      }
+    }
+
+    .titles-container {
+      margin-top: 1em;
+      font-size: 0.7em;
+      line-height: 1;
+      text-align: center;
+    }
+  }
+
+  @keyframes header-color {
+    0% {
+      color: white;
+    }
+    100% {
+      color: #ff004d;
+    }
+  }
+
+  .sections {
+    section {
+      margin-bottom: 128px;
+      color: white;
+
+      h2 {
+        margin-bottom: 0.5em;
+        font-size: 2.5em;
+        text-align: center;
+
+        @media (min-width: 640px) {
+          font-size: 4em;
+        }
+      }
+
+      .more {
+        margin-top: 3em;
+        text-align: center;
+      }
+    }
+  }
+
+  .web-technologies {
+    .Container .contentContainer {
+      display: flex;
+      flex-direction: row;
+      gap: 1em;
+      flex-wrap: wrap;
+
+      .Block {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      h3 {
+        color: #ffe727;
+        font-size: 24px;
+      }
+
+      .web-technologies-item {
+        margin: 1em 0;
+
+        h4 {
+          border: 1px solid white;
+          border-bottom: none;
+          display: inline;
+
+          padding: 0.25em 0.5em;
+        }
+
+        .ProgressBar {
+          margin: 0.25em 0 0.5em 0;
+        }
+        .ContentMarkdown {
+          font-size: 0.75em;
+        }
+      }
+    }
+  }
+</style>

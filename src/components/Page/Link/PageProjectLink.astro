@@ -1,0 +1,24 @@
+---
+import ProgressBar from '~/components/ProgressBar.astro'
+import PageLink from '../PageLink.astro'
+import ReferencesList from '~/components/ReferencesList.astro'
+import { getEntryCollectionConfig, getReferencesForEntry } from '~/utils/content'
+
+interface Props {
+  readonly item: any
+}
+
+const { item: project } = Astro.props
+const config = getEntryCollectionConfig(project)
+const references = await getReferencesForEntry(project, config.referencesInLink)
+---
+
+<PageLink
+  title={project.data.name}
+  link={`/${project.collection}/${project.slug}`}
+  image={project.data.featuredImage}
+  summary="Oracle is this and is that"
+>
+  <ProgressBar text={project.data.status} percent={project.data.progress} />
+  <ReferencesList references={references} />
+</PageLink>

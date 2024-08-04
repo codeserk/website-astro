@@ -1,0 +1,15 @@
+---
+name: Docker
+featuredImage: technology/docker
+order: 1
+status: adopted
+knowledge: 75
+yearsLearning: 8+
+scopes:
+  - devops
+references:
+  - development/web
+summary:
+  format: mdx
+  raw: Vital when working in a team with multiple people.
+---

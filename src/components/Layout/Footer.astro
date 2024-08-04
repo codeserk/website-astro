@@ -1,0 +1,282 @@
+---
+import { type AnyEntryMap, getCollection } from 'astro:content'
+import Container from '../Container.astro'
+import SocialLinks from './SocialLinks.astro'
+import { getEntryIsRoot, sortEntries } from '~/utils/content'
+import { Image } from 'astro:assets'
+
+const COLLECTIONS = [
+  'development',
+  'language',
+  'framework',
+  'database',
+  'message-broker',
+  'technology',
+  'project',
+  'career',
+] satisfies (keyof AnyEntryMap)[]
+const data = await Promise.all(
+  COLLECTIONS.map(async (collection) => ({
+    collection,
+    entries: sortEntries(await getCollection(collection, getEntryIsRoot)),
+  })),
+)
+
+const pages = await getCollection('page')
+const url = Astro.url.pathname
+---
+
+<footer class={'footer'}>
+  <div class:list={['footerOverlay']}>
+    <div style={{ backgroundImage: `url('/image/scene/trees-far.png')` }} class={'footerOverlayFigure figureTop'}></div>
+  </div>
+
+  <Container>
+    <div class="footerContainer">
+      <div class="avatar">
+        <div class="speechBubble">Thanks for visiting my portfolio <span class="yellow">✌︎</span></div>
+        <a href="/">
+          <Image
+            src="/image/logo.png"
+            data-aos="appear"
+            width="200"
+            height="200"
+            alt="Jose Camara"
+            class="image"
+            loading="eager"
+          />
+        </a>
+      </div>
+
+      <SocialLinks grey />
+
+      <div class={'linksContainer'}>
+        {
+          data.map(({ collection, entries }) => (
+            <div class={'links'}>
+              <a href={`/${collection}`}>
+                <h3>{collection}</h3>
+              </a>
+              {entries.map((it) => (
+                <nav>
+                  <a
+                    class:list={{ active: url.startsWith(`/${collection}/${it.slug}`) }}
+                    href={`/${collection}/${it.slug}`}>
+                    {it.data.name}
+                  </a>
+                </nav>
+              ))}
+            </div>
+          ))
+        }
+
+        <div class={'links'}>
+          <h3>Pages</h3>
+          <nav>
+            <a href={`/resume`}>Resume</a>
+          </nav>
+          {
+            pages.map((it) => (
+              <nav>
+                <a href={`/${it.slug}`}>{it.data.name}</a>
+              </nav>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 50vh;
+    position: relative;
+    display: block;
+    align-items: center;
+    width: 100%;
+    color: white;
+    overflow: hidden;
+
+    .footerOverlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 300px;
+      background: #07080d;
+      z-index: -1;
+      opacity: 0.9;
+    }
+
+    .footerOverlayFigure {
+      position: absolute;
+      right: 0;
+      left: 0;
+      width: 100vw;
+      max-width: 100vw;
+      height: 400px;
+      background-size: contain;
+      background-repeat: repeat-x;
+      image-rendering: pixelated;
+      background-position: bottom left;
+      top: -300px;
+    }
+
+    @media (max-width: 1600px) {
+      .footerOverlay {
+        top: 250px;
+      }
+
+      .footerOverlayFigure.figureTop {
+        background-size: contain;
+        width: 100vw;
+        height: 30vh;
+        top: -29vh;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .footerOverlay {
+        top: 150px;
+      }
+
+      .footerOverlayFigure.figureTop {
+        background-size: contain;
+        width: 100vw;
+        height: 200px;
+        top: -190px;
+        background-size: 850px !important;
+      }
+    }
+  }
+
+  .footerContainer {
+    min-height: 125vh;
+    padding: 15vh 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-top: 4em;
+  }
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .speechBubble {
+      position: relative;
+      display: inline-block;
+      max-width: 200px;
+      margin: 0 24px;
+      padding: 1em;
+      border-right: 8px solid white;
+      border-bottom: 4px solid white;
+    }
+
+    .speechBubble::after {
+      content: '►';
+      position: absolute;
+      top: 2em;
+      right: -0.5em;
+      font-size: 3rem;
+      line-height: 10px;
+    }
+  }
+
+  .avatar img {
+    width: 290px;
+    height: 290px;
+  }
+
+  .image {
+    filter: grayscale(100%);
+  }
+
+  .linksContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 -2em;
+    gap: 1em;
+
+    .links {
+      flex-basis: 150px;
+      margin: 0 2em;
+    }
+
+    .links h3 {
+      margin-bottom: 0.5em;
+      font-size: 1.4em;
+      line-height: 1em;
+      text-transform: uppercase;
+    }
+
+    .links nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .links nav a {
+      position: relative;
+      padding-left: 1.5em;
+      line-height: 1.25em;
+
+      &.active,
+      &:hover {
+        color: #ffe727;
+      }
+    }
+
+    .links nav a::before {
+      content: '├─ ';
+      position: absolute;
+      left: 0;
+    }
+
+    .links nav a:last-child::before {
+      content: '└─ ';
+    }
+  }
+
+  @media (max-width: 640px) {
+    .avatar {
+      flex-direction: column-reverse;
+
+      .speechBubble {
+        margin: 24px 0;
+        border-top: 8px solid white;
+        border-right: none;
+        border-bottom: none;
+        border-left: 4px solid white;
+      }
+
+      .speechBubble::after {
+        content: '▲';
+        top: -1rem;
+        right: auto;
+        left: 0.5em;
+      }
+    }
+
+    .linksContainer {
+      margin: 0;
+
+      .links {
+        flex: 1;
+      }
+
+      .links a {
+        font-size: 1.25em;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    .footerContainer {
+      margin-top: 0em;
+    }
+  }
+</style>

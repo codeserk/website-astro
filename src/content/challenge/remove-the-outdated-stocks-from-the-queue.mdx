@@ -1,0 +1,80 @@
+---
+name: Remove the outdated stocks from the queue
+authorId: codeserk
+status: published
+references:
+  - language/typescript
+links:
+  - name: Source
+    href: https://twitter.com/cassidoo/status/1356132171665330176
+  - name: github
+    href: https://gist.github.com/codeserk/d0272ffe02397127e3dddad1b1bdd281
+  - name: Tests
+    href: https://github.com/codeserk/website/blob/master/tests/challenge/remove-the-outdated-stocks-from-the-queue.spec.ts
+tests:
+  - description: should not do anything if the snapshot is empty
+    valid: true
+  - description: should not do anything if the snapshot does not contain outdated items
+    valid: true
+  - description: should remove all the outdated items
+    valid: true
+---
+
+> You are given a snapshot of a queue of stocks that have changing prices coming in from a stream. Remove the outdated stocks from the queue
+>
+> Example:
+
+```bash
+snapshot = [
+  { sym: ‘GME’, cost: 280 },
+  { sym: ‘PYPL’, cost: 234 },
+  { sym: ‘AMZN’, cost: 3206 },
+  { sym: ‘AMZN’, cost: 3213 },
+  { sym: ‘GME’, cost: 325 }
+]
+stockQueue(snapshot)
+[
+  { sym: ‘PYPL’, cost: 234 },
+  { sym: ‘AMZN’, cost: 3213 },
+  { sym: ‘GME’, cost: 325 }
+]
+```
+
+## Strategy
+
+This _should be easy_, right? I have no idea about stocks, so maybe I'm making wrong assumptions :(
+
+![](/image/challenge/remove-the-outdated-stocks-from-the-queue/not-stonks.jpg)
+
+Assuming the queue comes in chronological order, we should just remove the duplicates keeping the last appearance of each _sym_
+
+## Solution
+
+```ts
+interface SnapshotRow {
+  readonly sym: string
+  readonly cost: number
+}
+
+/**
+ * Removes outdated items from the snapshot.
+ * @param snapshot
+ */
+export function stockQueue(snapshot: SnapshotRow[]): SnapshotRow[] {
+  const result: SnapshotRow[] = []
+  const existingSyms: Record<string, boolean> = {}
+
+  for (let i = snapshot.length - 1; i >= 0; i--) {
+    if (existingSyms[snapshot[i].sym]) {
+      continue
+    }
+
+    result.unshift(snapshot[i])
+    existingSyms[snapshot[i].sym] = true
+  }
+
+  return result
+}
+```
+
+This solution traverses the queue _backwards_, and removes the _duplicates_ (using a `map` to find them). This function creates a new array instead of mutating the original one, _hope that's fine!_ (**purists** will say it is :>). Big-O algorithmic complexity is `O(n)` since we just traverse the array once and use a map to check duplicates.
