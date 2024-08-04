@@ -60,9 +60,13 @@ const breadcrumbs = [...getEntryBreadcrumbs(entry), { title: entry.data.name, li
         <PageMeta entry={entry} />
       </div>
 
-      <div class="summary">
-        <ContentMarkdown content={summaryContent} />
-      </div>
+      {
+        summaryContent && (
+          <div class="summary">
+            <ContentMarkdown content={summaryContent} />
+          </div>
+        )
+      }
     </PageContent>
 
     <aside>

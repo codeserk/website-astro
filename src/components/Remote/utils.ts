@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /** @ts-expect-error */
 import { renderJSX } from 'astro/runtime/server/jsx'
 import { jsx as h } from 'astro/jsx-runtime'
@@ -37,7 +38,7 @@ function getIndent(ln: string): string {
 }
 
 export function dedent(str: string): string {
-  const lns = str.replace(/^[\r\n]+/, '').split('\n')
+  const lns: any = str.replace(/^[\r\n]+/, '').split('\n')
   let indent = getIndent(lns[0])
   if (indent.length === 0 && lns.length > 1) {
     indent = getIndent(lns[1])
@@ -45,16 +46,13 @@ export function dedent(str: string): string {
   if (indent.length === 0) {
     return lns.join('\n')
   }
-  return lns.map((ln) => (ln.startsWith(indent) ? ln.slice(indent.length) : ln)).join('\n')
+  return lns.map((ln: any) => (ln.startsWith(indent) ? ln.slice(indent.length) : ln)).join('\n')
 }
 
 export interface HTMLOptions {
   sanitize?: Record<string, any>
   components?: Record<string, any>
 }
-
-const markedPluginsSet = false
-let count = 0
 
 export async function markdown(
   input: string,
@@ -65,7 +63,7 @@ export async function markdown(
   if (opts.components) {
     if ('Note' in opts.components) {
       renderer.blockquote = (text: string) => {
-        const lines = text.split('\n')
+        const lines: any = text.split('\n')
         const ln = lines[0].replace('<p>', '')
         if (ln === '<strong>Note</strong>') {
           return `<Note type="note"><p>${lines.slice(1).join('\n')}</Note>`
@@ -77,7 +75,7 @@ export async function markdown(
       }
     }
     if ('Heading' in opts.components) {
-      renderer.heading = (children: string, level: number, raw: string, slugger: { slug: (arg0: string) => any }) => {
+      renderer.heading = (children: string, level: number, raw: string) => {
         // const slug = slugger.slug(raw);
         //  href="#${slug}"
         return `<Heading as="h${level}" text="${raw}">${children}</Heading>`

@@ -213,7 +213,7 @@ const education = (await getCollection('education'))
             <h2>Career</h2>
 
             {
-              career.map((item, index) => (
+              career.map((item) => (
                 <div class="item">
                   <div class="item-header">
                     {item.data.featuredImage && (
@@ -240,7 +240,7 @@ const education = (await getCollection('education'))
                     </div>
                   </div>
                   <div class="item-content">
-                    {index < 4 && <ContentMarkdown content={item.data.summary.raw} />}
+                    {/* {index < 4 && item.data.summary.raw && <ContentMarkdown content={item.data.summary.raw} />} */}
                     <ReferencesList references={item.data.mainReferences} />
                   </div>
                 </div>

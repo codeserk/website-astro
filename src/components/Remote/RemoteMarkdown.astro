@@ -46,7 +46,7 @@ if (!input) {
 }
 
 // eslint-disable-next-line no-undef
-const components = createComponentProxy($$result, Astro.props.components)
+const components = createComponentProxy($$result as any, Astro.props.components)
 const content = await markdown(input, { sanitize: Astro.props.sanitize, components }, Astro.props.marked?.extensions)
 ---
 
