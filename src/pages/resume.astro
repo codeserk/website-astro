@@ -213,7 +213,7 @@ const education = (await getCollection('education'))
             <h2>Career</h2>
 
             {
-              career.map((item) => (
+              career.map((item, index) => (
                 <div class="item">
                   <div class="item-header">
                     {item.data.featuredImage && (
@@ -240,7 +240,7 @@ const education = (await getCollection('education'))
                     </div>
                   </div>
                   <div class="item-content">
-                    {/* {index < 4 && item.data.summary.raw && <ContentMarkdown content={item.data.summary.raw} />} */}
+                    {index < 4 && item.data.summary.raw && <ContentMarkdown content={item.data.summary.raw} />}
                     <ReferencesList references={item.data.mainReferences} />
                   </div>
                 </div>
@@ -302,7 +302,7 @@ const education = (await getCollection('education'))
     display: flex;
     overflow: hidden;
     width: 21cm;
-    height: 29.7cm;
+    height: 29cm;
     margin: 0.5cm auto;
     background: white;
 
@@ -483,7 +483,7 @@ const education = (await getCollection('education'))
     .career,
     .education {
       .item {
-        margin: 0 0 2.5em 0;
+        margin: 0 0 2em 0;
         &:last-child {
           margin-bottom: 0;
         }
@@ -558,7 +558,6 @@ const education = (await getCollection('education'))
         }
 
         .Reference {
-          padding-top: 2px;
           font-size: 10px;
           font-weight: normal;
           word-spacing: 200%;

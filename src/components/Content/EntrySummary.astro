@@ -1,0 +1,13 @@
+---
+import { getEntrySummaryContent, type Entry } from '~/utils/content'
+import ContentMarkdown from './ContentMarkdown.astro'
+
+interface Props {
+  readonly entry: Entry
+}
+
+const { entry } = Astro.props
+const summary = await getEntrySummaryContent(entry, false)
+---
+
+{summary && <ContentMarkdown content={summary} />}

@@ -14,6 +14,7 @@ import TypedStrings from '../components/TypedStrings'
 import Layout from '../layouts/Layout.astro'
 import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
 import PageChallengeLink from '~/components/Page/Link/PageChallengeLink.astro'
+import EntrySummary from '~/components/Content/EntrySummary.astro'
 
 const aboutMe = await getEntry('page', 'about-me')
 
@@ -138,7 +139,7 @@ const career = (await getCollection('career')).sort((a, b) => {
   <LayoutContainer full overlay>
     <div class="sections">
       <section>
-        <h2>🐱 About Me</h2>
+        <h2><a href="/about-me">🐱 About Me</a></h2>
 
         <PageContent layout="small">
           <ContentMarkdown content={aboutMe.body} />
@@ -191,7 +192,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                       <a href={`/framework/${framework.slug}`}>{framework.data.name}</a>
                     </h4>
                     <ProgressBar text={framework.data.status} percent={framework.data.knowledge} />
-                    <ContentMarkdown content={framework.data.summary?.raw} />
+                    <EntrySummary entry={framework} />
                   </div>
                 ))
               }
@@ -204,7 +205,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                       <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
                     </h4>
                     <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
-                    <ContentMarkdown content={technology.data.summary?.raw} />
+                    <EntrySummary entry={technology} />
                   </div>
                 ))
               }
@@ -218,7 +219,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                       <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
                     </h4>
                     <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
-                    <ContentMarkdown content={technology.data.summary?.raw} />
+                    <EntrySummary entry={technology} />
                   </div>
                 ))
               }
@@ -232,7 +233,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                       <a href={`/framework/${framework.slug}`}>{framework.data.name}</a>
                     </h4>
                     <ProgressBar text={framework.data.status} percent={framework.data.knowledge} />
-                    <ContentMarkdown content={framework.data.summary?.raw} />
+                    <EntrySummary entry={framework} />
                   </div>
                 ))
               }
@@ -245,7 +246,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                       <a href={`/database/${database.slug}`}>{database.data.name}</a>
                     </h4>
                     <ProgressBar text={database.data.status} percent={database.data.knowledge} />
-                    <ContentMarkdown content={database.data.summary?.raw} />
+                    <EntrySummary entry={database} />
                   </div>
                 ))
               }
@@ -258,7 +259,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                       <a href={`/message-broker/${messageBroker.slug}`}>{messageBroker.data.name}</a>
                     </h4>
                     <ProgressBar text={messageBroker.data.status} percent={messageBroker.data.knowledge} />
-                    <ContentMarkdown content={messageBroker.data.summary?.raw} />
+                    <EntrySummary entry={messageBroker} />
                   </div>
                 ))
               }
@@ -271,7 +272,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                       <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
                     </h4>
                     <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
-                    <ContentMarkdown content={technology.data.summary?.raw} />
+                    <EntrySummary entry={technology} />
                   </div>
                 ))
               }

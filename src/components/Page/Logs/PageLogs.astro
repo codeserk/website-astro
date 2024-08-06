@@ -16,7 +16,7 @@ const entries = await getEntryLogs(collection, entry.slug)
   entries.length > 0 && (
     <div class="PageLogs">
       <h2 class="section-header">
-        <a href={`/${getEntryLink(entry)}/log`}>📝 Log</a>
+        <a href={`${getEntryLink(entry)}/log`}>📝 Log</a>
       </h2>
 
       <Container layout="small">

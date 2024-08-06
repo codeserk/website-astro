@@ -45,13 +45,18 @@ const COLLECTION_LINK_ORDER: Collection[] = [
 ]
 
 const DEFAULT_COLLECTION_CONFIG: CollectionConfig = {
-  referencesInPage: ['language', 'framework', 'technology', 'message-broker', 'database'],
+  referencesInPage: ['development', 'language', 'framework', 'technology', 'message-broker', 'database'],
   referencesInLink: ['development', 'language', 'framework'],
 }
 
 const COLLECTION_CONFIG = {
   language: {
     hasKnowledge: true,
+    referencesInPage: ['development', 'language', 'framework', 'technology', 'message-broker', 'database'],
+  },
+  framework: {
+    hasKnowledge: true,
+    referencesInPage: ['development', 'language', 'framework', 'technology', 'message-broker', 'database'],
   },
   development: {
     referencesInPage: ['language', 'framework', 'technology', 'message-broker', 'database'],

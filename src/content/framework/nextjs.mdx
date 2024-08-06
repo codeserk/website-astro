@@ -1,0 +1,28 @@
+---
+name: Next.js
+featuredImage: framework/nextjs.png
+status: adopted
+order: 4
+scopes:
+  - frontend
+knowledge: 50
+yearsLearning: 1
+references:
+  - development/web
+  - language/typescript
+  - framework/react
+  - database/redis
+links:
+  - name: website
+    href: https://nextjs.org/
+---
+
+When starting learning [](framework/react), Next.js was the obvious starting point.
+
+It's pretty similar to [](framework/nuxt) (I won't discuss which started first, and who copied who!) - so it was quite easy to get up to speed.
+
+I've been using this \_framework for `SSR` and `SSG`, and the result is quite nice. Especially the _incremental_ `SSG`. It takes care of caching quite effectively, so making sites with static content that refreshes every _x minutes_ was easy!
+
+In the latest versions, the cache can be configured, so we introduced a `redis` cache, instead of using the `filesystem`. That allowed us to deploy multiple instances that shared cache. The API was not so great, and we had some **drama**, but it worked in the end.
+
+The downside of this technology is that seems to going through the same path of _let's reinvent [](language/php)_ (to sell cloud computing), which doesn't seem great.

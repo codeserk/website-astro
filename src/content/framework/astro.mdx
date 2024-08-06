@@ -1,0 +1,45 @@
+---
+name: Astro
+status: learning
+featuredImage: framework/astro.png
+order: 3
+knowledge: 50
+yearsLearning: 0.5
+scopes:
+  - frontend
+references:
+  - development/web
+  - language/typescript
+  - framework/react
+  - framework/vue
+links:
+  - name: website
+    href: https://astro.build/
+---
+
+I've been using this framework for some, trying to make static sites simpler.
+
+**DISCLAIMER**: Probably soon to _judge_ this technology.
+
+## Why
+
+I've been using other frameworks for the web:
+
+- [](framework/nuxt) when I used [](framework/vue)
+- [](framework/nextjs) when I started using [](framework/react)
+
+But, while it makes sense for `PWA`, business applications, and such; it's weird to have a _reactive framework_ to render something that you know it's going to be 100% static. **TOO MUCH JS!**
+
+That's when I read about Astro, and unless something bad has happened, [this website](project/codeserk) is built using it!
+
+## What
+
+While still being a _framework_, with their own `.astro` and all that, their approach is quite different. I think some people call it _meta framework_ :/
+
+The trick is that the main functionality is to _do stuff in TS_ that will render **plain HTML/CSS/JS**. No hydration. ~~No hydration~~ by default, just when you want dynamic components.
+
+The approach for this is also quite nice, you can use any of the top frameworks like [](framework/react) or [](framework/vue) and add it to your website.
+
+## Downside
+
+Like [](framework/nextjs), I have the feeling that they are trying to become the _next PHP_, pls stop :(. The motivation seems to be again related to _selling cloud stuff_. I hope all the `backend-in-my-frontend` stuff remains optional.

@@ -1,9 +1,9 @@
 ---
 import type { Entry } from '~/utils/content'
+import { getEntryCollectionConfig, getEntryImage, getReferencesForEntry } from '~/utils/content'
 import ProgressBar from '../ProgressBar.astro'
 import PageExternalLink from './PageExternalLink.astro'
 import PageMetaBlock from './PageMetaBlock.astro'
-import { getEntryCollectionConfig, getEntryImage, getReferencesForEntry } from '~/utils/content'
 
 interface Props {
   readonly entry: Entry

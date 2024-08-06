@@ -13,7 +13,7 @@ const entries = await getEntriesFromReferences(references)
 ---
 
 <div class={'referencesList'}>
-  {false && entries?.map((value) => <Reference entry={value} block={block} />)}
+  {entries?.map((value) => <Reference entry={value} block={block} />)}
 </div>
 
 <style>
