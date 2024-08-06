@@ -11,7 +11,7 @@ import sitemap from '@astrojs/sitemap'
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
-  site: 'https://codeserk.es',
+  site: 'https://codeserk.github.io',
   markdown: {
     remarkPlugins: [remarkToc, remarkShrugPlugin],
     rehypePlugins: [rehypeAccessibleEmojis],
