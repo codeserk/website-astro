@@ -26,8 +26,8 @@ const entryToUse = entry || (reference ? await getEntryFromReference(reference) 
     display: inline-block;
     color: white !important;
     text-transform: uppercase;
-    line-height: 20px;
-    padding: 0 4px 0 2px;
+    line-height: 1.25em;
+    padding: 0 2px 0 4px;
 
     &:hover,
     &:focus,
@@ -42,6 +42,7 @@ const entryToUse = entry || (reference ? await getEntryFromReference(reference) 
     &.block {
       padding: 2px 8px;
       border: 1px solid white;
+      line-height: 1.25em;
     }
 
     &.development,

@@ -7,13 +7,14 @@ import tailwind from '@astrojs/tailwind'
 import { remarkShrugPlugin } from './src/plugins/shrug.remark-plugin'
 
 import sitemap from '@astrojs/sitemap'
+import { remarkModifiedTime } from './src/plugins/last-modifierd.remark-plugin'
 
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
   site: 'https://web.codeserk.es',
   markdown: {
-    remarkPlugins: [remarkToc, remarkShrugPlugin],
+    remarkPlugins: [remarkToc, remarkShrugPlugin, remarkModifiedTime],
     rehypePlugins: [rehypeAccessibleEmojis],
   },
   integrations: [

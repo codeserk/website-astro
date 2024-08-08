@@ -33,8 +33,8 @@
 
   h3 {
     margin-top: 1em;
-    margin-bottom: 0;
-    font-size: 1.8rem;
+    margin-bottom: 0.5em;
+    font-size: 2rem;
 
     &::before {
       content: '►► ';
@@ -51,6 +51,9 @@
 
     > li {
       padding-left: 0.5em;
+      &::marker {
+        font-family: var(--font-code);
+      }
     }
   }
 
@@ -80,7 +83,7 @@
   pre,
   code {
     font-style: italic;
-    font-family: 'Web_DOS-V_TWN16', og-emoji, monospace;
+    font-family: var(--font-body);
     margin: 2em auto;
   }
 
@@ -163,6 +166,10 @@
     border: 4px solid white;
     border-bottom: 1em solid white;
 
+    * {
+      font-family: var(--font-code) !important;
+    }
+
     &[data-language=ts] {
       margin: 1em -1em !important;
 
@@ -180,7 +187,12 @@
     padding: 100px;
   }
 
-
+  p:has(.center) {
+    text-align: center;
+  }
+  .center {
+    margin: auto;
+  }
 }
 
 .section-header {

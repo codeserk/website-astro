@@ -2,6 +2,7 @@
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
+    fontFamily: { mono: ['var(--font-body)'] },
     screens: {
       sm: '640px',
       md: '768px',

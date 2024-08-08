@@ -12,19 +12,33 @@ const { absolute, align = 'center', grey } = Astro.props
 
 <div class:list={['socialLinks', { absolute, grey }]}>
   <a href="https://github.com/codeserk" target="_blank">
-    <Image class="icon" src="/image/social/github.png" width={50} height={50} alt="GitHub" loading="eager" />
+    <Image class="icon image" src="/image/social/github.png" width={50} height={50} alt="GitHub" loading="eager" />
   </a>
   <a href="https://buymeacoffee.com/codeserk" target="_blank">
-    <Image class="icon" src="/image/social/coffee.png" width={50} height={50} alt="BuyMeACoffee" loading="eager" />
+    <Image
+      class="icon image"
+      src="/image/social/coffee.png"
+      width={50}
+      height={50}
+      alt="BuyMeACoffee"
+      loading="eager"
+    />
   </a>
   <a href="https://www.instagram.com/codeserk.es" target="_blank">
-    <Image class="icon" src="/image/social/instagram.png" width={50} height={50} alt="Instagram" loading="eager" />
+    <Image
+      class="icon image"
+      src="/image/social/instagram.png"
+      width={50}
+      height={50}
+      alt="Instagram"
+      loading="eager"
+    />
   </a>
   <a href="https://www.linkedin.com/in/jos%C3%A9-manuel-c%C3%A1mara-iglesias-60b617127/" target="_blank">
-    <Image class="icon" src="/image/social/linkedin.png" width={50} height={50} alt="LinkedIn" loading="eager" />
+    <Image class="icon image" src="/image/social/linkedin.png" width={50} height={50} alt="LinkedIn" loading="eager" />
   </a>
 
-  <a href="mailto:info@codeserk.es" target="_blank" aria-label="Email"><span class="icon">✉️</span></a>
+  <a href="mailto:info@codeserk.es" target="_blank" aria-label="Email"><span class="icon text">✉️</span></a>
 </div>
 
 <style define:vars={{ align }}>
@@ -47,9 +61,16 @@ const { absolute, align = 'center', grey } = Astro.props
     }
 
     a {
-      display: block;
+      display: flex;
       width: 50px;
       height: 50px;
+      justify-content: center;
+      align-items: center;
+
+      .icon.text {
+        margin-top: 10px;
+        line-height: 45px;
+      }
 
       &:hover {
         cursor: pointer;
@@ -90,11 +111,17 @@ const { absolute, align = 'center', grey } = Astro.props
       align-items: center;
       justify-content: space-evenly;
 
-      a,
-      .icon {
-        width: 40px;
-        height: 40px;
-        font-size: 40px;
+      a {
+        .icon {
+          width: 40px;
+          height: 40px;
+          font-size: 40px;
+
+          &.text {
+            margin-top: 5px;
+            line-height: 40px;
+          }
+        }
       }
     }
   }

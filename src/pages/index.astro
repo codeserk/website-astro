@@ -388,7 +388,7 @@ const career = (await getCollection('career')).sort((a, b) => {
 
       h3 {
         color: #ffe727;
-        font-size: 24px;
+        font-size: 28px;
       }
 
       .web-technologies-item {
@@ -398,8 +398,8 @@ const career = (await getCollection('career')).sort((a, b) => {
           border: 1px solid white;
           border-bottom: none;
           display: inline;
-
-          padding: 0.25em 0.5em;
+          font-size: 26px;
+          padding: 0.25em 0.5em 0.5em 0.5em;
         }
 
         .ProgressBar {
@@ -408,6 +408,26 @@ const career = (await getCollection('career')).sort((a, b) => {
         .ContentMarkdown {
           font-size: 0.75em;
         }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header {
+      font-size: 50px;
+      justify-content: flex-start;
+      padding-top: 20vh;
+
+      .heading-container h1 {
+        line-height: 0.85;
+
+        .subtitle {
+          margin-top: 12px;
+        }
+      }
+
+      .titles-container {
+        margin-top: 2em;
       }
     }
   }

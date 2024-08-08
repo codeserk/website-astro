@@ -144,16 +144,14 @@ const education = (await getCollection('education'))
             </div>
 
             <div class="details">
-              <h2>Info</h2>
-
               <div class="details-items">
                 {
                   social.map((item) => (
                     <div class="details-item">
                       <div class="details-item-label">
                         <a href={item.link} target="_blank" rel="noreferrer noopener">
-                          {item.image && <img class="icon" src={item.image} alt={item.title} />}
-                          {item.label && item.label}
+                          {item.image && <img class="icon image" src={item.image} alt={item.title} />}
+                          {item.label && <span class="icon text">{item.label}</span>}
                         </a>
                       </div>
                       <div class="details-item-content">
@@ -296,13 +294,13 @@ const education = (await getCollection('education'))
 
   .resume {
     font-size: 12px;
-    font-family: 'Web_DOS-V_TWN16', og-emoji, monospace !important;
+    font-family: var(--font-body) !important;
 
     display: block;
     display: flex;
     overflow: hidden;
     width: 21cm;
-    height: 29cm;
+    height: 29.7cm;
     margin: 0.5cm auto;
     background: white;
 
@@ -310,7 +308,7 @@ const education = (await getCollection('education'))
     h2,
     h3,
     h4 {
-      font-family: 'Web_DOS-V_TWN16', og-emoji, monospace !important;
+      font-family: var(--font-heading) !important;
     }
 
     .resume-content {
@@ -379,7 +377,7 @@ const education = (await getCollection('education'))
 
         h2 {
           margin-bottom: 10px;
-          font-size: 20px;
+          font-size: 24px;
         }
 
         .details-items {
@@ -393,15 +391,24 @@ const education = (await getCollection('education'))
               display: flex;
               margin-right: 1em;
               font-weight: bold;
-              font-size: 14px;
-              width: 14px;
-              height: 14px;
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
               text-align: right;
+
+              .icon.image {
+                width: 18px;
+                height: 18px;
+              }
+              .icon.text {
+                line-height: 20px;
+                vertical-align: 3px;
+              }
             }
 
             .details-item-content {
               flex: 1;
-              font-size: 13px;
+              font-size: 18px;
             }
           }
         }
@@ -437,7 +444,7 @@ const education = (await getCollection('education'))
             min-width: 100px;
             margin-right: 1em;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 20px;
             text-align: left;
           }
 
@@ -466,7 +473,7 @@ const education = (await getCollection('education'))
         color: #222;
       }
       p {
-        color: #444;
+        color: #333;
         strong {
           color: #333;
         }
@@ -476,7 +483,7 @@ const education = (await getCollection('education'))
     h2 {
       margin-bottom: 6px;
       color: black;
-      font-size: 18px;
+      font-size: 22px;
       font-display: bold;
     }
 
@@ -501,7 +508,7 @@ const education = (await getCollection('education'))
             h3 {
               display: inline-block;
               color: black;
-              font-size: 14px;
+              font-size: 18px;
             }
             .position {
               display: inline-block;
@@ -558,10 +565,12 @@ const education = (await getCollection('education'))
         }
 
         .Reference {
-          font-size: 10px;
+          font-size: 12px;
           font-weight: normal;
           word-spacing: 200%;
           filter: saturate(0.4);
+          letter-spacing: 1px;
+          font-family: var(--font-code);
         }
       }
     }

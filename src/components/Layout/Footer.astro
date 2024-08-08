@@ -78,7 +78,9 @@ const url = Astro.url.pathname
           {
             pages.map((it) => (
               <nav>
-                <a href={`/${it.slug}`}>{it.data.name}</a>
+                <a class:list={{ active: url.startsWith(`/${it.slug}`) }} href={`/${it.slug}`}>
+                  {it.data.name}
+                </a>
               </nav>
             ))
           }
