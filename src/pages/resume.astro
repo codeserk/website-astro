@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import { getCollection, getEntry } from 'astro:content'
 import dayjs from 'dayjs'
 import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
@@ -7,6 +8,7 @@ import PageHeader from '~/components/Page/PageHeader.astro'
 import ProgressBar from '~/components/ProgressBar.astro'
 import ReferencesList from '~/components/ReferencesList.astro'
 import Layout from '~/layouts/Layout.astro'
+import { getEntryImage } from '~/utils/content'
 
 const baseURL = 'https://www.codeserk.es/'
 
@@ -80,28 +82,31 @@ const getPeriod = (company: any) => {
   return timeParts.join(', ')
 }
 
-const career = (await getCollection('career'))
-  .sort((a, b) => {
-    const dateA = a.data.startDate
-    const dateB = b.data.startDate
-    if (dateA && !dateB) {
-      return -1
-    }
-    if (!dateA && dateB) {
-      return 1
-    }
-    if (!dateA && !dateB) {
-      return 0
-    }
+const career = await Promise.all(
+  (await getCollection('career'))
+    .sort((a, b) => {
+      const dateA = a.data.startDate
+      const dateB = b.data.startDate
+      if (dateA && !dateB) {
+        return -1
+      }
+      if (!dateA && dateB) {
+        return 1
+      }
+      if (!dateA && !dateB) {
+        return 0
+      }
 
-    return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
-  })
-  .map((item) => ({
-    ...item,
-    startDateText: getStartDateText(item),
-    endDateText: getEndDateText(item),
-    period: getPeriod(item),
-  }))
+      return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
+    })
+    .map(async (item) => ({
+      ...item,
+      startDateText: getStartDateText(item),
+      endDateText: getEndDateText(item),
+      period: getPeriod(item),
+      image: await getEntryImage(item),
+    })),
+)
 const education = (await getCollection('education'))
   .sort((a, b) => {
     const dateA = a.data.startDate
@@ -214,15 +219,17 @@ const education = (await getCollection('education'))
               career.map((item, index) => (
                 <div class="item">
                   <div class="item-header">
-                    {item.data.featuredImage && (
-                      <img
-                        src={`/image/${item.data.featuredImage}`}
+                    {item.image && (
+                      <Image
+                        src={item.image}
                         alt={`${item.data.name} logo`}
-                        class="image bordered"
+                        class="image"
                         width={32}
                         height={32}
+                        loading="eager"
                       />
                     )}
+
                     <div class="item-header-info">
                       <div class="title">
                         <a href={`/career/${item.slug}`}>

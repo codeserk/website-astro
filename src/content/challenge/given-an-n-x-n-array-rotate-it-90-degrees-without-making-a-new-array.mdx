@@ -39,7 +39,7 @@ This problem seems to require some visualization first, so I'll grab my pen and 
 
 ## Looking for the simplest case (n=2)
 
-![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-1.png)
+![block alt:Notes 1](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-1.png)
 
 In this matrix _(2x2)_ we need to make 4 operations:
 
@@ -56,11 +56,11 @@ We can imagine our matrices as compositions of rings, and we need to rotate ever
 
 For the example given, we just need to rotate the external ring, and the `5` in the middle stays as it is.
 
-![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-2.png)
+![block alt:Notes 2](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-2.png)
 
 It gets more interesting when we have a higher `n`:
 
-![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-3.png)
+![block alt:Notes 3](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-3.png)
 
 With `n = 4` we have to rotate 2 rings, and the number of rings increases with every 2 increments in `n` (we can probably say that number of rings = `n / 2`).
 
@@ -68,13 +68,13 @@ With `n = 4` we have to rotate 2 rings, and the number of rings increases with e
 
 Let's try to extract the general rule for rotating an individual ring, I'll use a higher `n` for that, since it was difficult to extract it from the simplest case:
 
-![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-4.png)
+![block alt:Notes 4](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-4.png)
 
 We need to traverse all the positions - 1 inside a ring and make the move operations. The exact operations depend on the movement, and we need to keep one item in memory since it will be overriden after one of the operations.
 
 This is the operation for `Top` --> `Right`
 
-![block](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-5.png)
+![block alt:Notes 5](/image/challenge/given-an-n-x-n-array-rotate-it-90-degrees-without-making-a-new-array/notes-5.png)
 
 We need to write similar operations for the other movements.
 

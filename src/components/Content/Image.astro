@@ -8,11 +8,13 @@ interface Props {
 
 const props = Astro.props
 
-const { src, alt } = props
+const { src, alt: originalAlt } = props
+const className = originalAlt.replace(/alt:.*/, '')
+const alt = originalAlt.match(/alt:(.+)/)?.[1]
 const image = await getImageMetadata(src)
 ---
 
-{src && <img src={image?.src} class:list={['ContentImage', alt]} />}
+{src && <img src={image?.src} class:list={['ContentImage', className]} alt={alt} title={alt} />}
 
 <style>
   img.ContentImage {

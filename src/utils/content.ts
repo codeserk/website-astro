@@ -212,6 +212,14 @@ export function getEntryLink(entry: Entry): string {
   return `/${entry.collection}/${entry.slug}`
 }
 
+export function getEntryLogLink(entry: Entry): string {
+  if (getEntryIsLog(entry.slug)) {
+    return `/${entry.collection}/${entry.slug.replace(/\/log.+/, '/log')}`
+  }
+
+  return `${getEntryLink(entry)}/log`
+}
+
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/image/**/*.{jpeg,jpg,png,gif}')
 
 export async function getEntryImage(entry: Entry): Promise<ImageMetadata | undefined> {

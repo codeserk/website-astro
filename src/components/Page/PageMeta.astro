@@ -17,6 +17,7 @@ const references = await getReferencesForEntry(entry, config.referencesInPage)
 ---
 
 <PageMetaBlock
+  name={entry.data.name}
   references={references}
   image={image}
   imageType="bordered lg"

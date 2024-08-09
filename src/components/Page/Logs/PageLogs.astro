@@ -1,5 +1,5 @@
 ---
-import { getEntryLink, getEntryLogs, type Collection, type Entry } from '~/utils/content'
+import { getEntryLogLink, getEntryLogs, type Collection, type Entry } from '~/utils/content'
 import Container from '../../Container.astro'
 import PageLog from './PageLog.astro'
 
@@ -16,7 +16,7 @@ const entries = await getEntryLogs(collection, entry.slug)
   entries.length > 0 && (
     <div class="PageLogs">
       <h2 class="section-header">
-        <a href={`${getEntryLink(entry)}/log`}>📝 Log</a>
+        <a href={getEntryLogLink(entry)}>📝 Log</a>
       </h2>
 
       <Container layout="small">

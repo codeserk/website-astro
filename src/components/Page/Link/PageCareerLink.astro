@@ -26,7 +26,13 @@ const imageMeta = await getImageMetadata(image)
 
 <div class="PageCareerLink">
   <Container layout="two-columns">
-    <PageMetaBlock slot="right" references={references} startDate={item.data.startDate} endDate={item.data.endDate}>
+    <PageMetaBlock
+      name={item.data.name}
+      slot="right"
+      references={references}
+      startDate={item.data.startDate}
+      endDate={item.data.endDate}
+    >
       {
         item.data.position && (
           <span slot="before" class="position">

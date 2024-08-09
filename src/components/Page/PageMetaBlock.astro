@@ -11,6 +11,7 @@ import type { EntryReference } from '~/utils/content'
 dayjs.extend(localizedFormat)
 
 interface Props {
+  readonly name: string
   readonly references: EntryReference[]
   readonly mainReferences?: boolean
   readonly createdAt?: Date
@@ -20,14 +21,18 @@ interface Props {
   readonly imageType?: `${'circled' | 'bordered'} ${'sm' | 'md' | 'lg'}`
 }
 
-const { references, createdAt, startDate, endDate, image, imageType = 'bordered md' } = Astro.props
+const { name, references, createdAt, startDate, endDate, image, imageType = 'bordered md' } = Astro.props
 
 const showDates = startDate || endDate
 const period = showDates ? extractPeriodFromDates(startDate, endDate) : undefined
 ---
 
 <div class={'pageMetaBlock'}>
-  {image && <Image class={`image ${imageType ?? ''}`} src={image} width={290} height={290} alt="" loading="eager" />}
+  {
+    image && (
+      <Image class={`image ${imageType ?? ''}`} src={image} width={290} height={290} alt={name} loading="eager" />
+    )
+  }
 
   <aside class={'pageMetaBlockContainer'}>
     {
