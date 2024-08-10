@@ -15,24 +15,11 @@ import Layout from '../layouts/Layout.astro'
 import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
 import PageChallengeLink from '~/components/Page/Link/PageChallengeLink.astro'
 import EntrySummary from '~/components/Content/EntrySummary.astro'
+import { sortEntries } from '~/utils/content'
 
 const aboutMe = await getEntry('page', 'about-me')
 
-const recentArticles = (await getCollection('article'))
-  .sort((a, b) => {
-    if (a.data.publishedAt && !b.data.publishedAt) {
-      return -1
-    }
-    if (!a.data.publishedAt && b.data.publishedAt) {
-      return 1
-    }
-    if (!a.data.publishedAt && !b.data.publishedAt) {
-      return 0
-    }
-
-    return dayjs(a.data.publishedAt).isAfter(dayjs(b.data.publishedAt)) ? -1 : 1
-  })
-  .slice(0, 2)
+const recentArticles = (await sortEntries(await getCollection('blog'))).slice(0, 2)
 const lastChallenges = (await getCollection('challenge'))
   .sort((a, b) => {
     if (a.data.publishedAt && !b.data.publishedAt) {
@@ -147,23 +134,23 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <h2>📺 Blog</h2>
+        <a href="/blog"><h2>📺 Blog</h2></a>
 
         <PageLinksGrid links={recentArticles} />
 
         <div class="more">
-          <a href="/article">More articles...</a>
+          <a href="/blog">More articles...</a>
         </div>
       </section>
 
       <section>
-        <h2>👓 Languages</h2>
+        <a href="/language"><h2>👓 Languages</h2></a>
 
         <HomeLanguages />
       </section>
 
       <section>
-        <h2>&lt;&gt; Last challenges</h2>
+        <a href="/challenge"><h2>&lt;&gt; Last challenges</h2></a>
 
         <PageLinksGrid links={lastChallenges} component={PageChallengeLink} />
 
@@ -173,13 +160,13 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <h2>📱 Career</h2>
+        <a href="/career"><h2>📱 Career</h2></a>
 
         <PageLinksGrid links={career} component={PageCareerLink} />
       </section>
 
       <section>
-        <h2>@ Web development</h2>
+        <a href="/development/web"><h2>@ Web development</h2></a>
 
         <div class="web-technologies">
           <Container layout="one-column">
@@ -315,6 +302,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       align-items: center;
 
       h1 {
+        font-family: var(--font-heading-no-scale);
         color: white;
         font-size: 2em;
         line-height: 1;
@@ -341,6 +329,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       line-height: 1;
       text-align: center;
       min-height: 1em;
+      font-family: var(--font-heading-no-scale);
     }
   }
 

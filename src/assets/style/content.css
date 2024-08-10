@@ -21,28 +21,42 @@
   }
 
   h2 {
-    margin-bottom: 0;
-    padding: 0.5em 0;
-    font-size: 2.2rem;
+    margin: 1.5em 0;
+    font-size: 2.6rem;
     line-height: 40px;
+    color: var(--color-header);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 
     &::before {
-      content: '► ';
+      content: '=== ';
+    }
+    &::after {
+      content: ' ===';
     }
   }
 
   h3 {
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    font-size: 2rem;
+    margin: 1.5em 0 1em 0;
+    font-size: 2.1rem;
+    color: var(--color-header);
 
     &::before {
-      content: '►► ';
+      content: '> ';
     }
   }
 
   h4 {
-    font-size: 1.4rem;
+    margin: 1.5em 0 1em 0;
+    font-size: 1.8rem;
+    color: var(--color-header);
+
+    &::before {
+      content: '>> ';
+    }
   }
 
   ul {
@@ -58,8 +72,8 @@
   }
 
   em {
-    color: #ffe727;
-    font-style: normal;
+    color: pink;
+    font-style: italic;
     text-transform: none;
   }
 
@@ -68,7 +82,7 @@
   }
 
   code {
-    color: pink;
+    color: #00e232;
   }
 
   ol {
@@ -87,9 +101,9 @@
     margin: 2em auto;
   }
 
-  .link {
+  a, .link {
     text-decoration: dotted;
-    color: #00e232;
+    color: #ffe727;
   }
 
   .without-margin {
@@ -196,11 +210,11 @@
 }
 
 .section-header {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-align: center;
 
-    @media (min-width: 640px) {
-      font-size: 4em;
-    }
+  @media (min-width: 640px) {
+    font-size: 4em;
+  }
 }

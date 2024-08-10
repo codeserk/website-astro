@@ -9,12 +9,14 @@ interface Props {
 
 const { entry, reference, block } = Astro.props
 const entryToUse = entry || (reference ? await getEntryFromReference(reference) : undefined)
+const tooltip = ''
 ---
 
 {
   entryToUse && (
     <a
-      class:list={['Reference reference ', { block }, entryToUse.collection]}
+      data-tooltip={tooltip}
+      class:list={['Reference reference', { block, tooltip: false }, entryToUse.collection]}
       href={`/${entryToUse.collection}/${entryToUse.slug}`}>
       {entryToUse.data.name}
     </a>
@@ -47,7 +49,7 @@ const entryToUse = entry || (reference ? await getEntryFromReference(reference) 
 
     &.development,
     &.development-area {
-      background: #d09706;
+      background: #916903;
     }
 
     &.language {

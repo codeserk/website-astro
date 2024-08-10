@@ -1,0 +1,27 @@
+---
+import { getEntry } from 'astro:content'
+import Image from '~/components/Content/Image.astro'
+import Link from '~/components/Content/Link.astro'
+import PageContainer from '~/components/Page/PageContainer.astro'
+import PageContent from '~/components/Page/PageContent.astro'
+import PageHeader from '~/components/Page/PageHeader.astro'
+import Layout from '~/layouts/Layout.astro'
+import type { BreadcrumbLink } from '~/types/breadcrumbs.types'
+import { getEntryRenderContent } from '~/utils/content'
+
+const entry = await getEntry('page', 'journal')
+const { Content } = await getEntryRenderContent(entry)
+
+const title = 'Journal'
+const breadcrumbs: BreadcrumbLink[] = []
+---
+
+<Layout full overlay seo={{ title, breadcrumbs, description: 'Journal' }}>
+  <PageContainer overlay>
+    <PageHeader layout="two-columns" title={entry.data.name} breadcrumbs={breadcrumbs} />
+
+    <PageContent layout="two-columns">
+      <Content components={{ a: Link, img: Image }} />
+    </PageContent>
+  </PageContainer>
+</Layout>

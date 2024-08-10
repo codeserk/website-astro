@@ -11,6 +11,9 @@ export type Collection = keyof ContentEntryMap
 export type Entry = any
 export type EntryReference = string | Entry
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const RENDER_CACHE: Record<string, any> = {}
+
 interface CollectionConfig {
   readonly uri?: string
 
@@ -21,7 +24,7 @@ interface CollectionConfig {
 }
 
 export const COLLECTIONS: Collection[] = [
-  'article',
+  'blog',
   'career',
   'challenge',
   'database',
@@ -117,7 +120,7 @@ export async function getEntriesFromReferences(refs?: EntryReference[]): Promise
 }
 
 export async function getSortedEntriesFromReferences(refs?: EntryReference[]): Promise<Entry[]> {
-  return sortEntries(await getEntriesFromReferences(refs))
+  return await sortEntries(await getEntriesFromReferences(refs))
 }
 
 export async function getSortedGroupedEntriesFromReferences(
@@ -142,7 +145,9 @@ export function groupEntriesByCollection(entries: Entry[]): Partial<Record<Colle
   )
 }
 
-export function sortEntries(entries: Entry[]): Entry[] {
+export async function sortEntries(entries: Entry[]): Promise<Entry[]> {
+  await Promise.all(entries.map((entry) => getEntryRenderContent(entry)))
+
   return entries.sort(entrySortFn)
 }
 
@@ -158,6 +163,12 @@ export function entrySortFn(entryA: Entry, entryB: Entry): number {
     const dateB = getEntryCreatedAt(entryB)
     if (dateA || dateB) {
       return dayjs(dateB).diff(dateA)
+    }
+    if (!dateA) {
+      return 1
+    }
+    if (!dateB) {
+      return -1
     }
 
     return 0
@@ -208,6 +219,19 @@ export async function getReferencesForEntry(entry?: Entry, collections: Collecti
     })
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getEntryRenderContent(entry: Entry): Promise<any> {
+  const link = getEntryLink(entry)
+  if (RENDER_CACHE[link]) {
+    return RENDER_CACHE[link]
+  }
+
+  const value = await entry.render()
+  RENDER_CACHE[link] = value
+
+  return value
+}
+
 export function getEntryLink(entry: Entry): string {
   return `/${entry.collection}/${entry.slug}`
 }
@@ -244,21 +268,28 @@ export async function getImageMetadata(src?: string): Promise<ImageMetadata | un
 }
 
 export function getEntryCreatedAt(entry: Entry): Date | undefined {
+  if (entry.data.publishedAt) {
+    return dayjs(entry.data.publishedAt).toDate()
+  }
   if (entry.data.createdAt) {
     return dayjs(entry.data.createdAt).toDate()
   }
   if (entry.data.startDate) {
     return dayjs(entry.data.startDate).toDate()
   }
-  if (entry.data.publishedAt) {
-    return dayjs(entry.data.publishedAt).toDate()
+  const lastModified = RENDER_CACHE[getEntryLink(entry)]?.remarkPluginFrontmatter?.lastModified
+  if (lastModified) {
+    const date = dayjs(lastModified)
+    if (date.isValid()) {
+      return date.toDate()
+    }
   }
 
   return undefined
 }
 
 export async function getEntrySummaryContent(entry: Entry, onlyExplicit = true): Promise<string> {
-  if (entry.data.summary && typeof entry.data.summary === 'string') {
+  if (entry.data?.summary && typeof entry.data.summary === 'string') {
     return entry.data.summary
   }
 
@@ -275,17 +306,17 @@ export async function getEntrySummaryContent(entry: Entry, onlyExplicit = true):
   }
 
   if ('render' in entry) {
-    const render = await entry.render()
+    const render = await getEntryRenderContent(entry)
     return render.rawContent()
   }
 
   return ''
 }
 
-export async function getEntrySummary(entry: Entry): Promise<string> {
+export async function getEntrySummary(entry: Entry, onlyExplicit = true): Promise<string> {
   const result = await remark()
     .use(stripMarkdown)
-    .process(await getEntrySummaryContent(entry))
+    .process(await getEntrySummaryContent(entry, onlyExplicit))
 
   return String(result)
 }

@@ -10,7 +10,7 @@ import ReferencesList from '~/components/ReferencesList.astro'
 import Layout from '~/layouts/Layout.astro'
 import { getEntryImage } from '~/utils/content'
 
-const baseURL = 'https://www.codeserk.es/'
+const baseURL = Astro.site
 
 const social = [
   { label: '➿', link: 'https://www.codeserk.es', title: 'www.codeserk.es' },
@@ -84,6 +84,7 @@ const getPeriod = (company: any) => {
 
 const career = await Promise.all(
   (await getCollection('career'))
+    .filter((it) => it.data.featured !== false)
     .sort((a, b) => {
       const dateA = a.data.startDate
       const dateB = b.data.startDate
@@ -232,7 +233,7 @@ const education = (await getCollection('education'))
 
                     <div class="item-header-info">
                       <div class="title">
-                        <a href={`/career/${item.slug}`}>
+                        <a href={`${baseURL}career/${item.slug}`}>
                           <h3>{item.data.name}</h3>
                         </a>
                         {item.data.position && <span class="position">{item.data.position}</span>}
@@ -370,7 +371,7 @@ const education = (await getCollection('education'))
 
         .name {
           margin-top: 6px;
-          font-size: 36px;
+          font-size: 32px;
         }
         .title {
           color: #ddd;
@@ -415,7 +416,7 @@ const education = (await getCollection('education'))
 
             .details-item-content {
               flex: 1;
-              font-size: 18px;
+              font-size: 16px;
             }
           }
         }
@@ -451,7 +452,7 @@ const education = (await getCollection('education'))
             min-width: 100px;
             margin-right: 1em;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 14px;
             text-align: left;
           }
 
@@ -490,7 +491,7 @@ const education = (await getCollection('education'))
     h2 {
       margin-bottom: 6px;
       color: black;
-      font-size: 22px;
+      font-size: 18px;
       font-display: bold;
     }
 
@@ -515,7 +516,7 @@ const education = (await getCollection('education'))
             h3 {
               display: inline-block;
               color: black;
-              font-size: 18px;
+              font-size: 14px;
             }
             .position {
               display: inline-block;

@@ -10,7 +10,6 @@ export interface SEOParams {
 }
 
 export const SEO_SITE_NAME = 'José Cámara [@codeserk]'
-export const SEO_CANONICAL_URL = 'https://www.codeserk.es'
 export const SEO_AUTHOR = 'José Cámara'
 export const TITLE_SEPARATOR = '  ▪  '
 
@@ -34,11 +33,12 @@ export const DEFAULT_SEO_PARAMS: SEOParams = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function generateSeoMeta(params?: SEOParams): any {
-  let url = SEO_CANONICAL_URL + (params?.path ?? '')
-  if (url !== SEO_CANONICAL_URL && !url.endsWith('/')) {
+export function generateSeoMeta(site: string, params?: SEOParams): any {
+  let url = site + (params?.path ?? '')
+  if (url !== site && !url.endsWith('/')) {
     url += '/'
   }
+  url = fixURL(url)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const head: any = {
@@ -72,7 +72,7 @@ export function generateSeoMeta(params?: SEOParams): any {
   const keywords = params?.keywords ?? DEFAULT_SEO_PARAMS.keywords
   metas.push({ name: 'keywords', hid: 'keywords', content: keywords?.join(',') })
 
-  const image = SEO_CANONICAL_URL + (params?.image || DEFAULT_SEO_PARAMS.image)
+  const image = fixURL(site + (params?.image || DEFAULT_SEO_PARAMS.image))
   // const image = info.image || defaultSeo.image
   metas.push({ property: 'og:image', hid: 'og:image', content: image })
   metas.push({ property: 'og:image:type', hid: 'og:image:type', content: 'image/png' })
@@ -101,4 +101,9 @@ function capitalize(text: string): string {
       return [first?.toUpperCase() ?? '', ...rest].join('')
     })
     .join(' ')
+}
+
+const FIX_URL_REGEX = /([^:]\/)\//g
+function fixURL(url: string): string {
+  return url.replace(FIX_URL_REGEX, '$1')
 }

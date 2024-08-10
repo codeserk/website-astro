@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { params } = Astro.props
-const { title, meta } = generateSeoMeta(params)
+const { title, meta } = generateSeoMeta(Astro.site?.toString() ?? 'https://www.codeserk.es', params)
 ---
 
 <title>{title}</title>

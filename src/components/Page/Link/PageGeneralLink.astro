@@ -1,8 +1,18 @@
 ---
 import ProgressBar from '~/components/ProgressBar.astro'
 import ReferencesList from '~/components/ReferencesList.astro'
-import { getEntryCollectionConfig, getEntrySummaryContent, getReferencesForEntry, type Entry } from '~/utils/content'
+import {
+  getEntryCollectionConfig,
+  getEntryCreatedAt,
+  getEntrySummaryContent,
+  getReferencesForEntry,
+  type Entry,
+} from '~/utils/content'
 import PageLink from '../PageLink.astro'
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+
+dayjs.extend(localizedFormat)
 
 interface Props {
   readonly item: Entry
@@ -12,6 +22,7 @@ const { item } = Astro.props
 const config = getEntryCollectionConfig(item)
 const references = await getReferencesForEntry(item, config.referencesInLink)
 const summary = await getEntrySummaryContent(item, false)
+const createdAt = getEntryCreatedAt(item)
 ---
 
 <PageLink
@@ -22,4 +33,11 @@ const summary = await getEntrySummaryContent(item, false)
 >
   {item.data.status && item.data.progress && <ProgressBar text={item.data.status} percent={item.data.progress} />}
   <ReferencesList references={references} block />
+  {createdAt && <span class={'timeAgo'}>{dayjs(createdAt).format('LL')}</span>}
 </PageLink>
+
+<style>
+  .timeAgo {
+    text-align: right;
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 name: Belorder
-featuredImage: /career/belorder.png
+featuredImage: /career/belorder/logo.png
 references:
   - development/web
   - development/ios
@@ -10,9 +10,10 @@ references:
   - framework/react
   - framework/react-native
   - framework/nestjs
-  - technology/websockets
+  - technology/openapi
   - technology/docker
   - technology/kubernetes
+  - technology/websockets
   - technology/firebase
 mainReferences:
   - development/web
@@ -26,8 +27,96 @@ mainReferences:
   - technology/kubernetes
 startDate: 2021-06-01
 position: Full-Stack Engineer
+links:
+  - name: Website
+    href: https://belorder.com/
+  - name: Instagram
+    href: https://www.instagram.com/belorder_fr/ p
 summary:
   format: mdx
-  raw: I'm currently working for Belorder, creating awesome apps to .
+  raw: I'm currently embarking on an exciting journey with **Belorder**, where I'm diving deep into the world of restaurant technologies. My role at Belorder is `Full-stack engineer`.
 ---
 
+## Content
+
+## Summary
+
+![xl:w-64 xl:float-right display-block xl:ml-2 bordered lg alt:Jose Camara wearing Belorder's t-shirt](/career/belorder/me.png)
+
+My current role at Belorder is `Full-stack engineer`. Where _full-stack_ means really means **\*full**-stack\*. The main `full-stack engineer`, I'm not bound to a single scope: I take one problem and provide a solution for the _Frontend_, _DevOps_ and _Backend_. This way of working is great, since I'm able to have \*full-picture\* of how everything works. This also allows me to improve my skills in different areas, instead of just focusing in one.
+
+All these areas have some things in common, to make things easier:
+
+- _Everything_ is [](language/typescript), with similar compiler rules.
+- All the applications share the same linter rules.
+- All the applications share the same conventions (adapted to the scope).
+
+## Frontend
+
+The _frontend_ in this company is quite diverse, and is one of the main place to be working on. There are several applications and which serve different purposes. Mainly divided into **Internal** vs **Public**. All the applications share the same contract with the `API` and many of them even share the same business logic. Because of that, the applications are grouped into `monorepos`, so they can share business logic.
+
+For example: the `web` application and the `mobile app` application serve the same purpose (making orders), so it wouldn't make sense to _re-do_ all the business logic for each one. Both applications share a common module `core` that contains all the business logic.
+
+That means: If we have implemented a feature for the `web` (which means the feature has been added to `core` too) --> Adding it to the `mobile app` **will be a lot faster** - we just need to implement the _views_.
+
+### Internal tools
+
+These applications are meant to be used by _restaurant staff_. They allow them to prepare their catalog, and take care of the orders.
+
+#### Dashboard
+
+![bordered lg title:Login page of the dashboard; alt:Login page of the dashboard of Belorder](/career/belorder/dashboard.png)
+
+This is the main administration application. It's a web application using [](framework/nextjs) ([](framework/react)). It uses a [Ant Design](https://ant.design/) to ease the development, especially for the complex forms.
+
+#### BAM - Belorder Assistant manager
+
+![bordered lg expand alt:Main screen of Belorder's BAM](/career/belorder/bam.png)
+
+This is a [](framework/react-native) application meant to be running in the kitchen. The purpose is to manage the incoming orders. The application prints the tickets for the orders and allows staff to change the status of the orders (_In Progress_ -> _Prepared_ for example). This is one of the first applications I had to build, and helped me to understand more the basics of [](framework/react-native) and [](framework/react) itself. This was the first time I started realizing how important is to optimize applications, check `re-renders`, etc.
+
+#### KDS - Kitchen Display System
+
+![bordered lg expand alt:Main screen of Belorder's KDS](/career/belorder/kds.png)
+
+This is a newest application we are working on, also [](framework/react-native). The purpose is similar to BAM's, but in this case is dedicated to the staff responsible for preparing the food. The application will show the incoming orders, with all the products to be prepared. Staff can click on the products to _mark them as preparing_ and click again to _mark them as prepared_. This application prints tickets too.
+
+Printing tickets has been one of the main challenges, since not all the _thermal printers_ are teh same, and because we need to support `USB` and `Wifi` printing. To achieve this, we have to implement this feature natively in [](development/android)
+
+### Public applications
+
+These are the main applications of _Belorder_, used by the consumers to make orders in the restaurants.
+
+#### Web application
+
+![bordered lg full title:Main page of the web application; alt:Main page of Belorder's web application](/career/belorder/web.png)
+
+The web application is the main entrypoint for most of the online customers. It's a [](framework/react) application that uses [](framework/nextjs). The key for the success of this application is the [incremental static regeneration](https://nextjs.org/docs/pages/building-your-application/data-fetching/incremental-static-regeneration) that works quite well in [](framework/nextjs).
+With this, the web only asks for the catalogs (which uses time in the `server`), once every _X minutes_. This allows us to provider a super-fast experience: we never ask for _fresh data_ we always server the _cached data_ and asks for `refresh` every _X minutes_.
+
+However, this on its own wouldn't us to scale at the rhythm the company is growing: deploying one [](framework/nextjs) application takes some developer time to setup everything. That's why we introduced **multi-domain instances**. That is: one [](framework/nextjs) instance can take care of multiple companies. This + the use of [](database/redis) to save results of the _incremental static regeneration_ allows us to scale really fast today. We just need to tweak some values in [dashboard](#dashboard) and _voilà_: a new company has its website!.
+
+#### The Kiosk
+
+![bordered responsive title:Belorder Kiosk used in taobento restaurant; alt:Belorder Kiosk](/career/belorder/kiosk.jpg)
+
+The kiosk application allows customers to make orders in the restaurants, without waiting in queues. It's a [](framework/react-native) application that runs in [](development/android). The main challenge of this application was the optimization. [](development/android) is not fastest OS, so we had to optimize the app to make sure it works as smooth as possible.
+
+We started using [Native Base](https://nativebase.io/) for the visual components but it was a **HUGE MISTAKE**. This lib makes everything **SLOW** in Android ([Issue](https://github.com/GeekyAnts/NativeBase/issues/4302)).
+The problem was known by the maintainers, but instead of fixing they decided to move to another library, leaving this one without support. We saw a huge increase in performance once we moved out from this. Now we are using `styled-components`, which is a lot closer to using react native's native styles.
+
+#### Mobile application
+
+The mobile application is personalized for each company, and allows users to have closer relation with their favorite brands!. It's yet another [](framework/react-native) app. Shares a lot of functionality with the [web](#web) (servers basically the same purpose). Using a `monorepo` for this project proved to be really helpful, since we didn't have to _re-implement_ most of the code - just work on the views.
+
+It was also interesting to work with [](technology/fastlane) for this project, to ease the deployments.
+
+![bordered responsive title:Belorder Kiosk used in taobento restaurant; alt:Belorder Kiosk](/career/belorder/app.png)
+
+## DevOps
+
+One of my tasks at Belorder has been taking care of operations, to make sure they work and they can be used by other devs. The main tool for our infrastructure is [](technology/aws). The most vital part of it is `ECS`, which we connect with `Route53` -> `Load Balancers` -> `Target Groups`. We have other `AWS` services like `redis` or `elastic` too (not sure what marketing name they use for them tho). Learning how to maintain `AWS` services was a nice opportunity for me, complementing my knowledge of [](technology/kubernetes) and [](technology/docker).
+
+## Backend
+
+For the backend, we are mainly working with [](framework/nestjs) and [](database/mongodb). We expose different `APIs` that con be consumed by the _frontends_ through clients generated using [](technology/openapi). The architecture is quite simple and easy to maintain.

@@ -1,12 +1,15 @@
 ---
-import { getCollection, type AnyEntryMap, type ContentEntryMap } from 'astro:content'
+import { getCollection, getEntry, type AnyEntryMap, type ContentEntryMap } from 'astro:content'
 import PageContainer from '~/components/Page/PageContainer.astro'
 import PageHeader from '~/components/Page/PageHeader.astro'
 import PageLinksGrid from '~/components/Page/PageLinksGrid.astro'
 import Layout from '../../layouts/Layout.astro'
-import { getEntryIsRoot, sortEntries, type Collection } from '~/utils/content'
+import { getEntryIsRoot, getEntryRenderContent, sortEntries, type Collection } from '~/utils/content'
 import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
 import PageChallengeLink from '~/components/Page/Link/PageChallengeLink.astro'
+import Link from '~/components/Content/Link.astro'
+import PageContent from '~/components/Page/PageContent.astro'
+import Image from '~/components/Content/Image.astro'
 
 const COMPONENTS_MAP: Partial<Record<Collection, any>> = {
   career: PageCareerLink,
@@ -15,7 +18,7 @@ const COMPONENTS_MAP: Partial<Record<Collection, any>> = {
 
 export async function getStaticPaths() {
   const COLLECTIONS = [
-    'article',
+    'blog',
     'development',
     'language',
     'framework',
@@ -35,13 +38,21 @@ interface Props {
 }
 
 const { collection } = Astro.props
-const entries = sortEntries(await getCollection(collection, getEntryIsRoot))
+const entry = await getEntry('page', collection)
+
+const { Content } = (await getEntryRenderContent(entry)) ?? {}
+
+const entries = await sortEntries(await getCollection(collection, getEntryIsRoot))
 const Component = COMPONENTS_MAP[collection]
 ---
 
 <Layout>
   <PageContainer overlay>
     <PageHeader layout="two-columns" title={collection} breadcrumbs={[]} />
+
+    <PageContent layout="two-columns">
+      {Content && <Content components={{ a: Link, img: Image }} />}
+    </PageContent>
 
     <PageLinksGrid links={entries ?? []} component={Component} />
   </PageContainer>

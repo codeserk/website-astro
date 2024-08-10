@@ -1,0 +1,9 @@
+{
+  "improve-text": {
+    "prompt": "Make sure the current markdown file is correct and well-written in english. Also make sure the tone of voice is the same used in other posts like this:\n Welcome to my personal _portfolio_!. This website is meant to showcase all the [projects](/project) I work on, and the new [technologies](/technology) or [languages](/language) I use.\nI'm **José Cámara** and I'm passionate about innovative technologies and computer programming.\nAlthough the main focus of my career is [](development/web), I have acquired skills in other [development areas](/development), such as: [games](development/game), [android](development/android) and [iOS](development/ios).\nI love animals, and especially cats since we share many _personality perks_ (:\n. Leave the selection as is if it is already good, provide the improved text otherwise",
+    "context": {
+      "selection": true
+    },
+    "mode": "edit"
+  }
+}

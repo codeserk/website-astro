@@ -7,7 +7,7 @@ import PageContent from '~/components/Page/PageContent.astro'
 import PageHeader from '~/components/Page/PageHeader.astro'
 import Layout from '../layouts/Layout.astro'
 import Image from '~/components/Content/Image.astro'
-import { getEntrySummary } from '~/utils/content'
+import { getEntryRenderContent, getEntrySummary } from '~/utils/content'
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('page')
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const { entry } = Astro.props
-const { Content } = await entry.render()
+const { Content } = await getEntryRenderContent(entry)
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/image/**/*.{jpeg,jpg,png,gif}')
 const image = (await Object.entries(images).find((it) => it[0].includes(entry.data.featuredImage))?.[1]?.())?.default
 const summary = await getEntrySummary(entry)

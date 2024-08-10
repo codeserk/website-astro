@@ -1,6 +1,9 @@
 ---
 import { getImageMetadata } from '~/utils/content'
 
+const ALT_REGEX = /alt:([^;]+);?/
+const TITLE_REGEX = /title:([^;]+);?/
+
 interface Props {
   readonly src: string
   readonly alt: string
@@ -9,18 +12,74 @@ interface Props {
 const props = Astro.props
 
 const { src, alt: originalAlt } = props
-const className = originalAlt.replace(/alt:.*/, '')
-const alt = originalAlt.match(/alt:(.+)/)?.[1]
+const className = originalAlt.replace(ALT_REGEX, '').replace(TITLE_REGEX, '')
+const alt = originalAlt.match(ALT_REGEX)?.[1]
+const title = originalAlt.match(TITLE_REGEX)?.[1]
 const image = await getImageMetadata(src)
 ---
 
-{src && <img src={image?.src} class:list={['ContentImage', className]} alt={alt} title={alt} />}
+{
+  src && (
+    <>
+      {title ? (
+        <div class:list={['ImageContainer', className]}>
+          <img
+            src={image?.src}
+            class:list={['ContentImage', className]}
+            alt={alt}
+            title={title || alt}
+            loading="lazy"
+          />
+          <p class="title-container">{title}</p>
+        </div>
+      ) : (
+        <img src={image?.src} class:list={['ContentImage', className]} alt={alt} title={title || alt} loading="lazy" />
+      )}
+    </>
+  )
+}
 
 <style>
   img.ContentImage {
     &.full {
       width: 100%;
       max-width: 100%;
+    }
+
+    &.expand {
+      @media (min-width: 850px) {
+        max-width: 840px;
+        width: 840px;
+        transform: translate3d(calc(-150px + 4.25em), 0, 0);
+      }
+      @media (min-width: 1300px) {
+        max-width: 1000px;
+        width: 1000px;
+        transform: translate3d(calc(-175px), 0, 0);
+      }
+    }
+  }
+
+  .ImageContainer {
+    position: relative;
+
+    .title-container {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      color: white;
+      background-color: #000d;
+      padding: 1em 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      .title-container {
+        opacity: 0;
+      }
     }
   }
 </style>

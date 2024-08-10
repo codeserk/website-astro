@@ -28,11 +28,7 @@ const period = showDates ? extractPeriodFromDates(startDate, endDate) : undefine
 ---
 
 <div class={'pageMetaBlock'}>
-  {
-    image && (
-      <Image class={`image ${imageType ?? ''}`} src={image} width={290} height={290} alt={name} loading="eager" />
-    )
-  }
+  {image && <Image class={`image ${imageType ?? ''}`} src={image} width={290} height={290} alt={name} loading="lazy" />}
 
   <aside class={'pageMetaBlockContainer'}>
     {

@@ -32,8 +32,8 @@ const references = await getReferencesForEntry(entry, config.referencesInPage)
   {
     entry.data.links?.length > 0 && (
       <div class="externalLinks">
-        {entry.data.links?.map((link: { name: string; href: string }) => (
-          <PageExternalLink name={link.name} href={link.href} />
+        {entry.data.links?.map((link: { name: string; type?: string; href: string }) => (
+          <PageExternalLink name={link.name} class:list={[link.name, link.type]} href={link.href} />
         ))}
       </div>
     )

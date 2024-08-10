@@ -19,6 +19,7 @@ import {
   getEntryCollectionConfig,
   getEntryGalleryImages,
   getEntryImage,
+  getEntryRenderContent,
   getEntrySummary,
   getEntrySummaryContent,
   getReferencesForEntry,
@@ -26,7 +27,7 @@ import {
 
 export async function getStaticPaths() {
   const COLLECTIONS = [
-    'article',
+    'blog',
     'development',
     'language',
     'framework',
@@ -56,7 +57,7 @@ export async function getStaticPaths() {
 }
 
 const { collection, entry } = Astro.props
-const { Content } = await entry.render()
+const { Content } = await getEntryRenderContent(entry)
 
 const config = getEntryCollectionConfig(entry)
 const image = await getEntryImage(entry)
@@ -64,7 +65,7 @@ const galleryImages = await getEntryGalleryImages(entry)
 const references = await getReferencesForEntry(entry, config.referencesInPage)
 const career = await getReferencesForEntry(entry, ['career'])
 const projects = await getReferencesForEntry(entry, ['project'])
-const articles = await getReferencesForEntry(entry, ['article'])
+const articles = await getReferencesForEntry(entry, ['blog'])
 const summary = await getEntrySummary(entry)
 const summaryContent = await getEntrySummaryContent(entry)
 const breadcrumbs = getEntryBreadcrumbs(entry)
@@ -103,7 +104,7 @@ const breadcrumbs = getEntryBreadcrumbs(entry)
       <PageNearEntries collection={collection} entry={entry} />
       <PageLogs collection={collection} entry={entry} />
 
-      <PageLinksGrid header={{ title: '📺 Blog', link: '/article' }} links={articles} component={PageGeneralLink} />
+      <PageLinksGrid header={{ title: '📺 Blog', link: '/blog' }} links={articles} component={PageGeneralLink} />
       <PageLinksGrid header={{ title: '📱 Career', link: '/career' }} links={career} component={PageCareerLink} />
       <PageLinksGrid header={{ title: '🎵 Projects', link: '/project' }} links={projects} component={PageGeneralLink} />
     </aside>

@@ -9,7 +9,7 @@ interface Props {
 
 const { item } = Astro.props
 
-const date = getEntryCreatedAt(item)
+const date = await getEntryCreatedAt(item)
 const formattedDate = date ? dayjs(date).format('LL') : undefined
 const references = await getReferencesForEntry(item, ['language'])
 const language = references[0]
