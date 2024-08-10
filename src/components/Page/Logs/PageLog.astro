@@ -1,7 +1,10 @@
 ---
 import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
 import { getEntrySummaryContent, type Entry } from '~/utils/content'
+
+dayjs.extend(relativeTime)
 
 interface Props {
   readonly entry: Entry

@@ -125,7 +125,7 @@ const imageMeta = await getImageMetadata(image)
       }
 
       .imagePlaceholder {
-        background-color: white;
+        background-color: #ddd;
         width: 300px;
         height: 300px;
       }
@@ -183,6 +183,12 @@ const imageMeta = await getImageMetadata(image)
 
       .title {
         visibility: hidden;
+      }
+    }
+
+    &:not(.withImage):hover {
+      .imagePlaceholder {
+        background-color: white;
       }
     }
   }

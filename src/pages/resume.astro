@@ -8,7 +8,7 @@ import PageHeader from '~/components/Page/PageHeader.astro'
 import ProgressBar from '~/components/ProgressBar.astro'
 import ReferencesList from '~/components/ReferencesList.astro'
 import Layout from '~/layouts/Layout.astro'
-import { getEntryImage } from '~/utils/content'
+import { getEntryImage, getEntrySummaryContent } from '~/utils/content'
 
 const baseURL = Astro.site
 
@@ -105,31 +105,35 @@ const career = await Promise.all(
       startDateText: getStartDateText(item),
       endDateText: getEndDateText(item),
       period: getPeriod(item),
+      summary: await getEntrySummaryContent(item, false),
       image: await getEntryImage(item),
     })),
 )
-const education = (await getCollection('education'))
-  .sort((a, b) => {
-    const dateA = a.data.startDate
-    const dateB = b.data.startDate
-    if (dateA && !dateB) {
-      return -1
-    }
-    if (!dateA && dateB) {
-      return 1
-    }
-    if (!dateA && !dateB) {
-      return 0
-    }
+const education = await Promise.all(
+  (await getCollection('education'))
+    .sort((a, b) => {
+      const dateA = a.data.startDate
+      const dateB = b.data.startDate
+      if (dateA && !dateB) {
+        return -1
+      }
+      if (!dateA && dateB) {
+        return 1
+      }
+      if (!dateA && !dateB) {
+        return 0
+      }
 
-    return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
-  })
-  .map((item) => ({
-    ...item,
-    startDateText: getStartDateText(item),
-    endDateText: getEndDateText(item),
-    period: getPeriod(item),
-  }))
+      return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
+    })
+    .map(async (item) => ({
+      ...item,
+      startDateText: getStartDateText(item),
+      endDateText: getEndDateText(item),
+      period: getPeriod(item),
+      summary: await getEntrySummaryContent(item, false),
+    })),
+)
 ---
 
 <div class="resumeContainer">
@@ -246,7 +250,7 @@ const education = (await getCollection('education'))
                     </div>
                   </div>
                   <div class="item-content">
-                    {index < 4 && item.data.summary.raw && <ContentMarkdown content={item.data.summary.raw} />}
+                    {index < 4 && item.summary && <ContentMarkdown content={item.summary} />}
                     <ReferencesList references={item.data.mainReferences} />
                   </div>
                 </div>
@@ -283,7 +287,7 @@ const education = (await getCollection('education'))
                     </div>
                   </div>
                   <div class="item-content">
-                    <ContentMarkdown content={item.data.summary.raw} />
+                    <ContentMarkdown content={item.summary} />
                   </div>
                 </div>
               ))

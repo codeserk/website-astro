@@ -16,6 +16,8 @@ import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
 import PageChallengeLink from '~/components/Page/Link/PageChallengeLink.astro'
 import EntrySummary from '~/components/Content/EntrySummary.astro'
 import { sortEntries } from '~/utils/content'
+import Journal from './journal.astro'
+import LogsJournal from '~/components/Page/Logs/LogsJournal.astro'
 
 const aboutMe = await getEntry('page', 'about-me')
 
@@ -126,7 +128,7 @@ const career = (await getCollection('career')).sort((a, b) => {
   <LayoutContainer full overlay>
     <div class="sections">
       <section>
-        <h2><a href="/about-me">🐱 About Me</a></h2>
+        <h2><a href="/about-me">About Me 🐱</a></h2>
 
         <PageContent layout="small">
           <ContentMarkdown content={aboutMe.body} />
@@ -134,7 +136,17 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/blog"><h2>📺 Blog</h2></a>
+        <a href="/journal"><h2>Journal 📝</h2></a>
+
+        <LogsJournal combineDates max={3} />
+
+        <div class="more">
+          <a href="/journal">More logs...</a>
+        </div>
+      </section>
+
+      <section>
+        <a href="/blog"><h2>Blog 📺</h2></a>
 
         <PageLinksGrid links={recentArticles} />
 
@@ -144,13 +156,13 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/language"><h2>👓 Languages</h2></a>
+        <a href="/language"><h2>Languages 👓</h2></a>
 
         <HomeLanguages />
       </section>
 
       <section>
-        <a href="/challenge"><h2>&lt;&gt; Last challenges</h2></a>
+        <a href="/challenge"><h2>Last challenges &lt;&gt;</h2></a>
 
         <PageLinksGrid links={lastChallenges} component={PageChallengeLink} />
 
@@ -160,13 +172,13 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/career"><h2>📱 Career</h2></a>
+        <a href="/career"><h2>Career 📱</h2></a>
 
         <PageLinksGrid links={career} component={PageCareerLink} />
       </section>
 
       <section>
-        <a href="/development/web"><h2>@ Web development</h2></a>
+        <a href="/development/web"><h2>Web development @</h2></a>
 
         <div class="web-technologies">
           <Container layout="one-column">
@@ -269,7 +281,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/project"><h2>🎵 Projects</h2></a>
+        <a href="/project"><h2>Projects 🎵</h2></a>
 
         <PageLinksGrid links={lastProjects} />
 

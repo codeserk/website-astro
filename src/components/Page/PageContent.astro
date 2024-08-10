@@ -4,13 +4,14 @@ import Container from '../Container.astro'
 
 interface Props {
   readonly layout?: ContainerLayout
+  readonly remarkFirstParagraph?: boolean
 }
 
-const { layout = 'one-column' } = Astro.props
+const { layout = 'one-column', remarkFirstParagraph } = Astro.props
 ---
 
 <Container layout={layout}>
-  <div class={'PageContent content'}>
+  <div class:list={['PageContent content', { 'remark-first-paragraph': remarkFirstParagraph }]}>
     <slot />
   </div>
 

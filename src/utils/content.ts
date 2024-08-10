@@ -20,7 +20,7 @@ interface CollectionConfig {
   readonly referencesInPage: Collection[]
 
   readonly referencesInLink: Collection[]
-  readonly showDateInLink?: boolean
+  readonly showCreatedAt?: boolean
 
   readonly hasKnowledge?: boolean
 }
@@ -75,7 +75,10 @@ const COLLECTION_CONFIG = {
     referencesInPage: ['development', 'language', 'framework', 'technology', 'message-broker', 'database'],
   },
   blog: {
-    showDateInLink: true,
+    showCreatedAt: true,
+  },
+  challenge: {
+    showCreatedAt: true,
   },
 } satisfies Partial<Record<Collection, Partial<CollectionConfig>>>
 
@@ -164,6 +167,12 @@ export function entrySortFn(entryA: Entry, entryB: Entry): number {
   if (entryA.collection === entryB.collection) {
     // Sort by order
     if (entryA.data.order !== undefined || entryB.data.order !== undefined) {
+      if (entryA.data.order === undefined) {
+        return 1
+      }
+      if (entryB.data.order === undefined) {
+        return -1
+      }
       return entryA.data.order - entryB.data.order
     }
 
@@ -303,11 +312,11 @@ export function getEntryCreatedAt(entry: Entry): Date | undefined {
   if (entry.data.publishedAt) {
     return dayjs(entry.data.publishedAt).toDate()
   }
-  if (entry.data.createdAt) {
-    return dayjs(entry.data.createdAt).toDate()
-  }
   if (entry.data.startDate) {
     return dayjs(entry.data.startDate).toDate()
+  }
+  if (entry.data.createdAt) {
+    return dayjs(entry.data.createdAt).toDate()
   }
   const createdAt = RENDER_CACHE[getEntryLink(entry)]?.remarkPluginFrontmatter?.createdAt
   if (createdAt) {
@@ -402,7 +411,7 @@ interface JournalBlock {
   readonly logs: Entry[]
 }
 
-export async function groupEntryLogsIntoJournalBlocks(entries: Entry[]): Promise<JournalBlock[]> {
+export async function groupEntryLogsIntoJournalBlocks(entries: Entry[], max?: number): Promise<JournalBlock[]> {
   const individualBlocks = await Promise.all(
     entries.map<Promise<JournalBlock>>(async (entry) => {
       const date = dayjs(getEntryCreatedAt(entry) ?? new Date())
@@ -419,7 +428,8 @@ export async function groupEntryLogsIntoJournalBlocks(entries: Entry[]): Promise
     }),
   )
 
-  return individualBlocks.reduce((result, block) => {
+  const filteredBlocks = max ? individualBlocks.slice(0, max) : individualBlocks
+  return filteredBlocks.reduce((result, block) => {
     const last = result[result.length - 1]
     if (last?.year !== block.year || last?.month !== block.month || last?.entry?.id !== block.entry.id) {
       return [

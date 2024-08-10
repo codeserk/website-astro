@@ -83,7 +83,7 @@ const createdAt = getEntryCreatedAt(entry)
       imageType="bordered md"
     />
 
-    <PageContent layout="two-columns">
+    <PageContent layout="two-columns" remarkFirstParagraph>
       {
         (references.length > 0 || createdAt || image) && (
           <div slot="right">
@@ -106,9 +106,9 @@ const createdAt = getEntryCreatedAt(entry)
       <PageNearEntries collection={collection} entry={entry} />
       <PageLogs collection={collection} entry={entry} />
 
-      <PageLinksGrid header={{ title: '📺 Blog', link: '/blog' }} links={articles} component={PageGeneralLink} />
-      <PageLinksGrid header={{ title: '📱 Career', link: '/career' }} links={career} component={PageCareerLink} />
-      <PageLinksGrid header={{ title: '🎵 Projects', link: '/project' }} links={projects} component={PageGeneralLink} />
+      <PageLinksGrid header={{ title: 'Blog 📺', link: '/blog' }} links={articles} component={PageGeneralLink} />
+      <PageLinksGrid header={{ title: 'Career 📱', link: '/career' }} links={career} component={PageCareerLink} />
+      <PageLinksGrid header={{ title: 'Projects 🎵', link: '/project' }} links={projects} component={PageGeneralLink} />
     </aside>
   </PageContainer>
 </Layout>

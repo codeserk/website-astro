@@ -1,0 +1,61 @@
+---
+import Container from '~/components/Container.astro'
+import { sortEntries, getAllLogEntries, groupEntryLogsIntoJournalBlocks } from '~/utils/content'
+import PageLinksGrid from '../PageLinksGrid.astro'
+import PageLog from './PageLog.astro'
+
+interface Props {
+  readonly combineDates?: boolean
+  readonly max?: number
+}
+
+const { combineDates, max } = Astro.props
+
+const logs = await sortEntries(await getAllLogEntries())
+const journalBlocks = await groupEntryLogsIntoJournalBlocks(logs, max)
+---
+
+<Container layout="small">
+  {
+    journalBlocks.map((block) => (
+      <>
+        {!combineDates ? (
+          <div class="content">
+            {block.newYear && <h2>{block.year}</h2>}
+            {block.newMonth && <h3>{block.month}</h3>}
+          </div>
+        ) : (
+          <div class="content">
+            {(block.newYear || block.newMonth) && (
+              <h3>
+                {block.month}, {block.year}
+              </h3>
+            )}
+          </div>
+        )}
+
+        <PageLinksGrid links={[block.entry]} />
+
+        <div class="logs-container">
+          {block.logs.map((it) => (
+            <PageLog entry={it} />
+          ))}
+        </div>
+      </>
+    ))
+  }
+</Container>
+
+<style>
+  .content {
+    margin-bottom: 2em;
+  }
+
+  .logs-container {
+    margin-bottom: -20px;
+
+    .PageLog:last-of-type {
+      padding-bottom: 2em;
+    }
+  }
+</style>

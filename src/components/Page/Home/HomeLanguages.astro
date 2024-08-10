@@ -3,14 +3,25 @@ import { getCollection } from 'astro:content'
 import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
 import ProgressBar from '~/components/ProgressBar.astro'
 import Block from '../../Block.astro'
+import { getEntrySummaryContent, type Entry } from '~/utils/content'
 
-const languages = (await getCollection('language')).sort((a, b) => a.data.order - b.data.order)
+const languages = await getCollection('language')
+const languagesWithSummaries = await Promise.all(
+  languages.map(
+    async (entry: Entry): Promise<Entry> => ({
+      ...entry,
+      summary: await getEntrySummaryContent(entry, false),
+    }),
+  ),
+)
+
+const languagesSorted = languagesWithSummaries.sort((a, b) => a.data.order - b.data.order)
 ---
 
 <div class="HomeLanguages">
   <Block padding shadow>
     {
-      languages.map((language, index) => (
+      languagesSorted.map((language, index) => (
         <>
           <div class="language">
             <div class="languageProgress">
@@ -24,7 +35,7 @@ const languages = (await getCollection('language')).sort((a, b) => a.data.order 
             <div class:list={['languageSummary', { left: index % 2 === 0, right: index % 2 !== 0 }]}>
               <Block padding="small" shadow>
                 <div class="content no-margin">
-                  <ContentMarkdown content={language.data.summary.raw} />
+                  <ContentMarkdown content={language.summary} />
                 </div>
               </Block>
             </div>

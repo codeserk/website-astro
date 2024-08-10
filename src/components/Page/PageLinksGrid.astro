@@ -2,6 +2,7 @@
 import type { Entry } from '~/utils/content'
 import PageGeneralLink from './Link/PageGeneralLink.astro'
 import type { BreadcrumbLink } from './PageBreadcrumbs.astro'
+import Container from '../Container.astro'
 
 interface Props {
   readonly header?: BreadcrumbLink
@@ -21,11 +22,13 @@ const { header, links, component: LinkComponent = PageGeneralLink } = Astro.prop
         </h2>
       )}
 
-      <div class="linksContainer">
-        {links.map((item) => (
-          <LinkComponent item={item} />
-        ))}
-      </div>
+      <Container layout="full">
+        <div class="linksContainer">
+          {links.map((item) => (
+            <LinkComponent item={item} />
+          ))}
+        </div>
+      </Container>
     </div>
   )
 }
@@ -36,6 +39,7 @@ const { header, links, component: LinkComponent = PageGeneralLink } = Astro.prop
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: 2em;
     }
 
     h2 {

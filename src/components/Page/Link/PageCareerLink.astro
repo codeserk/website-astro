@@ -19,7 +19,7 @@ interface Props {
 const { item } = Astro.props
 const config = getEntryCollectionConfig(item)
 const references = await getReferencesForEntry(item, config.referencesInLink)
-const summary = await getEntrySummaryContent(item)
+const summary = await getEntrySummaryContent(item, false)
 const image = item.data.featuredImage
 const imageMeta = await getImageMetadata(image)
 ---
@@ -54,7 +54,7 @@ const imageMeta = await getImageMetadata(image)
         {
           imageMeta && (
             <Image
-              class="image bordered lg"
+              class="image bordered md"
               src={imageMeta}
               width={150}
               height={150}

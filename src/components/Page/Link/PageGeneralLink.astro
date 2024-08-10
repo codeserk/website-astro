@@ -32,11 +32,17 @@ const createdAt = getEntryCreatedAt(item)
   summary={summary}
 >
   {item.data.status && item.data.progress && <ProgressBar text={item.data.status} percent={item.data.progress} />}
+  {item.data.status && item.data.knowledge && <ProgressBar text={item.data.status} percent={item.data.knowledge} />}
   <ReferencesList references={references} block />
-  {config.showDateInLink && createdAt && <span class={'timeAgo'}>{dayjs(createdAt).format('LL')}</span>}
+
+  {item.data.yearsLearning && <span class="yearsLearning">{item.data.yearsLearning} year(s)</span>}
+  {config.showCreatedAt && createdAt && <span class={'timeAgo'}>{dayjs(createdAt).format('LL')}</span>}
 </PageLink>
 
 <style>
+  .yearsLearning {
+    text-align: left;
+  }
   .timeAgo {
     text-align: right;
   }
