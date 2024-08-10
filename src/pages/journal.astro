@@ -1,19 +1,24 @@
 ---
 import { getEntry } from 'astro:content'
+import Container from '~/components/Container.astro'
 import Image from '~/components/Content/Image.astro'
 import Link from '~/components/Content/Link.astro'
+import PageLog from '~/components/Page/Logs/PageLog.astro'
 import PageContainer from '~/components/Page/PageContainer.astro'
 import PageContent from '~/components/Page/PageContent.astro'
 import PageHeader from '~/components/Page/PageHeader.astro'
+import PageLinksGrid from '~/components/Page/PageLinksGrid.astro'
 import Layout from '~/layouts/Layout.astro'
 import type { BreadcrumbLink } from '~/types/breadcrumbs.types'
-import { getEntryRenderContent } from '~/utils/content'
+import { getAllLogEntries, getEntryRenderContent, groupEntryLogsIntoJournalBlocks, sortEntries } from '~/utils/content'
 
 const entry = await getEntry('page', 'journal')
 const { Content } = await getEntryRenderContent(entry)
 
 const title = 'Journal'
 const breadcrumbs: BreadcrumbLink[] = []
+const logs = await sortEntries(await getAllLogEntries())
+const journalBlocks = await groupEntryLogsIntoJournalBlocks(logs)
 ---
 
 <Layout full overlay seo={{ title, breadcrumbs, description: 'Journal' }}>
@@ -23,5 +28,33 @@ const breadcrumbs: BreadcrumbLink[] = []
     <PageContent layout="two-columns">
       <Content components={{ a: Link, img: Image }} />
     </PageContent>
+    <div class="divider"></div>
+
+    <Container layout="small">
+      <!-- {logs.map((it) => <PageLog entry={it} isCurrent={it.slug === entry.slug} />)} -->
+
+      {
+        journalBlocks.map((block) => (
+          <>
+            <div class="content">
+              {block.newYear && <h2>{block.year}</h2>}
+              {block.newMonth && <h3>{block.month}</h3>}
+            </div>
+
+            <PageLinksGrid links={[block.entry]} />
+
+            {block.logs.map((it) => (
+              <PageLog entry={it} isCurrent={it.slug === entry.slug} />
+            ))}
+          </>
+        ))
+      }
+    </Container>
   </PageContainer>
 </Layout>
+
+<style>
+  .divider {
+    margin-bottom: 96px;
+  }
+</style>

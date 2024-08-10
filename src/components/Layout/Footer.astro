@@ -22,7 +22,7 @@ const data = await Promise.all(
   })),
 )
 
-const pages = await getCollection('page')
+const pages = (await sortEntries(await getCollection('page'))).filter((it) => !it.data.section)
 const url = Astro.url.pathname
 ---
 

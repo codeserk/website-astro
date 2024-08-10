@@ -33,7 +33,7 @@ const createdAt = getEntryCreatedAt(item)
 >
   {item.data.status && item.data.progress && <ProgressBar text={item.data.status} percent={item.data.progress} />}
   <ReferencesList references={references} block />
-  {createdAt && <span class={'timeAgo'}>{dayjs(createdAt).format('LL')}</span>}
+  {config.showDateInLink && createdAt && <span class={'timeAgo'}>{dayjs(createdAt).format('LL')}</span>}
 </PageLink>
 
 <style>

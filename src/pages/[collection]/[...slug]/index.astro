@@ -6,17 +6,18 @@ import Image from '~/components/Content/Image.astro'
 import Link from '~/components/Content/Link.astro'
 import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
 import PageGeneralLink from '~/components/Page/Link/PageGeneralLink.astro'
+import PageLogs from '~/components/Page/Logs/PageLogs.astro'
 import PageContainer from '~/components/Page/PageContainer.astro'
 import PageContent from '~/components/Page/PageContent.astro'
 import PageHeader from '~/components/Page/PageHeader.astro'
 import PageLinksGrid from '~/components/Page/PageLinksGrid.astro'
-import PageLogs from '~/components/Page/Logs/PageLogs.astro'
 import PageMeta from '~/components/Page/PageMeta.astro'
 import PageNearEntries from '~/components/Page/PageNearEntries.astro'
 import Layout from '../../../layouts/Layout.astro'
 import {
   getEntryBreadcrumbs,
   getEntryCollectionConfig,
+  getEntryCreatedAt,
   getEntryGalleryImages,
   getEntryImage,
   getEntryRenderContent,
@@ -69,6 +70,7 @@ const articles = await getReferencesForEntry(entry, ['blog'])
 const summary = await getEntrySummary(entry)
 const summaryContent = await getEntrySummaryContent(entry)
 const breadcrumbs = getEntryBreadcrumbs(entry)
+const createdAt = getEntryCreatedAt(entry)
 ---
 
 <Layout full overlay seo={{ title: entry.data.name, breadcrumbs, description: summary, image: image?.src }}>
@@ -83,7 +85,7 @@ const breadcrumbs = getEntryBreadcrumbs(entry)
 
     <PageContent layout="two-columns">
       {
-        (references.length > 0 || entry.data.createdAt || image) && (
+        (references.length > 0 || createdAt || image) && (
           <div slot="right">
             <PageMeta entry={entry} />
           </div>

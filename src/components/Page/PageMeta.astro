@@ -1,6 +1,6 @@
 ---
 import type { Entry } from '~/utils/content'
-import { getEntryCollectionConfig, getEntryImage, getReferencesForEntry } from '~/utils/content'
+import { getEntryCollectionConfig, getEntryCreatedAt, getEntryImage, getReferencesForEntry } from '~/utils/content'
 import ProgressBar from '../ProgressBar.astro'
 import PageExternalLink from './PageExternalLink.astro'
 import PageMetaBlock from './PageMetaBlock.astro'
@@ -14,6 +14,7 @@ const { entry } = Astro.props
 const config = getEntryCollectionConfig(entry)
 const image = await getEntryImage(entry)
 const references = await getReferencesForEntry(entry, config.referencesInPage)
+const createdAt = getEntryCreatedAt(entry)
 ---
 
 <PageMetaBlock
@@ -21,7 +22,7 @@ const references = await getReferencesForEntry(entry, config.referencesInPage)
   references={references}
   image={image}
   imageType="bordered lg"
-  createdAt={entry.data.createdAt}
+  createdAt={createdAt}
   startDate={entry.data.startDate}
   endDate={entry.data.endDate}
 >

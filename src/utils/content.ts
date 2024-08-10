@@ -18,7 +18,9 @@ interface CollectionConfig {
   readonly uri?: string
 
   readonly referencesInPage: Collection[]
+
   readonly referencesInLink: Collection[]
+  readonly showDateInLink?: boolean
 
   readonly hasKnowledge?: boolean
 }
@@ -72,6 +74,9 @@ const COLLECTION_CONFIG = {
   career: {
     referencesInPage: ['development', 'language', 'framework', 'technology', 'message-broker', 'database'],
   },
+  blog: {
+    showDateInLink: true,
+  },
 } satisfies Partial<Record<Collection, Partial<CollectionConfig>>>
 
 export function getCollectionConfig(collection?: Collection): CollectionConfig {
@@ -94,6 +99,10 @@ export function getEntryCollectionConfig(entry?: Entry): CollectionConfig {
 export async function getEntryFromReference(ref?: string): Promise<Entry | undefined> {
   if (!ref) {
     return
+  }
+
+  if (ref.startsWith('/')) {
+    ref = ref.replace('/', '')
   }
 
   const parts = ref.split('/')
@@ -190,6 +199,10 @@ export async function getAllEntries(collections: Collection[] = COLLECTIONS): Pr
   return (await Promise.all(collections.map((collection) => getCollection(collection)))).flat()
 }
 
+export async function getAllLogEntries(): Promise<Entry[]> {
+  return (await getAllEntries()).filter((entry) => getEntryIsLog(entry.slug))
+}
+
 export async function getReferencesForEntry(entry?: Entry, collections: Collection[] = COLLECTIONS): Promise<Entry[]> {
   if (!entry) {
     return []
@@ -235,6 +248,25 @@ export async function getEntryRenderContent(entry: Entry): Promise<any> {
 export function getEntryLink(entry: Entry): string {
   return `/${entry.collection}/${entry.slug}`
 }
+export function getEntryReference(entry: Entry): string {
+  return `${entry.collection}/${entry.slug}`
+}
+
+export function getLogEntryParentLink(entry: Entry): string {
+  if (getEntryIsLog(entry.slug)) {
+    return `/${entry.collection}/${entry.slug.replace(/\/log.+/, '')}`
+  }
+
+  return getEntryLink(entry)
+}
+
+export async function getLogEntryParent(entry: Entry): Promise<Entry> {
+  if (!getEntryIsLog(entry.slug)) {
+    return entry
+  }
+
+  return await getEntryFromReference(getLogEntryParentLink(entry).replace('/', ''))
+}
 
 export function getEntryLogLink(entry: Entry): string {
   if (getEntryIsLog(entry.slug)) {
@@ -277,9 +309,9 @@ export function getEntryCreatedAt(entry: Entry): Date | undefined {
   if (entry.data.startDate) {
     return dayjs(entry.data.startDate).toDate()
   }
-  const lastModified = RENDER_CACHE[getEntryLink(entry)]?.remarkPluginFrontmatter?.lastModified
-  if (lastModified) {
-    const date = dayjs(lastModified)
+  const createdAt = RENDER_CACHE[getEntryLink(entry)]?.remarkPluginFrontmatter?.createdAt
+  if (createdAt) {
+    const date = dayjs(createdAt)
     if (date.isValid()) {
       return date.toDate()
     }
@@ -338,6 +370,10 @@ export function getEntryIsRoot(entry: Entry): boolean {
 }
 
 export function getEntryIsLog(slug?: string): boolean {
+  if (!slug || typeof slug !== 'string') {
+    return false
+  }
+
   return slug?.includes('/log') ?? false
 }
 
@@ -355,6 +391,49 @@ export async function getEntryLogs(collection: Collection, slug: string): Promis
   const entries = await getCollection(collection, (it) => it.slug.includes(`${entrySlug}/log/`))
 
   return entries.sort(entrySortFn)
+}
+
+interface JournalBlock {
+  readonly year: string
+  readonly month: string
+  readonly newYear?: boolean
+  readonly newMonth?: boolean
+  readonly entry: Entry
+  readonly logs: Entry[]
+}
+
+export async function groupEntryLogsIntoJournalBlocks(entries: Entry[]): Promise<JournalBlock[]> {
+  const individualBlocks = await Promise.all(
+    entries.map<Promise<JournalBlock>>(async (entry) => {
+      const date = dayjs(getEntryCreatedAt(entry) ?? new Date())
+      const parent = await getLogEntryParent(entry)
+
+      return {
+        year: date.format('YYYY'),
+        month: date.format('MMMM'),
+        newYear: true,
+        newMonth: true,
+        entry: parent,
+        logs: [entry],
+      }
+    }),
+  )
+
+  return individualBlocks.reduce((result, block) => {
+    const last = result[result.length - 1]
+    if (last?.year !== block.year || last?.month !== block.month || last?.entry?.id !== block.entry.id) {
+      return [
+        ...result,
+        {
+          ...block,
+          newYear: last?.year !== block.year,
+          newMonth: last?.month !== block.month,
+        },
+      ]
+    }
+
+    return [...result.slice(0, result.length - 1), { ...last, logs: [...last.logs, ...block.logs] }]
+  }, [] as JournalBlock[])
 }
 
 export interface NearEntries {
