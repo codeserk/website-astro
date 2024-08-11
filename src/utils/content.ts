@@ -287,6 +287,19 @@ export function getEntryLogLink(entry: Entry): string {
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/image/**/*.{jpeg,jpg,png,gif}')
 
+export function getEntryInitials(entry: Entry): string {
+  return getEntryNameInitials(entry.data.name ?? '')
+}
+
+export function getEntryNameInitials(name: string): string {
+  return (
+    name
+      .split(' ')
+      .map((it: string) => it?.[0]?.toUpperCase())
+      .join('') ?? ''
+  )
+}
+
 export async function getEntryImage(entry: Entry): Promise<ImageMetadata | undefined> {
   return await getImageMetadata(entry.data.featuredImage)
 }
@@ -318,9 +331,12 @@ export function getEntryCreatedAt(entry: Entry): Date | undefined {
   if (entry.data.createdAt) {
     return dayjs(entry.data.createdAt).toDate()
   }
-  const createdAt = RENDER_CACHE[getEntryLink(entry)]?.remarkPluginFrontmatter?.createdAt
-  if (createdAt) {
-    const date = dayjs(createdAt)
+  if (entry.data.gitCreatedAt) {
+    return dayjs(entry.data.gitCreatedAt).toDate()
+  }
+  const gitCreatedAt = RENDER_CACHE[getEntryLink(entry)]?.remarkPluginFrontmatter?.gitCreatedAt
+  if (gitCreatedAt) {
+    const date = dayjs(gitCreatedAt)
     if (date.isValid()) {
       return date.toDate()
     }

@@ -5,7 +5,7 @@ export default {
     fontFamily: { mono: ['var(--font-body)'] },
     screens: {
       sm: '640px',
-      md: '768px',
+      md: '850px',
       lg: '1024px',
       xl: '1300px',
     },

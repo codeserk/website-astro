@@ -17,7 +17,7 @@ const { header, links, component: LinkComponent = PageGeneralLink } = Astro.prop
   links.length > 0 && (
     <div class="PageLinksGrid">
       {header && (
-        <h2 class="header">
+        <h2 class="section-header">
           <a href={header.link}>{header.title}</a>
         </h2>
       )}
@@ -39,17 +39,6 @@ const { header, links, component: LinkComponent = PageGeneralLink } = Astro.prop
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 2em;
-    }
-
-    h2 {
-      font-size: 3rem;
-      margin-bottom: 0;
-      text-align: center;
-
-      @media (min-width: 640px) {
-        font-size: 4em;
-      }
     }
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-export type ContainerLayout = 'one-column' | 'two-columns' | 'three-columns' | 'small' | 'full'
+export type ContainerLayout = 'one-column' | 'two-columns' | 'left-aside' | 'three-columns' | 'small' | 'full'
 
 interface Props {
   readonly layout?: ContainerLayout
@@ -113,6 +113,61 @@ const { layout = 'one-column' } = Astro.props
     }
   }
 
+  /* Left aside */
+
+  .container.left-aside {
+    position: relative;
+    margin: auto auto;
+    max-width: 600px;
+    margin-right: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    .right {
+      display: none;
+    }
+  }
+
+  @media (min-width: 850px) {
+    .container.left-aside {
+      margin: auto auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      max-width: 800px;
+
+      .contentContainer {
+        padding: 0 1em;
+        padding-right: 2em;
+        min-width: 500px;
+        width: 500px;
+      }
+
+      .left {
+        min-width: 300px;
+        width: 300px;
+      }
+    }
+  }
+
+  @media (min-width: 1300px) {
+    .container.left-aside {
+      max-width: 950px;
+      padding-right: 350px;
+      flex-wrap: nowrap;
+
+      .contentContainer {
+        min-width: 650px;
+        width: 650px;
+      }
+      .left {
+        min-width: 300px;
+        width: 300px;
+      }
+    }
+  }
+
   /* Three columns */
 
   .container.three-columns {
@@ -169,7 +224,7 @@ const { layout = 'one-column' } = Astro.props
 
   .container.small {
     margin: auto auto;
-    max-width: 600px;
+    max-width: 650px;
     margin-right: auto;
     margin-left: auto;
     padding-left: 0.5em;

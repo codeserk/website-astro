@@ -3,23 +3,24 @@ import { getCollection, getEntry } from 'astro:content'
 import dayjs from 'dayjs'
 import Block from '~/components/Block.astro'
 import Container from '~/components/Container.astro'
-import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
+import EntrySummary from '~/components/Content/EntrySummary.astro'
+import Image from '~/components/Content/Image.astro'
+import Link from '~/components/Content/Link.astro'
 import SocialLinks from '~/components/Layout/SocialLinks.astro'
+import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
+import PageChallengeLink from '~/components/Page/Link/PageChallengeLink.astro'
+import LogsJournal from '~/components/Page/Logs/LogsJournal.astro'
 import LayoutContainer from '~/components/Page/PageContainer.astro'
 import PageContent from '~/components/Page/PageContent.astro'
 import PageLinksGrid from '~/components/Page/PageLinksGrid.astro'
 import ProgressBar from '~/components/ProgressBar.astro'
+import { sortEntries } from '~/utils/content'
 import HomeLanguages from '../components/Page/Home/HomeLanguages.astro'
 import TypedStrings from '../components/TypedStrings'
 import Layout from '../layouts/Layout.astro'
-import PageCareerLink from '~/components/Page/Link/PageCareerLink.astro'
-import PageChallengeLink from '~/components/Page/Link/PageChallengeLink.astro'
-import EntrySummary from '~/components/Content/EntrySummary.astro'
-import { sortEntries } from '~/utils/content'
-import Journal from './journal.astro'
-import LogsJournal from '~/components/Page/Logs/LogsJournal.astro'
 
 const aboutMe = await getEntry('page', 'about-me')
+const { Content: AboutMeContent } = await aboutMe.render()
 
 const recentArticles = (await sortEntries(await getCollection('blog'))).slice(0, 2)
 const lastChallenges = (await getCollection('challenge'))
@@ -109,7 +110,7 @@ const career = (await getCollection('career')).sort((a, b) => {
               '<strong>Backend</strong> developer',
               '<a href="https://nestjs.com/" target="__blank" rel="noreferrer noopener">NestJS</a> big Fan',
               '<strong>Frontend</strong> developer',
-              '<a href="https://vuejs.org/" target="__blank" rel="noreferrer noopener">VueJS</a> lover!',
+              '<a href="https://reactnative.dev/" target="__blank" rel="noreferrer noopener">React Native</a> lover!',
               '<strong>DevOps</strong> initiated',
               '<strong>Game</strong> developer (as <em>hobby</em>)',
               '<strong>iOS</strong> and <strong>Android</strong> learner',
@@ -131,7 +132,7 @@ const career = (await getCollection('career')).sort((a, b) => {
         <h2><a href="/about-me">About Me 🐱</a></h2>
 
         <PageContent layout="small">
-          <ContentMarkdown content={aboutMe.body} />
+          <AboutMeContent components={{ a: Link, img: Image }} />
         </PageContent>
       </section>
 
@@ -370,7 +371,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       }
 
       .more {
-        margin-top: 3em;
+        margin-top: 1em;
         text-align: center;
       }
     }

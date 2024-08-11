@@ -54,7 +54,7 @@ const imageMeta = await getImageMetadata(image)
         {
           imageMeta && (
             <Image
-              class="image bordered md"
+              class="w-40 mb-4 m-auto md:ml-2 md:w-32 md:float-right image bordered sm"
               src={imageMeta}
               width={150}
               height={150}
@@ -74,13 +74,7 @@ const imageMeta = await getImageMetadata(image)
 <style>
   .PageCareerLink {
     width: 100%;
-
-    .image {
-      width: 150px;
-      height: 150px;
-      float: right;
-      margin-left: 0.25em;
-    }
+    margin-top: -2rem;
 
     .clearfix {
       clear: both;

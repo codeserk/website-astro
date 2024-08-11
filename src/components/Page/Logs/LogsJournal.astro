@@ -1,7 +1,7 @@
 ---
 import Container from '~/components/Container.astro'
-import { sortEntries, getAllLogEntries, groupEntryLogsIntoJournalBlocks } from '~/utils/content'
-import PageLinksGrid from '../PageLinksGrid.astro'
+import { getAllLogEntries, groupEntryLogsIntoJournalBlocks, sortEntries } from '~/utils/content'
+import PageReducedLink from '../Link/PageReducedLink.astro'
 import PageLog from './PageLog.astro'
 
 interface Props {
@@ -15,10 +15,10 @@ const logs = await sortEntries(await getAllLogEntries())
 const journalBlocks = await groupEntryLogsIntoJournalBlocks(logs, max)
 ---
 
-<Container layout="small">
-  {
-    journalBlocks.map((block) => (
-      <>
+{
+  journalBlocks.map((block) => (
+    <>
+      <Container layout="two-columns">
         {!combineDates ? (
           <div class="content">
             {block.newYear && <h2>{block.year}</h2>}
@@ -33,18 +33,22 @@ const journalBlocks = await groupEntryLogsIntoJournalBlocks(logs, max)
             )}
           </div>
         )}
+      </Container>
 
-        <PageLinksGrid links={[block.entry]} />
+      <Container layout="left-aside">
+        <div class="page-container" slot="left">
+          <PageReducedLink item={block.entry} />
+        </div>
 
         <div class="logs-container">
           {block.logs.map((it) => (
-            <PageLog entry={it} />
+            <PageLog entry={it} heading="h5" />
           ))}
         </div>
-      </>
-    ))
-  }
-</Container>
+      </Container>
+    </>
+  ))
+}
 
 <style>
   .content {
@@ -54,8 +58,36 @@ const journalBlocks = await groupEntryLogsIntoJournalBlocks(logs, max)
   .logs-container {
     margin-bottom: -20px;
 
+    .PageLog {
+      padding-bottom: 3em;
+    }
+
     .PageLog:last-of-type {
-      padding-bottom: 2em;
+      padding-bottom: 5em;
+    }
+  }
+
+  .page-container {
+    margin-top: 10px;
+    .PageLink {
+      margin: 20px 0 0 0 !important;
+
+      width: 300px;
+
+      .titleContainer .title {
+        font-size: 1.5rem;
+      }
+
+      img {
+        max-width: 200px;
+        max-height: 200px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 </style>

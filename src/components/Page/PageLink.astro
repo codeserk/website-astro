@@ -2,14 +2,16 @@
 import { Image } from 'astro:assets'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { getImageMetadata } from '~/utils/content'
+import { getEntryNameInitials, getImageMetadata } from '~/utils/content'
+
 import { classes } from '~/utils/style'
 import ContentMarkdown from '../Content/ContentMarkdown.astro'
 
 interface Props {
   readonly title: string
+  readonly heading?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
   readonly link: string
-  readonly summary: string
+  readonly summary?: string
   readonly image?: string
   readonly imageType?: `${'circled' | 'bordered'} ${'sm' | 'md' | 'lg'}`
   readonly date?: Date
@@ -17,19 +19,20 @@ interface Props {
 
 dayjs.extend(relativeTime)
 
-const { title, link, summary, image, imageType, date } = Astro.props
+const { title, heading, link, summary, image, imageType, date } = Astro.props
 const timeAgo = date ? dayjs(date).fromNow() : undefined
-const imageTypeClass = imageType ?? 'circled md'
+const imageTypeClass = imageType ?? 'bordered sm'
 const imageMeta = await getImageMetadata(image)
+const Heading = heading ?? 'h3'
+const initials = getEntryNameInitials(title)
 ---
 
 <div class={classes('PageLink', { withImage: !!image })}>
-  <div class={'hoverTitle'}>{title}</div>
   <div class={'linkContent'}>
-    <a class={'titleContainer'} href={link}>
-      <h3 class={classes('title')}>{title}</h3>
+    <a class:list={['titleContainer']} href={link}>
+      <Heading class={classes('title')}>{title}</Heading>
       {
-        imageMeta && (
+        imageMeta ? (
           <Image
             class={classes('image', imageTypeClass)}
             src={imageMeta}
@@ -38,9 +41,10 @@ const imageMeta = await getImageMetadata(image)
             alt={title}
             loading="eager"
           />
+        ) : (
+          <span class={classes('imagePlaceholder', 'image', imageTypeClass)}>{initials}</span>
         )
       }
-      {!image && <span class={classes('imagePlaceholder', 'image', imageTypeClass)} />}
     </a>
 
     {
@@ -51,7 +55,6 @@ const imageMeta = await getImageMetadata(image)
       )
     }
 
-    <div class={'fill'}></div>
     <div class={'meta'}>
       <slot />
       {date && <span class="timeAgo">{timeAgo}</span>}
@@ -63,30 +66,9 @@ const imageMeta = await getImageMetadata(image)
   .PageLink {
     display: block;
     width: 400px;
-    margin: 1em 2em;
+    margin: 2em 2em;
     text-align: center;
     position: relative;
-    border: 4px solid transparent;
-
-    .hoverTitle {
-      position: absolute;
-      top: calc(-1em - 4px);
-      left: -4px;
-      right: -4px;
-      font-size: 1.5rem;
-      line-height: 1em;
-      padding: 0.5rem;
-      display: none;
-      z-index: 1;
-
-      font-size: 2rem;
-      text-align: center;
-      z-index: 1;
-      line-height: 1em;
-      color: black;
-      font-weight: bold;
-      color: white;
-    }
 
     .linkContent {
       position: relative;
@@ -97,56 +79,52 @@ const imageMeta = await getImageMetadata(image)
       flex-direction: column;
 
       .titleContainer {
-        text-align: center;
-        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        gap: 1.25em;
+
+        .title {
+          font-size: 2rem;
+          text-align: center;
+          z-index: 1;
+          line-height: 1em;
+          letter-spacing: 1px;
+          font-weight: bold;
+          color: white;
+        }
+
+        .image {
+          object-fit: cover;
+          width: 300px;
+          height: 300px;
+          filter: brightness(0.95) saturate(1.1);
+        }
+      }
+
+      .imagePlaceholder {
+        background-color: #000;
         width: 300px;
         height: 300px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 1em;
+        font-size: 8rem;
       }
 
-      .title {
-        font-size: 2rem;
+      .summary {
         text-align: center;
-        z-index: 1;
-        line-height: 1em;
-        color: black;
-        font-weight: bold;
-      }
-
-      .image {
-        position: absolute;
-        object-fit: cover;
-        width: 300px;
-        height: 300px;
-        object-fit: cover;
-      }
-
-      .imagePlaceholder {
-        background-color: #ddd;
-        width: 300px;
-        height: 300px;
-      }
-
-      .fill {
-        flex: 1;
-        min-height: 0.5em;
       }
     }
 
     a:hover {
-      filter: none !important;
-    }
-
-    &.withImage {
-      .title {
-        color: white;
-      }
-
       .image {
-        filter: brightness(0.4) saturate(1.25) grayscale(0.8);
+        filter: none !important;
+      }
+      .imagePlaceholder {
+        background-color: #111;
       }
     }
 
@@ -159,37 +137,6 @@ const imageMeta = await getImageMetadata(image)
       padding: 0 1em 1em 1em;
       flex-direction: column;
       gap: 0.5em;
-    }
-
-    &.withImage:hover {
-      .hoverTitle {
-        display: block;
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: -4px;
-        right: 40px;
-        bottom: calc(-1em - 4px);
-        height: 1em;
-      }
-
-      &.withImage {
-        .image {
-          filter: none;
-        }
-      }
-
-      .title {
-        visibility: hidden;
-      }
-    }
-
-    &:not(.withImage):hover {
-      .imagePlaceholder {
-        background-color: white;
-      }
     }
   }
 

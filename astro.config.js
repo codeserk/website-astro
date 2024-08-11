@@ -8,6 +8,10 @@ import { remarkShrugPlugin } from './src/plugins/shrug.remark-plugin'
 
 import sitemap from '@astrojs/sitemap'
 import { remarkModifiedTime } from './src/plugins/last-modifierd.remark-plugin'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+import dayjs from 'dayjs'
+
+dayjs.extend(localizedFormat)
 
 // https://astro.build/config
 export default defineConfig({

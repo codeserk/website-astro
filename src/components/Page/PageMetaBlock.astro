@@ -6,7 +6,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { extractPeriodFromDates } from '../../utils/time'
 import Block from '../Block.astro'
 import ReferencesGrid from '../ReferencesGrid.astro'
-import type { EntryReference } from '~/utils/content'
+import { getEntryNameInitials, type EntryReference } from '~/utils/content'
 
 dayjs.extend(localizedFormat)
 
@@ -19,16 +19,24 @@ interface Props {
   readonly endDate?: Date
   readonly image?: ImageMetadata
   readonly imageType?: `${'circled' | 'bordered'} ${'sm' | 'md' | 'lg'}`
+  readonly showInitials?: boolean
 }
 
-const { name, references, createdAt, startDate, endDate, image, imageType = 'bordered md' } = Astro.props
+const { name, references, createdAt, startDate, endDate, image, imageType = 'bordered md', showInitials } = Astro.props
 
 const showDates = startDate || endDate
 const period = showDates ? extractPeriodFromDates(startDate, endDate) : undefined
+const initials = getEntryNameInitials(name)
 ---
 
 <div class={'pageMetaBlock'}>
-  {image && <Image class={`image ${imageType ?? ''}`} src={image} width={290} height={290} alt={name} loading="lazy" />}
+  {
+    image ? (
+      <Image class:list={[`image`, imageType ?? '']} src={image} width={290} height={290} alt={name} loading="lazy" />
+    ) : (
+      showInitials && <span class:list={[`imagePlaceholder`, imageType ?? '']}>{initials}</span>
+    )
+  }
 
   <aside class={'pageMetaBlockContainer'}>
     {
@@ -185,13 +193,29 @@ const period = showDates ? extractPeriodFromDates(startDate, endDate) : undefine
       display: none;
       width: 270px;
       height: 270px;
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
       object-fit: cover;
+    }
+
+    .imagePlaceholder {
+      display: none;
+      width: 270px;
+      height: 270px;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      background-color: #000;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
     }
 
     @media (min-width: 850px) {
       .image {
         display: block;
+      }
+
+      .imagePlaceholder {
+        display: flex;
       }
     }
   }

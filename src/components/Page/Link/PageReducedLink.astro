@@ -1,0 +1,30 @@
+---
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+import { type Entry } from '~/utils/content'
+import PageLink from '../PageLink.astro'
+
+dayjs.extend(localizedFormat)
+
+interface Props {
+  readonly item: Entry
+}
+
+const { item } = Astro.props
+---
+
+<PageLink
+  title={item.data.name}
+  heading="h4"
+  link={`/${item.collection}/${item.slug}`}
+  image={item.data.featuredImage}
+/>
+
+<style>
+  .yearsLearning {
+    text-align: left;
+  }
+  .timeAgo {
+    text-align: right;
+  }
+</style>

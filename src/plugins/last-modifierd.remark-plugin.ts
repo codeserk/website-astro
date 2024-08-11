@@ -7,7 +7,7 @@ export function remarkModifiedTime() {
     const createdAt = execSync(`git log --follow --pretty="format:%cI" --date default "${filepath}"  | tail -1`)
     const lastModified = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`)
 
-    file.data.astro.frontmatter.createdAt = createdAt.toString()
-    file.data.astro.frontmatter.lastModified = lastModified.toString()
+    file.data.astro.frontmatter.gitCreatedAt = createdAt.toString()
+    file.data.astro.frontmatter.gitLastModified = lastModified.toString()
   }
 }

@@ -8,20 +8,21 @@ dayjs.extend(relativeTime)
 
 interface Props {
   readonly entry: Entry
+  readonly heading?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
   readonly isCurrent?: boolean
 }
 
-const { entry, isCurrent } = Astro.props
+const { entry, heading, isCurrent } = Astro.props
 const summary = await getEntrySummaryContent(entry, false)
+const Heading = heading ?? 'h3'
 ---
 
 <div class="PageLog">
-  <h3 class:list={['title', { current: isCurrent }]}>
+  <Heading class:list={['title', { current: isCurrent }]}>
     <a href={`/${entry.collection}/${entry.slug}`}>{entry.data.name}</a>
-  </h3>
+  </Heading>
 
   <div class="content">{(<ContentMarkdown content={summary} />)}</div>
-
   <div class={'timeAgo'}>{dayjs(entry.data.createdAt).format('LL')}</div>
 </div>
 
@@ -32,7 +33,7 @@ const summary = await getEntrySummaryContent(entry, false)
 
     .title {
       font-size: 1.25em;
-      line-height: 1em;
+      line-height: 1.25em;
       &.current {
         color: #ffe727;
       }

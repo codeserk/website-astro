@@ -16,7 +16,7 @@ const entries = await getEntryLogs(collection, entry.slug)
   entries.length > 0 && (
     <div class="PageLogs">
       <h2 class="section-header">
-        <a href={getEntryLogLink(entry)}>📝 Log</a>
+        <a href={getEntryLogLink(entry)}>Log 📝</a>
       </h2>
 
       <Container layout="small">
@@ -27,15 +27,3 @@ const entries = await getEntryLogs(collection, entry.slug)
     </div>
   )
 }
-
-<style>
-  h2.header {
-    font-size: 3rem;
-    margin-bottom: 0;
-    text-align: center;
-
-    @media (min-width: 640px) {
-      font-size: 4em;
-    }
-  }
-</style>

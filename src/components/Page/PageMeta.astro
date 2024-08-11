@@ -20,7 +20,8 @@ const { entry } = Astro.props
 const config = getEntryCollectionConfig(entry)
 const image = await getEntryImage(entry)
 const references = await getReferencesForEntry(entry, config.referencesInPage)
-const showCreatedAt = config.showCreatedAt || getEntryIsLog(entry)
+const showCreatedAt = config.showCreatedAt || getEntryIsLog(entry.slug)
+const showInitials = !getEntryIsLog(entry.slug)
 const createdAt = showCreatedAt ? getEntryCreatedAt(entry) : undefined
 ---
 
@@ -32,6 +33,7 @@ const createdAt = showCreatedAt ? getEntryCreatedAt(entry) : undefined
   createdAt={createdAt}
   startDate={entry.data.startDate}
   endDate={entry.data.endDate}
+  showInitials={showInitials}
 >
   {entry.data.position && <span slot="before">{entry.data.position}</span>}
   {entry.data.status && entry.data.knowledge && <ProgressBar text={entry.data.status} percent={entry.data.knowledge} />}
