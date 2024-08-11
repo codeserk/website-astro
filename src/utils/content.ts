@@ -23,6 +23,7 @@ interface CollectionConfig {
   readonly showCreatedAt?: boolean
 
   readonly hasKnowledge?: boolean
+  readonly showInitials?: boolean
 }
 
 export const COLLECTIONS: Collection[] = [
@@ -70,6 +71,7 @@ const COLLECTION_CONFIG = {
   project: {
     referencesInPage: ['development', 'language', 'framework', 'technology', 'message-broker', 'database'],
     referencesInLink: ['development', 'language', 'framework'],
+    showInitials: true,
   },
   career: {
     referencesInPage: ['development', 'language', 'framework', 'technology', 'message-broker', 'database'],

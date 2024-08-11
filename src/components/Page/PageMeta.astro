@@ -21,7 +21,7 @@ const config = getEntryCollectionConfig(entry)
 const image = await getEntryImage(entry)
 const references = await getReferencesForEntry(entry, config.referencesInPage)
 const showCreatedAt = config.showCreatedAt || getEntryIsLog(entry.slug)
-const showInitials = !getEntryIsLog(entry.slug)
+const showInitials = config.showInitials && !getEntryIsLog(entry.slug)
 const createdAt = showCreatedAt ? getEntryCreatedAt(entry) : undefined
 ---
 
