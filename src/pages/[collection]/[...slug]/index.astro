@@ -25,6 +25,7 @@ import {
   getEntrySummaryContent,
   getReferencesForEntry,
 } from '../../../utils/content'
+import Game from '~/components/Game/Game.astro'
 
 export async function getStaticPaths() {
   const COLLECTIONS = [
@@ -102,12 +103,15 @@ const createdAt = getEntryCreatedAt(entry)
     </PageContent>
 
     <AstroGallery items={galleryImages} />
+
+    <Game entry={entry} />
+
     <aside>
       <PageNearEntries collection={collection} entry={entry} />
       <PageLogs collection={collection} entry={entry} />
 
       <PageLinksGrid header={{ title: 'Blog 📺', link: '/blog' }} links={articles} component={PageGeneralLink} />
-      <PageLinksGrid header={{ title: 'Career 📱', link: '/career' }} links={career} component={PageCareerLink} />
+      <PageLinksGrid header={{ title: 'Career ☎︎', link: '/career' }} links={career} component={PageCareerLink} />
       <PageLinksGrid header={{ title: 'Projects 🎵', link: '/project' }} links={projects} component={PageGeneralLink} />
     </aside>
   </PageContainer>

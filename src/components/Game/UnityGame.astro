@@ -1,0 +1,196 @@
+---
+import Container from '../Container.astro'
+import ProgressBar from '../ProgressBar.astro'
+
+interface Props {
+  readonly src: string
+  readonly aspectRatio?: string
+}
+
+const { src, aspectRatio = '3/2' } = Astro.props
+// eslint-disable-next-line no-eval
+const calculatedAspectRatio = eval(aspectRatio)
+---
+
+<div class="UnityGame">
+  <Container layout="full">
+    <h2 class="section-header">Game 🎮</h2>
+
+    <div class="canvas-container bordered responsive">
+      <div class="overlay-menu">
+        <button class="button play-button circled sm">PLAY 🎵</button>
+        <ProgressBar percent={10} text="Loading" />
+      </div>
+      <canvas id="unity-canvas" class="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+    </div>
+
+    <div class="buttons">
+      <button class="button fullscreen-button bordered sm">Fullscreen 📺</button>
+      <button class="button close-button bordered sm">Close X</button>
+    </div>
+  </Container>
+</div>
+
+<script define:vars={{ src, aspectRatio: calculatedAspectRatio }}>
+  document.addEventListener('astro:page-load', () => {
+    // Elements
+    const overlayMenu = document.querySelector('.UnityGame .overlay-menu')
+    const loader = document.querySelector('.UnityGame .ProgressBar')
+    const loaderBar = document.querySelector('.UnityGame .ProgressBar .bar')
+    const playButton = document.querySelector('.UnityGame .play-button')
+    const buttonsContainer = document.querySelector('.UnityGame .buttons')
+    const fullscreenButton = document.querySelector('.UnityGame .fullscreen-button')
+    const closeButton = document.querySelector('.UnityGame .close-button')
+    const canvasContainer = document.querySelector('.UnityGame .canvas-container')
+    const canvas = document.querySelector('#unity-canvas')
+
+    // Prepare build
+    const buildUrl = `${src}/Build`
+    const loaderUrl = buildUrl + '/webgl.loader.js'
+    const config = {
+      dataUrl: buildUrl + '/webgl.data.gz',
+      frameworkUrl: buildUrl + '/webgl.framework.js.gz',
+      codeUrl: buildUrl + '/webgl.wasm.gz',
+      streamingAssetsUrl: 'StreamingAssets',
+      showBanner: false,
+    }
+
+    // Prepare canvas
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      config.devicePixelRatio = 1
+    }
+
+    function adjustCanvas() {
+      const width = Math.min(600, window.outerWidth - 20)
+      const height = Math.min(window.outerHeight - 20, width / aspectRatio)
+      canvasContainer.style.width = `${width}px`
+      canvasContainer.style.height = `${height}px`
+      canvas.style.width = `${width}px`
+      canvas.style.height = `${height}px`
+    }
+
+    adjustCanvas()
+
+    let unityInstance
+
+    /**
+     * Starts the unity game
+     */
+    async function startGame() {
+      playButton.style.display = 'none'
+      const script = document.createElement('script')
+      script.src = loaderUrl
+      script.onload = async () => {
+        // eslint-disable-next-line no-undef
+        unityInstance = await createUnityInstance(canvas, config, (progress) => {
+          loader.style.opacity = 1
+          if (loaderBar) {
+            loaderBar.style.width = `${progress * 100}%`
+          }
+        })
+
+        buttonsContainer.style.opacity = 1
+        overlayMenu.style.display = 'none'
+      }
+
+      document.body.appendChild(script)
+    }
+
+    // Handle events
+    playButton?.addEventListener('click', () => {
+      startGame()
+    })
+    fullscreenButton?.addEventListener('click', () => {
+      if (!unityInstance) {
+        return
+      }
+
+      unityInstance.SetFullscreen(1)
+    })
+    closeButton?.addEventListener('click', () => {
+      if (!unityInstance) {
+        return
+      }
+
+      buttonsContainer.style.opacity = 0
+      overlayMenu.style.display = 'flex'
+      playButton.style.display = 'block'
+      loaderBar.style.width = 10
+      loader.style.opacity = 0
+      unityInstance.Quit()
+    })
+  })
+</script>
+
+<style>
+  .UnityGame {
+    position: relative;
+    margin: 8em auto;
+
+    .Container .contentContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas-container {
+      position: relative;
+    }
+
+    .overlay-menu {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+      gap: 2em;
+    }
+    .play-button {
+      color: black;
+      padding: 1em 2em;
+      font-size: 3rem;
+
+      @media (max-width: 600px) {
+        font-size: 2rem;
+        padding: 2em 3em;
+      }
+    }
+
+    .ProgressBar {
+      width: 300px;
+      opacity: 0;
+    }
+
+    .unity-canvas {
+      background-color: black;
+      margin: 0 auto;
+    }
+
+    .buttons {
+      margin-top: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0;
+
+      .button {
+        color: black;
+        padding: 1.5em 0.5em;
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      .close-button {
+        background-color: red;
+        color: white;
+      }
+    }
+  }
+</style>

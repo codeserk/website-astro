@@ -225,3 +225,11 @@
     font-size: 3em;
   }
 }
+
+button.button {
+  background-color: #fefefe;
+
+  &:hover, &:active {
+    background-color: #fff;
+  }
+}

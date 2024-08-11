@@ -1,0 +1,13 @@
+---
+import type { Entry } from '~/utils/content'
+import UnityGame from './UnityGame.astro'
+
+interface Props {
+  readonly entry: Entry
+}
+
+const { entry } = Astro.props
+const game = entry.data.game
+---
+
+{game?.type === 'Unity' && game.src && <UnityGame src={game.src} aspectRatio={game.aspectRatio} />}
