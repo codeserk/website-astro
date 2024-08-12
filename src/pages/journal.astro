@@ -7,7 +7,7 @@ import PageContent from '~/components/Page/PageContent.astro'
 import PageHeader from '~/components/Page/PageHeader.astro'
 import Layout from '~/layouts/Layout.astro'
 import type { BreadcrumbLink } from '~/types/breadcrumbs.types'
-import { getEntryRenderContent } from '~/utils/content'
+import { getEntryRenderContent, getEntrySummary } from '~/utils/content'
 import LogsJournal from '~/components/Page/Logs/LogsJournal.astro'
 
 const entry = await getEntry('page', 'journal')
@@ -15,9 +15,10 @@ const { Content } = await getEntryRenderContent(entry)
 
 const title = 'Journal'
 const breadcrumbs: BreadcrumbLink[] = []
+const summary = await getEntrySummary(entry, false)
 ---
 
-<Layout full overlay seo={{ title, breadcrumbs, description: 'Journal' }}>
+<Layout full overlay seo={{ title, breadcrumbs, description: summary }}>
   <PageContainer overlay>
     <PageHeader layout="two-columns" title={entry.data.name} breadcrumbs={breadcrumbs} />
 

@@ -46,7 +46,7 @@ const { collection, entry } = Astro.props
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/image/**/*.{jpeg,jpg,png,gif}')
 const image = (await Object.entries(images).find((it) => it[0].includes(entry.data.featuredImage))?.[1]?.())?.default
-const summary = await getEntrySummary(entry)
+const summary = await getEntrySummary(entry, false)
 const summaryContent = await getEntrySummaryContent(entry)
 const breadcrumbs = [...getEntryBreadcrumbs(entry), { title: entry.data.name, link: getEntryLink(entry) }]
 ---
