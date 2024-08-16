@@ -59,12 +59,11 @@ const { color } = Astro.props
     position: fixed;
     top: 0;
     right: 0;
-    bottom: 0;
     left: 0;
     z-index: -1;
     user-select: none;
     transition: opacity 0.4s ease-in;
-    height: 100rvh;
+    height: 100vh;
   }
 
   .background {
@@ -162,6 +161,10 @@ const { color } = Astro.props
   }
 
   @media (max-width: 640px) {
+    .backgroundContainer {
+      height: 90vh;
+    }
+
     .background {
       bottom: 0;
     }
