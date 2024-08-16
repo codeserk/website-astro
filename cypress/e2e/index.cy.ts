@@ -1,4 +1,4 @@
-const PRODUCTION_BASE_URL = 'https://web.codeserk.es'
+const PRODUCTION_BASE_URL = 'https://www.codeserk.es'
 const LOCAL_BASE_URL = 'http://localhost:4321'
 
 describe('general tests', () => {

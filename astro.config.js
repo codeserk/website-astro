@@ -16,7 +16,7 @@ dayjs.extend(localizedFormat)
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
-  site: 'https://web.codeserk.es',
+  site: 'https://www.codeserk.es',
   markdown: {
     remarkPlugins: [remarkToc, remarkShrugPlugin, remarkModifiedTime],
     rehypePlugins: [rehypeAccessibleEmojis],
