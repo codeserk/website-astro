@@ -3,6 +3,8 @@ import '~/assets/style/content.css'
 import '~/assets/style/tooltip.css'
 import '~/assets/style/border-radius.css'
 
+import { ViewTransitions } from 'astro:transitions'
+
 import Background from '~/components/Layout/Background.astro'
 import Footer from '~/components/Layout/Footer.astro'
 import SEO from '~/components/Layout/SEO.astro'
@@ -21,6 +23,8 @@ const { seo } = Astro.props
 <!doctype html>
 <html lang="en">
   <head>
+    <ViewTransitions />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <SEO params={seo} />
