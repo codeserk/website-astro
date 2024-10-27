@@ -29,6 +29,7 @@ export async function getStaticPaths() {
     'project',
     'career',
     'challenge',
+    'model',
   ] satisfies (keyof AnyEntryMap)[]
 
   return COLLECTIONS.map((collection) => ({ params: { collection }, props: { collection } }))

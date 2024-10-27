@@ -1,5 +1,5 @@
-import { type FunctionalComponent } from 'preact'
-import { useEffect, useRef } from 'preact/hooks'
+import React from 'react'
+import { useEffect, useRef, type FC } from 'react'
 import Swiper from 'swiper'
 // import 'swiper/css'
 
@@ -12,7 +12,7 @@ interface Props {
   readonly items: GalleryImage[]
 }
 
-export const Gallery: FunctionalComponent<Props> = ({ items }) => {
+export const Gallery: FC<Props> = ({ items }) => {
   const swiper = useRef<Swiper>()
 
   useEffect(() => {
@@ -20,9 +20,9 @@ export const Gallery: FunctionalComponent<Props> = ({ items }) => {
   }, [])
 
   return (
-    <div class="Gallery swiper" id="Gallery">
+    <div className="Gallery swiper" id="Gallery">
       {items.map((item) => (
-        <div class="swiper-slide">
+        <div className="swiper-slide">
           <img src={item.image.src} alt="full" />
         </div>
       ))}

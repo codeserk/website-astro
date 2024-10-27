@@ -82,6 +82,9 @@ const COLLECTION_CONFIG = {
   challenge: {
     showCreatedAt: true,
   },
+  model: {
+    showCreatedAt: true
+  }
 } satisfies Partial<Record<Collection, Partial<CollectionConfig>>>
 
 export function getCollectionConfig(collection?: Collection): CollectionConfig {

@@ -1,0 +1,21 @@
+---
+import type { Entry } from '~/utils/content'
+import Container from '../Container.astro'
+import { WebGLModel } from './Model'
+
+interface Props {
+  readonly entry: Entry
+}
+
+const { entry } = Astro.props
+---
+
+<br />
+
+{
+  entry.data.src && (
+    <Container layout="two-columns">
+      <WebGLModel src={entry.data.src} models={entry.data.models} client:only="react" />
+    </Container>
+  )
+}

@@ -2,7 +2,7 @@ import mdx from '@astrojs/mdx'
 import { defineConfig } from 'astro/config'
 import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis'
 import remarkToc from 'remark-toc'
-import preact from '@astrojs/preact'
+import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
 import { remarkShrugPlugin } from './src/plugins/shrug.remark-plugin'
 
@@ -10,6 +10,7 @@ import sitemap from '@astrojs/sitemap'
 import { remarkModifiedTime } from './src/plugins/last-modifierd.remark-plugin'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import dayjs from 'dayjs'
+import glsl from 'vite-plugin-glsl'
 
 dayjs.extend(localizedFormat)
 
@@ -23,7 +24,8 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    preact(),
+    react(),
+
     tailwind(),
     sitemap({
       serialize(item) {
@@ -34,4 +36,7 @@ export default defineConfig({
       },
     }),
   ],
+  vite: {
+    plugins: [glsl()],
+  },
 })

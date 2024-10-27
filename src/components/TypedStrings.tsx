@@ -1,12 +1,12 @@
-import { type FunctionalComponent } from 'preact'
-import { useEffect, useRef } from 'preact/hooks'
+import React from 'react'
+import { useEffect, useRef, type FC } from 'react'
 import Typed, { type TypedOptions } from 'typed.js'
 
 interface Props {
   readonly options: TypedOptions
 }
 
-export const TypedStrings: FunctionalComponent<Props> = ({ options }) => {
+export const TypedStrings: FC<Props> = ({ options }) => {
   const element = useRef(null)
 
   useEffect(() => {

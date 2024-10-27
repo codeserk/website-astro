@@ -9,6 +9,5 @@
     },
     "exactOptionalPropertyTypes": false,
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
   }
 }

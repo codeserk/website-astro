@@ -26,6 +26,7 @@ import {
   getReferencesForEntry,
 } from '../../../utils/content'
 import Game from '~/components/Game/Game.astro'
+import EntryModel from '~/components/WebGL/EntryModel.astro'
 
 export async function getStaticPaths() {
   const COLLECTIONS = [
@@ -39,6 +40,7 @@ export async function getStaticPaths() {
     'project',
     'career',
     'challenge',
+    'model',
   ] satisfies (keyof AnyEntryMap)[]
 
   const data = await Promise.all(
@@ -105,6 +107,7 @@ const createdAt = getEntryCreatedAt(entry)
     <AstroGallery items={galleryImages} />
 
     <Game entry={entry} />
+    <EntryModel entry={entry} />
 
     <aside>
       <PageNearEntries collection={collection} entry={entry} />
