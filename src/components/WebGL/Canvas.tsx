@@ -2,11 +2,13 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Suspense, type FC, type PropsWithChildren } from 'react'
 
-interface Props extends PropsWithChildren {}
+interface Props extends PropsWithChildren {
+  readonly size: number
+}
 
-export const WebGLCanvas: FC<Props> = ({ children }) => {
+export const WebGLCanvas: FC<Props> = ({ size, children }) => {
   return (
-    <Canvas shadows dpr={[1, 2]} style={{ width: 600, height: 600 }} flat linear gl={{ antialias: true }}>
+    <Canvas shadows dpr={[1, 2]} style={{ width: size, height: size }} flat linear gl={{ antialias: true }}>
       <Suspense fallback="Loading">
         <color attach="background" args={['#ACBACB']} />
 

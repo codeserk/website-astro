@@ -235,10 +235,13 @@ button.button {
 }
 
 .webgl-model {
-  width: 600px;
-  height: 600px;
   background-color: black;
   position: relative;
+
+  &.mobile {
+    margin-left: -24px;
+    margin-right: -24px;
+  }
 
   select {
     font-family: var(--font-code);
