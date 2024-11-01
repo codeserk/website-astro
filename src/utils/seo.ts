@@ -11,7 +11,7 @@ export interface SEOParams {
 
 export const SEO_SITE_NAME = 'José Cámara [@codeserk]'
 export const SEO_AUTHOR = 'José Cámara'
-export const TITLE_SEPARATOR = '  ▪  '
+export const TITLE_SEPARATOR = ' / '
 
 export const DEFAULT_SEO_PARAMS: SEOParams = {
   title: 'José Cámara [@codeserk]',
