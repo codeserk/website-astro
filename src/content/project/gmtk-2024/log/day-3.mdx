@@ -1,0 +1,36 @@
+---
+name: Day 3, this is it!
+featuredImage: project/gmtk-2024/day-3.png
+createdAt: 2024-08-18
+---
+
+This is the final day, this is the time to **rush** D:
+
+Good news is that we had most of the parts done, we just had to compose a game. Easy. _Right_?
+
+## Game loop
+
+My brother took care of the main game loop—he knows his stuff, so no problem there. We introduced a tutorial, which led to maybe more text than _jam testers_ are likely to read. The main issue was _making the game fun_, and we may have missed the mark here. The game **could use more interaction**, just like we could have used a little more time! :D
+
+## Performance
+
+One of the goals of the game was to _show a lot of creatures in screen_ (`Build to scale`). So the performance was key here, and the first iterations were not great. Good news is that I learnt a bit how to use the _profiler_ from Unity. We made nice improvements and we were able to show a nice amount of little things on screen at once!.
+
+## Music
+
+One of the most relevant parts that was missing was the music, and audio in general. The main idea for the music was doing something `procedural` based on _what is happening in the game_. For example, 3 voices, one for each civilization, and they grow depending on how much they are grown. _Sounds easy_. We had to simplify, of course:
+
+- Each civ has one note (A, B, C)
+- Civ grows => `Quarter note` (_A..._)
+- Civ grows a lot => `Eight note` (_A...A_)
+- Civ decreases => `Half note` with lower pitch (_AAAA_)
+
+The problem with this is that if the simulation is not fun, then the music is terrible (or inexistent in some cases /shrug)
+
+## Result
+
+You can play the final version here: [](/project/gmtk-2024) or on [itch.io](https://alecamara.itch.io/gmtk2024). This video demonstrates the main game loop: _civilizations rise and fall to a melancholic melody 🎵_.
+
+<video autoPlay loop controls muted>
+  <source src="/video/project/gmtk-2024/day-3.mp4" />
+</video>

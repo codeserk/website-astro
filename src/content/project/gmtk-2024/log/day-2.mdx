@@ -1,0 +1,39 @@
+---
+name: Day 2, let's go!
+featuredImage: project/gmtk-2024/day-2.png
+createdAt: 2024-08-17
+---
+
+I slept quite much for jam-standards (6h or so), since I'm a bit old for non-sleep jams :D.
+Good _black tea_ and good to start the day!.
+
+This was the main development day, we had some tasks to do and we did them!
+
+- \[X] Orbital camera around a target
+- \[X] Sphere (planet) that will be replace by the real planet.
+- \[X] Things that appear at random angles of the sphere.
+- \[ ] Nice-looking stuff (nope)
+
+<video autoPlay loop controls muted>
+  <source src="/video/project/gmtk-2024/day-2.mp4" />
+</video>
+
+This was the first iteration, it was using Unity's gravity which later was found to be a terrible idea. How it works is:
+
+1. Find a good position around the sphere (for now without any limit) with some separation from the surface.
+2. Create a `GameObject` (later to be replaced by the real creatures) at that position, with some physics stuff on (so they fall).
+3. Detect collision with the surface and then deactivate physics when happens.
+
+Most of the work was done in this day:
+
+## New planet from designer
+
+We had a new planet asset and it looked nice! (it's so cool to have a real artist in the team). I had to update my prototype to make sure it was not possible to land in some areas, like water or lava.
+
+## Civilization simulation
+
+The prototype was updated to add/remove creatures based on some input parameters. At this point the physics had to be removed because of the performance
+
+---
+
+**Was a long day! :D**

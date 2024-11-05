@@ -11,6 +11,7 @@ import { remarkModifiedTime } from './src/plugins/last-modifierd.remark-plugin'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import dayjs from 'dayjs'
 import glsl from 'vite-plugin-glsl'
+import remarkGemoji from 'remark-gemoji'
 
 dayjs.extend(localizedFormat)
 
@@ -19,7 +20,7 @@ export default defineConfig({
   prefetch: true,
   site: 'https://www.codeserk.es',
   markdown: {
-    remarkPlugins: [remarkToc, remarkShrugPlugin, remarkModifiedTime],
+    remarkPlugins: [remarkToc, remarkGemoji, remarkShrugPlugin, remarkModifiedTime],
     rehypePlugins: [rehypeAccessibleEmojis],
   },
   integrations: [

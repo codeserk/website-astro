@@ -279,3 +279,9 @@ button.button {
     border: 8px solid white;
   }
 }
+
+video {
+  width: 100%;
+  border: 8px solid white;
+  background-color: white;
+}
