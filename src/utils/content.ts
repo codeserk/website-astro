@@ -83,8 +83,8 @@ const COLLECTION_CONFIG = {
     showCreatedAt: true,
   },
   model: {
-    showCreatedAt: true
-  }
+    showCreatedAt: true,
+  },
 } satisfies Partial<Record<Collection, Partial<CollectionConfig>>>
 
 export function getCollectionConfig(collection?: Collection): CollectionConfig {
