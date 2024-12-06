@@ -8,6 +8,7 @@ import PageHeader from '~/components/Page/PageHeader.astro'
 import Layout from '../layouts/Layout.astro'
 import Image from '~/components/Content/Image.astro'
 import { getEntryRenderContent, getEntrySummary } from '~/utils/content'
+import Contribution from '~/components/Contribution.astro'
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('page')
@@ -34,7 +35,7 @@ const summary = await getEntrySummary(entry, false)
     <PageHeader layout="small" title={entry.data.name} breadcrumbs={[]} image={image} imageType="bordered md" />
 
     <PageContent layout="small">
-      <Content components={{ a: Link, img: Image }} />
+      <Content components={{ a: Link, img: Image, Contribution }} />
     </PageContent>
   </PageContainer>
 </Layout>

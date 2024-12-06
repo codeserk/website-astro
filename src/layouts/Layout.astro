@@ -9,6 +9,7 @@ import Background from '~/components/Layout/Background.astro'
 import Footer from '~/components/Layout/Footer.astro'
 import SEO from '~/components/Layout/SEO.astro'
 import type { SEOParams } from '~/utils/seo'
+import SocialLinks from '~/components/Layout/SocialLinks.astro'
 
 interface Props {
   readonly title?: string
@@ -38,6 +39,7 @@ const { seo } = Astro.props
   </head>
   <body>
     <Background color="#8a92d5" />
+    <SocialLinks absolute />
 
     <main>
       <slot />

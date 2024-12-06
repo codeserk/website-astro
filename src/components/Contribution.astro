@@ -1,0 +1,80 @@
+---
+
+---
+
+<h2>Ko-Fi</h2>
+
+This is a new website I'm testing for contributions. There's not much content yet, but it has more options for payments,
+like <em>PayPal</em> (which is a lot more convenient).
+
+<div id="kofi-container" class="kofi-container">
+  <iframe
+    id="kofiframe"
+    src="https://ko-fi.com/codeserk/?hidefeed=true&widget=true&embed=true&preview=true"
+    style={{
+      border: 'none',
+      width: '100%',
+      background: '#8a92d5',
+    }}
+    height="650"
+    title="codeserk"></iframe>
+</div>
+
+<h2>Buy me a coffee</h2>
+
+This is the first website that I created, is better for adding content, but it has more limited options for payments
+(only Card payment).
+
+<div class="buymeacoffee-container">
+  <a href="https://www.buymeacoffee.com/codeserk"
+    ><img
+      src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=codeserk&button_colour=8a92d5&font_colour=ffffff&font_family=Bree&outline_colour=000000&coffee_colour=ffffff"
+    /><span class="sr-only"> buymeacoffee.com</span></a
+  >
+</div>
+
+<style>
+  .buymeacoffee-container {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kofi-container {
+    align-self: center;
+    margin: 1em auto;
+    width: 400px;
+    max-width: 100%;
+    height: 620px;
+    border: 8px solid white;
+    background-color: #8a92d5;
+    position: relative;
+    overflow: hidden;
+
+    iframe {
+      *::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        border-radius: 0;
+      }
+
+      *::-webkit-scrollbar-thumb {
+        background: white;
+        border-radius: 0;
+      }
+
+      *::-webkit-scrollbar-track {
+        background: #08080eff;
+        border-radius: 0;
+      }
+    }
+  }
+</style>
+
+<script type="text/javascript">
+  document.addEventListener('astro:page-load', () => {
+    const iframe = document.getElementById('kofi-container')
+    iframe.style.display = 'block'
+  })
+</script>
