@@ -35,7 +35,6 @@ const { seo } = Astro.props
     <link rel="preload" href="/fonts/CompassGold.woff" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/fonts/DOS.woff" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/fonts/og-dcm-emoji.ttf" as="font" type="font/ttf" crossorigin />
-    <script defer data-domain="codeserk.es" src="https://plausible.io/js/script.js"></script>
   </head>
   <body>
     <Background color="#8a92d5" />
@@ -383,5 +382,15 @@ const { seo } = Astro.props
         vertical-align: -5px;
       }
     </style>
+
+    <script type="text/javascript">
+      document.addEventListener('astro:page-load', () => {
+        fetch('https://api-ingester.press.codeserk.es/api/v1/events', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'View', name: window.location.pathname, projectId: 2000 }),
+        })
+      })
+    </script>
   </body>
 </html>
