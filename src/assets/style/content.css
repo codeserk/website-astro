@@ -285,3 +285,11 @@ video {
   border: 8px solid white;
   background-color: white;
 }
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+.h-100 {
+  height: 100%;
+}

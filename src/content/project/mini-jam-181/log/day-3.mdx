@@ -1,0 +1,36 @@
+---
+name: Day 3, final tweaks.
+featuredImage: project/mini-jam-181/day-3/rain.gif
+createdAt: 2025-04-30
+---
+
+Last day of development: time to finish everything and hope it compiles (spoiler: it didn't).
+
+## Final Game Loop
+
+Arthur finished the last sprites and music, and I finished the game loop and UI.
+
+![center alt:Window raining](/project/mini-jam-181/day-3/rain.gif)
+
+<video autoPlay loop controls muted>
+  <source src="/video/project/mini-jam-181/first-demo.mp4" />
+</video>
+
+![center alt:Game UI](/project/mini-jam-181/day-3/menus.png)
+
+The game was there, just _some things_ were missing. After some work, we finished the last details like animations and balanced the game so it ended in about 5 minutes. And that's it, we had the game:
+
+![](/project/mini-jam-181/day-3/jam-version.png)
+
+Didn't we?
+
+## Ok, Let's Compile
+
+It was like 4 hours before closing time, so we had time. Let's do it! We compiled the game, and it built after some _silly mistakes_. But when we ran it...
+**NULL POINTER EXCEPTION**. The game crashed just after it started, with no `stacktrace`, and no way to know what was going on.
+
+Then we were like 2 hours debugging and testing things. _What can be wrong?_ It was tricky: the game ran perfectly in the [Unity](/framework/unity) editor, but didn't work when compiling. The biggest problem was that each change we tested meant building to know if it worked.
+
+After building with `stacktraces`, we had a clue: It was about a `ScriptableObject` for resources that was not being loaded. **PANIC**. Now what? We didn't have that much defined in resources (2 products, 1 appliance, and 2 customers), so we decided to ditch that and initialize them manually in code. This was _5 AM_, 1 hour before closing time, but **IT WORKED!**. We had a running version on itch.io:
+
+![center alt:Published version on itch.io](/project/mini-jam-181/day-3/published.png)

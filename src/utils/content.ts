@@ -492,7 +492,7 @@ async function getNearEntriesFromLogs(collection: Collection, entry: Entry): Pro
   const currentIndex = logs.findIndex((it) => it.slug === entry.slug)
 
   return {
-    previous: logs[currentIndex - 1],
-    next: logs[currentIndex + 1],
+    previous: logs[currentIndex + 1],
+    next: logs[currentIndex - 1],
   }
 }
