@@ -385,10 +385,10 @@ const { seo } = Astro.props
 
     <script type="text/javascript">
       document.addEventListener('astro:page-load', () => {
-        fetch('https://api-ingester.press.codeserk.es/api/v1/events', {
+        fetch('https://api-ingester.press.codeserk.es/api/v2/events', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'View', name: window.location.pathname, projectId: 2000 }),
+          body: JSON.stringify({ type: 'View', name: window.location.pathname, projectId: '682a23ff527d62fc7227b0ba' }),
         })
       })
     </script>
