@@ -385,11 +385,17 @@ const { seo } = Astro.props
 
     <script type="text/javascript">
       document.addEventListener('astro:page-load', () => {
-        fetch('https://api-ingester.press.codeserk.es/api/v2/events', {
+        fetch('http://localhost:5001/api/v2/events', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'View', name: window.location.pathname, projectId: '682a23ff527d62fc7227b0ba' }),
+          body: JSON.stringify({ type: 'View', name: window.location.pathname, projectId: '6853d2a6a0f5c5dcba7b5245' }),
         })
+
+        // fetch('https://api-ingester.press.codeserk.es/api/v2/events', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ type: 'View', name: window.location.pathname, projectId: '682a23ff527d62fc7227b0ba' }),
+        // })
       })
     </script>
   </body>

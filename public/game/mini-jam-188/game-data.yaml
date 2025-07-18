@@ -1,0 +1,192 @@
+key: game-1
+cases:
+  case-1:
+    id: case-1
+    content:
+      en:
+        title: 'The Broken Promise'
+        description: 'Sebastian, a 34-year-old accountant, left his family in ruins. After years of maintaining a perfect facade, the truth about his secret life has emerged. Investigate the evidence to uncover how Sebastian systematically betrayed his wife Maria and their 8-year-old daughter Sofia, draining their savings and abandoning them for another woman.'
+      fr:
+        title: 'La Promesse Brisée'
+        description: 'Sebastian, un comptable de 34 ans, a laissé sa famille en ruines. Après des années à maintenir une façade parfaite, la vérité sur sa vie secrète a émergé. Enquêtez sur les preuves pour découvrir comment Sebastian a systématiquement trahi sa femme Maria et leur fille de 8 ans Sofia, vidant leurs économies et les abandonnant pour une autre femme.'
+      es:
+        title: 'La Promesa Rota'
+        description: 'Sebastian, un contador de 34 años, dejó a su familia en ruinas. Después de años de mantener una fachada perfecta, la verdad sobre su vida secreta ha salido a la luz. Investiga las evidencias para descubrir cómo Sebastian traicionó sistemáticamente a su esposa María y su hija de 8 años Sofia, vaciando sus ahorros y abandonándolos por otra mujer.'
+    evidence:
+      - id: evidence1
+        content:
+          en:
+            title: "Child's Drawing"
+            description: "A crayon drawing found in 8-year-old Sofia's bedroom. The drawing shows a family of three - mother, father, and herself. However, the father figure's head has been heavily crossed out with red crayon."
+          fr:
+            title: "Dessin d'Enfant"
+            description: 'Un dessin au crayon trouvé dans la chambre de Sofia, 8 ans. Le dessin montre une famille de trois personnes - mère, père et elle-même. Cependant, la tête de la figure du père a été fortement barrée au crayon rouge.'
+          es:
+            title: 'Dibujo de Niña'
+            description: 'Un dibujo con crayones encontrado en la habitación de Sofia, de 8 años. El dibujo muestra una familia de tres - madre, padre y ella misma. Sin embargo, la cabeza de la figura del padre ha sido tachada fuertemente con crayón rojo.'
+        type: image
+        imagePath: /images/evidence/case1/kid-drawing.png
+      - id: evidence2
+        content:
+          en:
+            title: 'Phone Records'
+            description: "TELECOMMUNICATIONS REPORT\nAccount: Sebastian\nPeriod: Last 18 months\nCALL LOG: 847 calls to unlisted number (555-0198)\nAverage call duration: 23 minutes\nPattern: Most calls made during work hours\nFrequency increase: 6 months ago\nLast recorded call: [DATE REDACTED]"
+          fr:
+            title: 'Relevés Téléphoniques'
+            description: "RAPPORT DE TÉLÉCOMMUNICATIONS\nCompte: Sebastian\nPériode: 18 derniers mois\nJOURNAL D'APPELS: 847 appels vers numéro non répertorié (555-0198)\nDurée moyenne des appels: 23 minutes\nModèle: La plupart des appels pendant les heures de travail\nAugmentation de fréquence: Il y a 6 mois\nDernier appel enregistré: [DATE CENSURÉE]"
+          es:
+            title: 'Registros Telefónicos'
+            description: "INFORME DE TELECOMUNICACIONES\nCuenta: Sebastian\nPeríodo: Últimos 18 meses\nREGISTRO DE LLAMADAS: 847 llamadas a número no registrado (555-0198)\nDuración promedio de llamadas: 23 minutos\nPatrón: La mayoría de llamadas durante horario laboral\nAumento de frecuencia: Hace 6 meses\nÚltima llamada registrada: [FECHA CENSURADA]"
+        type: text
+      - id: evidence3
+        content:
+          en:
+            title: 'Financial Records'
+            description: "FIRST NATIONAL BANK - ACCOUNT ANALYSIS\nAccount Holder: Sebastian\nFAMILY SAVINGS ACCOUNT:\n- Starting balance (18 months ago): $87,400\n- Sofia's college fund: $23,800 (WITHDRAWN)\n- Emergency savings: $31,200 (WITHDRAWN)\n- Monthly withdrawals: $1,200-$3,400\n- Transaction notes: Hotel charges, jewelry, expensive dinners\nFINAL BALANCE: $0.00\nSTATUS: Account closed"
+          fr:
+            title: 'Dossiers Financiers'
+            description: "FIRST NATIONAL BANK - ANALYSE DE COMPTE\nTitulaire du compte: Sebastian\nCOMPTE D'ÉPARGNE FAMILIAL:\n- Solde initial (il y a 18 mois): 87 400 $\n- Fonds universitaire de Sofia: 23 800 $ (RETIRÉ)\n- Épargne d'urgence: 31 200 $ (RETIRÉ)\n- Retraits mensuels: 1 200 $-3 400 $\n- Notes de transaction: Frais d'hôtel, bijoux, dîners coûteux\nSOLDE FINAL: 0,00 $\nSTATUT: Compte fermé"
+          es:
+            title: 'Registros Financieros'
+            description: "FIRST NATIONAL BANK - ANÁLISIS DE CUENTA\nTitular de la cuenta: Sebastian\nCUENTA DE AHORROS FAMILIAR:\n- Saldo inicial (hace 18 meses): $87,400\n- Fondo universitario de Sofia: $23,800 (RETIRADO)\n- Ahorros de emergencia: $31,200 (RETIRADOS)\n- Retiros mensuales: $1,200-$3,400\n- Notas de transacción: Gastos de hotel, joyería, cenas costosas\nSALDO FINAL: $0.00\nESTADO: Cuenta cerrada"
+        type: text
+      - id: evidence4
+        content:
+          en:
+            title: 'The Escape Plan'
+            description: "A handwritten letter found in Sebastian's abandoned desk drawer:\n\n'My dearest Sebastian,\nEverything is ready for our new life in Costa Rica. I've purchased the beachfront property as planned - $340,000 using the funds you provided. Sofia will adjust, she's young. Maria will be fine, she's stronger than you think.\nWe deserve this happiness after all the sneaking around. No more lies, no more guilt.\nForever yours,\nIsabella'\n\nP.S. - I've already transferred your last payment. See you at the airport tomorrow.'"
+          fr:
+            title: "Le Plan d'Évasion"
+            description: "Une lettre manuscrite trouvée dans le tiroir abandonné du bureau de Sebastian:\n\n'Mon très cher Sebastian,\nTout est prêt pour notre nouvelle vie au Costa Rica. J'ai acheté la propriété en bord de mer comme prévu - 340 000 $ en utilisant les fonds que tu as fournis. Sofia s'adaptera, elle est jeune. Maria ira bien, elle est plus forte que tu ne le penses.\nNous méritons ce bonheur après toute cette dissimulation. Plus de mensonges, plus de culpabilité.\nPour toujours tienne,\nIsabella'\n\nP.S. - J'ai déjà transféré ton dernier paiement. Rendez-vous à l'aéroport demain.'"
+          es:
+            title: 'El Plan de Escape'
+            description: "Una carta escrita a mano encontrada en el cajón abandonado del escritorio de Sebastian:\n\n'Mi querido Sebastian,\nTodo está listo para nuestra nueva vida en Costa Rica. He comprado la propiedad frente al mar como planeamos - $340,000 usando los fondos que proporcionaste. Sofia se adaptará, es joven. María estará bien, es más fuerte de lo que piensas.\nMerecemos esta felicidad después de tanto engaño. No más mentiras, no más culpa.\nPara siempre tuya,\nIsabella'\n\nP.D. - Ya he transferido tu último pago. Te veo en el aeropuerto mañana.'"
+        type: text
+  case-2:
+    id: case-2
+    content:
+      en:
+        title: 'The Gambling Addiction'
+        description: "S.Nazarus, a 42-year-old senior financial analyst at Meridian Corp, destroyed everything through his gambling addiction. Uncover how his weekend poker games escalated into a destructive spiral of theft, lies, and desperation that cost him his career, his family's trust, and ultimately put his daughter's safety at risk."
+      fr:
+        title: 'La Dépendance au Jeu'
+        description: 'S.Nazarus, un analyste financier senior de 42 ans chez Meridian Corp, a tout détruit à cause de sa dépendance au jeu. Découvrez comment ses parties de poker du week-end ont dégénéré en une spirale destructrice de vol, de mensonges et de désespoir qui lui a coûté sa carrière, la confiance de sa famille, et a finalement mis la sécurité de sa fille en danger.'
+      es:
+        title: 'La Adicción al Juego'
+        description: 'S.Nazarus, un analista financiero senior de 42 años en Meridian Corp, destruyó todo a través de su adicción al juego. Descubre cómo sus juegos de póker de fin de semana escalaron a una espiral destructiva de robo, mentiras y desesperación que le costó su carrera, la confianza de su familia, y finalmente puso en riesgo la seguridad de su hija.'
+    evidence:
+      - id: evidence5
+        content:
+          en:
+            title: 'Legal Warning'
+            description: 'Screenshot taken from S.Nazarus computer'
+            imagePath: /images/evidence/case2/email-en.png
+          fr:
+            title: 'Avertissement Juridique'
+            description: "Capture d'écran prise de l'ordinateur de S.Nazarus"
+            imagePath: /images/evidence/case2/email-fr.png
+          es:
+            title: 'Advertencia Legal'
+            description: 'Captura de pantalla tomada de la computadora de S.Nazarus'
+            imagePath: /images/evidence/case2/email-es.png
+        type: image
+      - id: evidence6
+        content:
+          en:
+            title: 'Casino Records'
+            description: "GOLDEN PALACE CASINO - PLAYER ACTIVITY REPORT\nPlayer: S.Nazarus\nPeriod: 24-month activity period\nTOTAL LOSSES: $1,847,000\nBORROWED FROM CASINO: $450,000 (67 DAYS OVERDUE)\n\nBEHAVIOR NOTES:\n- Started with $100 poker games\n- Escalated to high-stakes blackjack ($50K hands)\n- Observed emotional reactions at tables\n- Recorded statement: 'one more win would fix everything'\n\nCASINO ACTION: Account suspended, debt collection initiated"
+          fr:
+            title: 'Dossiers du Casino'
+            description: "GOLDEN PALACE CASINO - RAPPORT D'ACTIVITÉ DU JOUEUR\nJoueur: S.Nazarus\nPériode: Période d'activité de 24 mois\nPERTES TOTALES: 1 847 000 $\nEMPRUNTÉ AU CASINO: 450 000 $ (67 JOURS DE RETARD)\n\nNOTES DE COMPORTEMENT:\n- A commencé avec des jeux de poker à 100 $\n- A escaladé vers le blackjack à enjeux élevés (mains de 50K $)\n- Réactions émotionnelles observées aux tables\n- Déclaration enregistrée: « une victoire de plus arrangerait tout »\n\nACTION DU CASINO: Compte suspendu, recouvrement de créances initié"
+          es:
+            title: 'Registros del Casino'
+            description: "GOLDEN PALACE CASINO - REPORTE DE ACTIVIDAD DEL JUGADOR\nJugador: S.Nazarus\nPeríodo: Período de actividad de 24 meses\nPÉRDIDAS TOTALES: $1,847,000\nPRESTADO DEL CASINO: $450,000 (67 DÍAS DE ATRASO)\n\nNOTAS DE COMPORTAMIENTO:\n- Comenzó con juegos de póker de $100\n- Escaló a blackjack de altas apuestas (manos de $50K)\n- Reacciones emocionales observadas en las mesas\n- Declaración registrada: 'una victoria más lo arreglaría todo'\n\nACCIÓN DEL CASINO: Cuenta suspendida, cobranza de deuda iniciada"
+        type: text
+      - id: evidence7
+        content:
+          en:
+            title: 'Threatening Note'
+            description: "A crumpled note found in S.Nazarus's car, stained with reddish substance:\n\n'NAZARUS - \nWe know your daughter's school schedule: Sofia (art class 3PM Wednesdays, soccer practice 4PM Fridays).\n\n$500K by Friday or she'll disappear like Jimmy Torrino did last month. The river doesn't give up its secrets.\n\nThis isn't a negotiation.\n\n- The Collection Agency'"
+          fr:
+            title: 'Note Menaçante'
+            description: "Une note froissée trouvée dans la voiture de S.Nazarus, tachée d'une substance rougeâtre:\n\n'NAZARUS - \nNous connaissons l'horaire scolaire de ta fille: Sofia (cours d'art 15h les mercredis, entraînement de football 16h les vendredis).\n\n500 000 $ avant vendredi ou elle disparaîtra comme Jimmy Torrino le mois dernier. La rivière ne révèle pas ses secrets.\n\nCe n'est pas une négociation.\n\n- L'Agence de Recouvrement'"
+          es:
+            title: 'Nota Amenazante'
+            description: "Una nota arrugada encontrada en el auto de S.Nazarus, manchada con una sustancia rojiza:\n\n'NAZARUS - \nConocemos el horario escolar de tu hija: Sofia (clase de arte 3PM miércoles, práctica de fútbol 4PM viernes).\n\n$500K para el viernes o desaparecerá como Jimmy Torrino el mes pasado. El río no revela sus secretos.\n\nEsto no es una negociación.\n\n- La Agencia de Cobranza'"
+        type: text
+      - id: evidence8
+        content:
+          en:
+            title: 'Audit Report'
+            description: "MERIDIAN CORP - FORENSIC AUDIT SUMMARY\nInvestigator: CPA Amanda Ross\n\nFINANCIAL IRREGULARITIES IDENTIFIED:\n- Created 43 fictitious vendors\n- Redirected pension fund contributions: $892,000\n- Falsified expense reports for 'business trips'\n- Altered payroll deductions: $1,455,892\n- Used company credit cards for cash advances: $234,000\n\nTOTAL EMBEZZLED: $2,581,892\nSTATUS: FBI financial crimes investigation ongoing"
+          fr:
+            title: "Rapport d'Audit"
+            description: "MERIDIAN CORP - RÉSUMÉ D'AUDIT JUDICIAIRE\nEnquêteur: CPA Amanda Ross\n\nIRRÉGULARITÉS FINANCIÈRES IDENTIFIÉES:\n- Créé 43 fournisseurs fictifs\n- Redirigé les contributions au fonds de pension: 892 000 $\n- Falsifié les rapports de dépenses pour des 'voyages d'affaires'\n- Altéré les déductions salariales: 1 455 892 $\n- Utilisé les cartes de crédit de l'entreprise pour des avances de fonds: 234 000 $\n\nTOTAL DÉTOURNÉ: 2 581 892 $\nSTATUT: Enquête FBI sur les crimes financiers en cours"
+          es:
+            title: 'Reporte de Auditoría'
+            description: "MERIDIAN CORP - RESUMEN DE AUDITORÍA FORENSE\nInvestigador: CPA Amanda Ross\n\nIRREGULARIDADES FINANCIERAS IDENTIFICADAS:\n- Creó 43 proveedores ficticios\n- Redirigió contribuciones del fondo de pensiones: $892,000\n- Falsificó reportes de gastos para 'viajes de negocios'\n- Alteró deducciones de nómina: $1,455,892\n- Usó tarjetas de crédito de la empresa para adelantos en efectivo: $234,000\n\nTOTAL MALVERSADO: $2,581,892\nESTADO: Investigación de crímenes financieros del FBI en curso"
+        type: text
+  case-3:
+    id: case-3
+    content:
+      en:
+        title: 'The Reckless Driver'
+        description: 'A 26-year-old marketing executive caused a devastating accident through his reckless behavior. Investigate how his arrogance, alcohol consumption, and need to show off led to a high-speed crash that not only nearly killed him and his date, but also destroyed the lives of an innocent family in another vehicle.'
+      fr:
+        title: 'Le Conducteur Imprudent'
+        description: "Un cadre marketing de 26 ans a causé un accident dévastateur par son comportement imprudent. Enquêtez sur comment son arrogance, sa consommation d'alcool et son besoin de frimer ont mené à un crash à haute vitesse qui a non seulement failli le tuer lui et sa rendez-vous, mais a aussi détruit la vie d'une famille innocente dans un autre véhicule."
+      es:
+        title: 'El Conductor Imprudente'
+        description: 'Un ejecutivo de marketing de 26 años causó un accidente devastador a través de su comportamiento imprudente. Investiga cómo su arrogancia, consumo de alcohol y necesidad de presumir llevaron a un choque a alta velocidad que no solo casi lo mató a él y a su cita, sino que también destruyó las vidas de una familia inocente en otro vehículo.'
+    evidence:
+      - id: evidence9
+        content:
+          en:
+            title: 'Hospital Report'
+            description: "MERCY GENERAL HOSPITAL - EMERGENCY ADMISSION\nPatient: Sebastian Nazarus\nAge: 26\nAdmission: 11:47 PM\nBlood Alcohol Level: 0.15% (LEGAL LIMIT: 0.08%)\nInjuries: Multiple fractures, internal bleeding, concussion\nCondition: Critical but stable\nCompanion: Jessica Martinez (22) - serious injuries\nNotes: Patient was driving at time of accident"
+            imagePath: /images/evidence/case3/hospital-report-en.png
+          fr:
+            title: 'Rapport Hospitalier'
+            description: "HÔPITAL GÉNÉRAL MERCY - ADMISSION D'URGENCE\nPatient: Sebastian Nazarus\nÂge: 26\nAdmission: 23h47\nTaux d'alcoolémie: 0,15% (LIMITE LÉGALE: 0,08%)\nBlessures: Fractures multiples, hémorragie interne, commotion\nÉtat: Critique mais stable\nCompagnon: Jessica Martinez (22) - blessures graves\nNotes: Le patient conduisait au moment de l'accident"
+            imagePath: /images/evidence/case3/hospital-report-fr.png
+          es:
+            title: 'Reporte Hospitalario'
+            description: "HOSPITAL GENERAL MERCY - ADMISIÓN DE EMERGENCIA\nPaciente: Sebastian Nazarus\nEdad: 26\nAdmisión: 11:47 PM\nNivel de Alcohol en Sangre: 0.15% (LÍMITE LEGAL: 0.08%)\nLesiones: Fracturas múltiples, hemorragia interna, conmoción\nCondición: Crítico pero estable\nAcompañante: Jessica Martinez (22) - lesiones graves\nNotas: El paciente conducía al momento del accidente"
+            imagePath: /images/evidence/case3/hospital-report-es.png
+        type: image
+      - id: evidence10
+        content:
+          en:
+            title: 'Witness Statement'
+            description: "POLICE STATEMENT - WITNESS TESTIMONY\nWitness: Robert Chen, 45\nLocation: Pine Street intersection\nTime: 11:43 PM\n\nSTATEMENT:\n'I was walking my dog when I heard screeching tires. The red sports car was going at least 80 mph in a 35 zone. The driver was shouting something about showing off to his girlfriend. When he hit the family minivan, the sound was terrible. The other car had a mom and two kids inside. They didn't deserve this.'"
+          fr:
+            title: 'Déclaration de Témoin'
+            description: "DÉCLARATION POLICIÈRE - TÉMOIGNAGE\nTémoin: Robert Chen, 45 ans\nEmplacement: Intersection Pine Street\nHeure: 23h43\n\nDÉCLARATION:\n'Je promenais mon chien quand j'ai entendu des pneus crisser. La voiture de sport rouge roulait au moins à 130 km/h dans une zone à 55. Le conducteur criait quelque chose à propos de frimer devant sa petite amie. Quand il a percuté le minivan familial, le bruit était terrible. L'autre voiture avait une mère et deux enfants à l'intérieur. Ils ne méritaient pas ça.'"
+          es:
+            title: 'Declaración del Testigo'
+            description: "DECLARACIÓN POLICIAL - TESTIMONIO DE TESTIGO\nTestigo: Robert Chen, 45 años\nUbicación: Intersección Pine Street\nHora: 11:43 PM\n\nDECLARACIÓN:\n'Estaba paseando a mi perro cuando escuché neumáticos chirriando. El auto deportivo rojo iba al menos a 80 mph en una zona de 35. El conductor gritaba algo sobre presumir frente a su novia. Cuando golpeó la minivan familiar, el sonido fue terrible. El otro auto tenía una mamá y dos niños adentro. No se merecían esto.'"
+        type: text
+      - id: evidence11
+        content:
+          en:
+            title: "Date's Interview"
+            description: "POLICE INTERVIEW TRANSCRIPT\nInterviewee: Jessica Martinez, 22\nDate: [Day after accident]\nStatus: Conscious, stable condition\n\nOFFICER: Can you tell us what happened?\nJESSICA: Sebastian had been drinking all night. He kept saying he wanted to show me how fast his car could go. I begged him to slow down, but he just laughed. He said 'trust me, babe' right before we hit that van. I keep thinking about the screaming from the other car...\n\nOFFICER: Had you seen this behavior before?\nJESSICA: This was our first date. I'll never forget those kids crying..."
+          fr:
+            title: 'Entretien avec la Petite Amie'
+            description: "TRANSCRIPTION D'ENTRETIEN POLICIER\nInterviewée: Jessica Martinez, 22 ans\nDate: [Jour après l'accident]\nÉtat: Consciente, état stable\n\nOFFICIER: Pouvez-vous nous dire ce qui s'est passé?\nJESSICA: Sebastian avait bu toute la nuit. Il n'arrêtait pas de dire qu'il voulait me montrer à quelle vitesse sa voiture pouvait aller. Je l'ai supplié de ralentir, mais il a juste ri. Il a dit 'fais-moi confiance, bébé' juste avant qu'on percute ce van. Je n'arrête pas de penser aux cris de l'autre voiture...\n\nOFFICIER: Aviez-vous vu ce comportement avant?\nJESSICA: C'était notre premier rendez-vous. Je n'oublierai jamais ces enfants qui pleuraient..."
+          es:
+            title: 'Entrevista con la Cita'
+            description: "TRANSCRIPCIÓN DE ENTREVISTA POLICIAL\nEntrevistada: Jessica Martinez, 22 años\nFecha: [Día después del accidente]\nEstado: Consciente, condición estable\n\nOFICIAL: ¿Puede decirnos qué pasó?\nJESSICA: Sebastian había estado bebiendo toda la noche. No paraba de decir que quería mostrarme qué tan rápido podía ir su auto. Le rogué que disminuyera la velocidad, pero solo se rió. Dijo 'confía en mí, nena' justo antes de golpear esa van. No puedo dejar de pensar en los gritos del otro auto...\n\nOFICIAL: ¿Había visto este comportamiento antes?\nJESSICA: Esta era nuestra primera cita. Nunca olvidaré a esos niños llorando..."
+        type: text
+      - id: evidence12
+        content:
+          en:
+            title: 'Traffic Camera'
+            description: "TRAFFIC ENFORCEMENT CAMERA - FOOTAGE ANALYSIS\nLocation: Pine Street & Oak Avenue\nTime: 11:43:22 PM\nSpeed Detection: 78 MPH (speed limit: 35 MPH)\nVehicle: Red sports car, license plate visible\nTraffic Light Status: RED (ran red light)\nImpact Analysis: T-bone collision with family vehicle\nFatalities: 2 (mother and 6-year-old child)\nSurvivors: 1 (8-year-old child, critical condition)"
+          fr:
+            title: 'Caméra de Circulation'
+            description: "CAMÉRA DE CONTRÔLE DE CIRCULATION - ANALYSE DES IMAGES\nEmplacement: Pine Street & Oak Avenue\nHeure: 23h43:22\nDétection de vitesse: 125 km/h (limite: 55 km/h)\nVéhicule: Voiture de sport rouge, plaque visible\nÉtat du feu: ROUGE (a grillé le feu rouge)\nAnalyse d'impact: Collision en T avec véhicule familial\nDécès: 2 (mère et enfant de 6 ans)\nSurvivants: 1 (enfant de 8 ans, état critique)"
+          es:
+            title: 'Cámara de Tráfico'
+            description: "CÁMARA DE CONTROL DE TRÁFICO - ANÁLISIS DE IMÁGENES\nUbicación: Pine Street & Oak Avenue\nHora: 11:43:22 PM\nDetección de velocidad: 78 MPH (límite: 35 MPH)\nVehículo: Auto deportivo rojo, placa visible\nEstado del semáforo: ROJO (se pasó el semáforo)\nAnálisis de impacto: Colisión en T con vehículo familiar\nFatalidades: 2 (madre e hijo de 6 años)\nSobrevivientes: 1 (niño de 8 años, condición crítica)"
+        type: text

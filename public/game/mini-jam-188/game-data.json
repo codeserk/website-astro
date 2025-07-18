@@ -1,0 +1,306 @@
+{
+  "key": "game-1",
+  "cases": {
+    "case-1": {
+      "id": "case-1",
+      "content": {
+        "en": {
+          "title": "The Broken Promise",
+          "description": "Sebastian, a 34-year-old accountant, left his family in ruins. After years of maintaining a perfect facade, the truth about his secret life has emerged. Investigate the evidence to uncover how Sebastian systematically betrayed his wife Maria and their 8-year-old daughter Sofia, draining their savings and abandoning them for another woman."
+        },
+        "fr": {
+          "title": "La Promesse Brisée",
+          "description": "Sebastian, un comptable de 34 ans, a laissé sa famille en ruines. Après des années à maintenir une façade parfaite, la vérité sur sa vie secrète a émergé. Enquêtez sur les preuves pour découvrir comment Sebastian a systématiquement trahi sa femme Maria et leur fille de 8 ans Sofia, vidant leurs économies et les abandonnant pour une autre femme."
+        },
+        "es": {
+          "title": "La Promesa Rota",
+          "description": "Sebastian, un contador de 34 años, dejó a su familia en ruinas. Después de años de mantener una fachada perfecta, la verdad sobre su vida secreta ha salido a la luz. Investiga las evidencias para descubrir cómo Sebastian traicionó sistemáticamente a su esposa María y su hija de 8 años Sofia, vaciando sus ahorros y abandonándolos por otra mujer."
+        }
+      },
+      "evidence": [
+        {
+          "id": "evidence1",
+          "content": {
+            "en": {
+              "title": "Child's Drawing",
+              "description": "A crayon drawing found in 8-year-old Sofia's bedroom. The drawing shows a family of three - mother, father, and herself. However, the father figure's head has been heavily crossed out with red crayon."
+            },
+            "fr": {
+              "title": "Dessin d'Enfant",
+              "description": "Un dessin au crayon trouvé dans la chambre de Sofia, 8 ans. Le dessin montre une famille de trois personnes - mère, père et elle-même. Cependant, la tête de la figure du père a été fortement barrée au crayon rouge."
+            },
+            "es": {
+              "title": "Dibujo de Niña",
+              "description": "Un dibujo con lápices de colores encontrado en la habitación de Sofia, de 8 años. El dibujo muestra una familia de tres - madre, padre y ella misma. Sin embargo, la cabeza de la figura del padre ha sido tachada fuertemente con color rojo."
+            }
+          },
+          "type": "image",
+          "imagePath": "/images/evidence/case1/kid-drawing.png"
+        },
+        {
+          "id": "evidence2",
+          "content": {
+            "en": {
+              "title": "Phone Records",
+              "description": "TELECOMMUNICATIONS REPORT\nAccount: Sebastian\nPeriod: Last 18 months\nCALL LOG: 847 calls to unlisted number (555-0198)\nAverage call duration: 23 minutes\nPattern: Most calls made during work hours\nFrequency increase: 6 months ago\nLast recorded call: [DATE REDACTED]"
+            },
+            "fr": {
+              "title": "Relevés Téléphoniques",
+              "description": "RAPPORT DE TÉLÉCOMMUNICATIONS\nCompte: Sebastian\nPériode: 18 derniers mois\nJOURNAL D'APPELS: 847 appels vers numéro non répertorié (555-0198)\nDurée moyenne des appels: 23 minutes\nModèle: La plupart des appels pendant les heures de travail\nAugmentation de fréquence: Il y a 6 mois\nDernier appel enregistré: [DATE CENSURÉE]"
+            },
+            "es": {
+              "title": "Registros Telefónicos",
+              "description": "INFORME DE TELECOMUNICACIONES\nCuenta: Sebastian\nPeríodo: Últimos 18 meses\nREGISTRO DE LLAMADAS: 847 llamadas a número no registrado (555-0198)\nDuración promedio de llamadas: 23 minutos\nPatrón: La mayoría de llamadas durante horario laboral\nAumento de frecuencia: Hace 6 meses\nÚltima llamada registrada: [FECHA CENSURADA]"
+            }
+          },
+          "type": "text"
+        },
+        {
+          "id": "evidence3",
+          "content": {
+            "en": {
+              "title": "Financial Records",
+              "description": "FIRST NATIONAL BANK - ACCOUNT ANALYSIS\nAccount Holder: Sebastian\nFAMILY SAVINGS ACCOUNT:\n- Starting balance (18 months ago): $87,400\n- Sofia's college fund: $23,800 (WITHDRAWN)\n- Emergency savings: $31,200 (WITHDRAWN)\n- Monthly withdrawals: $1,200-$3,400\n- Transaction notes: Hotel charges, jewelry, expensive dinners\nFINAL BALANCE: $0.00\nSTATUS: Account closed"
+            },
+            "fr": {
+              "title": "Dossiers Financiers",
+              "description": "FIRST NATIONAL BANK - ANALYSE DE COMPTE\nTitulaire du compte: Sebastian\nCOMPTE D'ÉPARGNE FAMILIAL:\n- Solde initial (il y a 18 mois): 87 400 $\n- Fonds universitaire de Sofia: 23 800 $ (RETIRÉ)\n- Épargne d'urgence: 31 200 $ (RETIRÉ)\n- Retraits mensuels: 1 200 $-3 400 $\n- Notes de transaction: Frais d'hôtel, bijoux, dîners coûteux\nSOLDE FINAL: 0,00 $\nSTATUT: Compte fermé"
+            },
+            "es": {
+              "title": "Registros Financieros",
+              "description": "FIRST NATIONAL BANK - ANÁLISIS DE CUENTA\nTitular de la cuenta: Sebastian\nCUENTA DE AHORROS FAMILIAR:\n- Saldo inicial (hace 18 meses): $87,400\n- Fondo universitario de Sofia: $23,800 (RETIRADO)\n- Ahorros de emergencia: $31,200 (RETIRADOS)\n- Retiros mensuales: $1,200-$3,400\n- Notas de transacción: Gastos de hotel, joyería, cenas costosas\nSALDO FINAL: $0.00\nESTADO: Cuenta cerrada"
+            }
+          },
+          "type": "text"
+        },
+        {
+          "id": "evidence4",
+          "content": {
+            "en": {
+              "title": "The Escape Plan",
+              "description": "A handwritten letter found in Sebastian's abandoned desk drawer:\n\n'My dearest Sebastian,\nEverything is ready for our new life in Costa Rica. I've purchased the beachfront property as planned - $340,000 using the funds you provided. Sofia will adjust, she's young. Maria will be fine, she's stronger than you think.\nWe deserve this happiness after all the sneaking around. No more lies, no more guilt.\nForever yours,\nIsabella'\n\nP.S. - I've already transferred your last payment. See you at the airport tomorrow.'"
+            },
+            "fr": {
+              "title": "Le Plan d'Évasion",
+              "description": "Une lettre manuscrite trouvée dans le tiroir abandonné du bureau de Sebastian:\n\n'Mon très cher Sebastian,\nTout est prêt pour notre nouvelle vie au Costa Rica. J'ai acheté la propriété en bord de mer comme prévu - 340 000 $ en utilisant les fonds que tu as fournis. Sofia s'adaptera, elle est jeune. Maria ira bien, elle est plus forte que tu ne le penses.\nNous méritons ce bonheur après toute cette dissimulation. Plus de mensonges, plus de culpabilité.\nPour toujours tienne,\nIsabella'\n\nP.S. - J'ai déjà transféré ton dernier paiement. Rendez-vous à l'aéroport demain.'"
+            },
+            "es": {
+              "title": "El Plan de Escape",
+              "description": "Una carta escrita a mano encontrada en el cajón abandonado del escritorio de Sebastian:\n\n'Mi querido Sebastian,\nTodo está listo para nuestra nueva vida en Costa Rica. He comprado la propiedad frente al mar como planeamos - $340,000 usando los fondos que me mandastes. Sofia se adaptará, es joven. María estará bien, es más fuerte de lo que piensas.\nMerecemos esta felicidad después de tanto engaño. No más mentiras, no más culpa.\nPara siempre tuya,\nIsabella'\n\nP.D. - Ya he transferido tu último pago. Te veo en el aeropuerto mañana.'"
+            }
+          },
+          "type": "text"
+        }
+      ]
+    },
+    "case-2": {
+      "id": "case-2",
+      "content": {
+        "en": {
+          "title": "The Gambling Addiction",
+          "description": "S.Nazarus, a 42-year-old senior financial analyst at Meridian Corp, destroyed everything through his gambling addiction. Uncover how his weekend poker games escalated into a destructive spiral of theft, lies, and desperation that cost him his career, his family's trust, and ultimately put his daughter's safety at risk."
+        },
+        "fr": {
+          "title": "La Dépendance au Jeu",
+          "description": "S.Nazarus, un analyste financier senior de 42 ans chez Meridian Corp, a tout détruit à cause de sa dépendance au jeu. Découvrez comment ses parties de poker du week-end ont dégénéré en une spirale destructrice de vol, de mensonges et de désespoir qui lui a coûté sa carrière, la confiance de sa famille, et a finalement mis la sécurité de sa fille en danger."
+        },
+        "es": {
+          "title": "La Adicción al Juego",
+          "description": "S.Nazarus, un analista financiero senior de 42 años en Meridian Corp, destruyó todo a través de su adicción al juego. Descubre cómo sus juegos de póker de fin de semana escalaron a una espiral destructiva de robo, mentiras y desesperación que le costó su carrera, la confianza de su familia, y finalmente puso en riesgo la seguridad de su hija."
+        }
+      },
+      "evidence": [
+        {
+          "id": "evidence5",
+          "content": {
+            "en": {
+              "title": "S.Nazarus Photo",
+              "description": "Personnel photo of S.Nazarus from company records",
+              "imagePath": "/images/evidence/case2/nazarus.png"
+            },
+            "fr": {
+              "title": "Photo de S.Nazarus",
+              "description": "Photo de personnel de S.Nazarus des dossiers de l'entreprise",
+              "imagePath": "/images/evidence/case2/nazarus.png"
+            },
+            "es": {
+              "title": "Foto de S.Nazarus",
+              "description": "Foto de personal de S.Nazarus de los registros de la empresa",
+              "imagePath": "/images/evidence/case2/nazarus.png"
+            }
+          },
+          "type": "image"
+        },
+        {
+          "id": "evidence6",
+          "content": {
+            "en": {
+              "title": "Legal Warning",
+              "description": "Screenshot taken from S.Nazarus computer",
+              "imagePath": "/images/evidence/case2/email-en.png"
+            },
+            "fr": {
+              "title": "Avertissement Juridique",
+              "description": "Capture d'écran prise de l'ordinateur de S.Nazarus",
+              "imagePath": "/images/evidence/case2/email-fr.png"
+            },
+            "es": {
+              "title": "Advertencia Legal",
+              "description": "Captura de pantalla tomada de la computadora de S.Nazarus",
+              "imagePath": "/images/evidence/case2/email-es.png"
+            }
+          },
+          "type": "image"
+        },
+        {
+          "id": "evidence7",
+          "content": {
+            "en": {
+              "title": "Casino Records",
+              "description": "GOLDEN PALACE CASINO - PLAYER ACTIVITY REPORT\nPlayer: S.Nazarus\nPeriod: 24-month activity period\nTOTAL LOSSES: $1,847,000\nBORROWED FROM CASINO: $450,000 (67 DAYS OVERDUE)\n\nBEHAVIOR NOTES:\n- Started with $100 poker games\n- Escalated to high-stakes blackjack ($50K hands)\n- Observed emotional reactions at tables\n- Recorded statement: 'one more win would fix everything'\n\nCASINO ACTION: Account suspended, debt collection initiated"
+            },
+            "fr": {
+              "title": "Dossiers du Casino",
+              "description": "GOLDEN PALACE CASINO - RAPPORT D'ACTIVITÉ DU JOUEUR\nJoueur: S.Nazarus\nPériode: Période d'activité de 24 mois\nPERTES TOTALES: 1 847 000 $\nEMPRUNTÉ AU CASINO: 450 000 $ (67 JOURS DE RETARD)\n\nNOTES DE COMPORTEMENT:\n- A commencé avec des jeux de poker à 100 $\n- A escaladé vers le blackjack à enjeux élevés (mains de 50K $)\n- Réactions émotionnelles observées aux tables\n- Déclaration enregistrée: « une victoire de plus arrangerait tout »\n\nACTION DU CASINO: Compte suspendu, recouvrement de créances initié"
+            },
+            "es": {
+              "title": "Registros del Casino",
+              "description": "GOLDEN PALACE CASINO - REPORTE DE ACTIVIDAD DEL JUGADOR\nJugador: S.Nazarus\nPeríodo: Período de actividad de 24 meses\nPÉRDIDAS TOTALES: $1,847,000\nPRESTADO DEL CASINO: $450,000 (67 DÍAS DE ATRASO)\n\nNOTAS DE COMPORTAMIENTO:\n- Comenzó con juegos de póker de $100\n- Escaló a blackjack de altas apuestas (manos de $50K)\n- Reacciones emocionales observadas en las mesas\n- Declaración registrada: 'una victoria más lo arreglaría todo'\n\nACCIÓN DEL CASINO: Cuenta suspendida, cobranza de deuda iniciada"
+            }
+          },
+          "type": "text"
+        },
+        {
+          "id": "evidence8",
+          "content": {
+            "en": {
+              "title": "Threatening Note",
+              "description": "A crumpled note found in S.Nazarus's car, stained with reddish substance:\n\n'NAZARUS - \nWe know your daughter's school schedule: Sofia (art class 3PM Wednesdays, soccer practice 4PM Fridays).\n\n$500K by Friday or she'll disappear like Jimmy Torrino did last month. The river doesn't give up its secrets.\n\nThis isn't a negotiation.\n\n- The Collection Agency'"
+            },
+            "fr": {
+              "title": "Note Menaçante",
+              "description": "Une note froissée trouvée dans la voiture de S.Nazarus, tachée d'une substance rougeâtre:\n\n'NAZARUS - \nNous connaissons l'horaire scolaire de ta fille: Sofia (cours d'art 15h les mercredis, entraînement de football 16h les vendredis).\n\n500 000 $ avant vendredi ou elle disparaîtra comme Jimmy Torrino le mois dernier. La rivière ne révèle pas ses secrets.\n\nCe n'est pas une négociation.\n\n- L'Agence de Recouvrement'"
+            },
+            "es": {
+              "title": "Nota Amenazante",
+              "description": "Una nota arrugada encontrada en el auto de S.Nazarus, manchada con una sustancia rojiza:\n\n'NAZARUS - \nConocemos el horario escolar de tu hija: Sofia (clase de arte 3PM miércoles, práctica de fútbol 4PM viernes).\n\n$500K para el viernes o desaparecerá como Jimmy Torrino el mes pasado. El río no revela sus secretos.\n\nEsto no es una negociación.\n\n- La Agencia de Cobranza'"
+            }
+          },
+          "type": "text"
+        },
+        {
+          "id": "evidence9",
+          "content": {
+            "en": {
+              "title": "Audit Report",
+              "description": "MERIDIAN CORP - FORENSIC AUDIT SUMMARY\nInvestigator: CPA Amanda Ross\n\nFINANCIAL IRREGULARITIES IDENTIFIED:\n- Created 43 fictitious vendors\n- Redirected pension fund contributions: $892,000\n- Falsified expense reports for 'business trips'\n- Altered payroll deductions: $1,455,892\n- Used company credit cards for cash advances: $234,000\n\nTOTAL EMBEZZLED: $2,581,892\nSTATUS: FBI financial crimes investigation ongoing"
+            },
+            "fr": {
+              "title": "Rapport d'Audit",
+              "description": "MERIDIAN CORP - RÉSUMÉ D'AUDIT JUDICIAIRE\nEnquêteur: CPA Amanda Ross\n\nIRRÉGULARITÉS FINANCIÈRES IDENTIFIÉES:\n- Créé 43 fournisseurs fictifs\n- Redirigé les contributions au fonds de pension: 892 000 $\n- Falsifié les rapports de dépenses pour des 'voyages d'affaires'\n- Altéré les déductions salariales: 1 455 892 $\n- Utilisé les cartes de crédit de l'entreprise pour des avances de fonds: 234 000 $\n\nTOTAL DÉTOURNÉ: 2 581 892 $\nSTATUT: Enquête FBI sur les crimes financiers en cours"
+            },
+            "es": {
+              "title": "Reporte de Auditoría",
+              "description": "MERIDIAN CORP - RESUMEN DE AUDITORÍA FORENSE\nInvestigador: CPA Amanda Ross\n\nIRREGULARIDADES FINANCIERAS IDENTIFICADAS:\n- Creó 43 proveedores ficticios\n- Redirigió contribuciones del fondo de pensiones: $892,000\n- Falsificó reportes de gastos para 'viajes de negocios'\n- Alteró deducciones de nómina: $1,455,892\n- Usó tarjetas de crédito de la empresa para adelantos en efectivo: $234,000\n\nTOTAL MALVERSADO: $2,581,892\nESTADO: Investigación de crímenes financieros del FBI en curso"
+            }
+          },
+          "type": "text"
+        }
+      ]
+    },
+    "case-3": {
+      "id": "case-3",
+      "content": {
+        "en": {
+          "title": "The Reckless Driver",
+          "description": "A 26-year-old marketing executive caused a devastating accident through his reckless behavior. Investigate how his arrogance, alcohol consumption, and need to show off led to a high-speed crash that not only nearly killed him and his date, but also destroyed the lives of an innocent family in another vehicle."
+        },
+        "fr": {
+          "title": "Le Conducteur Imprudent",
+          "description": "Un cadre marketing de 26 ans a causé un accident dévastateur par son comportement imprudent. Enquêtez sur comment son arrogance, sa consommation d'alcool et son besoin de frimer ont mené à un crash à haute vitesse qui a non seulement failli le tuer lui et sa rendez-vous, mais a aussi détruit la vie d'une famille innocente dans un autre véhicule."
+        },
+        "es": {
+          "title": "El Conductor Imprudente",
+          "description": "Un ejecutivo de marketing de 26 años causó un accidente devastador a través de su comportamiento imprudente. Investiga cómo su arrogancia, consumo de alcohol y necesidad de presumir llevaron a un choque a alta velocidad que no solo casi lo mató a él y a su cita, sino que también destruyó las vidas de una familia inocente en otro vehículo."
+        }
+      },
+      "evidence": [
+        {
+          "id": "evidence10",
+          "content": {
+            "en": {
+              "title": "Hospital Report",
+              "description": "Hospital report of Sebastian Nazarus after car accident",
+              "imagePath": "/images/evidence/case3/hospital-report-en.png"
+            },
+            "fr": {
+              "title": "Rapport Hospitalier",
+              "description": "Rapport hospitalier de Sebastian Nazarus après accident de voiture",
+              "imagePath": "/images/evidence/case3/hospital-report-fr.png"
+            },
+            "es": {
+              "title": "Reporte Hospitalario",
+              "description": "Reporte hospitalario de Sebastian Nazarus después del accidente de auto",
+              "imagePath": "/images/evidence/case3/hospital-report-es.png"
+            }
+          },
+          "type": "image"
+        },
+        {
+          "id": "evidence11",
+          "content": {
+            "en": {
+              "title": "Secondary Vehicle Report",
+              "description": "COLLISION VICTIM MEDICAL REPORT\nSecond Vehicle: 2019 Honda Civic\nOccupants: Thompson Family\n- David Thompson (34): Paralyzed from waist down\n- Lisa Thompson (32): Severe burns, extended recovery\n- Emma Thompson (7): Critical head injuries, cognitive impairment\n- Baby Lucas (18 months): Multiple surgeries required\n\nFAMILY STATUS: Medical bills exceed $2.3 million\nDAVID'S EMPLOYMENT: Discontinued (unable to work)\nHOME: Foreclosure proceedings initiated\nEMMA'S PROGNOSIS: Lifelong care required\n\nStatement from Lisa Thompson: 'One moment changed everything.'"
+            },
+            "fr": {
+              "title": "Rapport du Véhicule Secondaire",
+              "description": "RAPPORT MÉDICAL DES VICTIMES DE COLLISION\nDeuxième véhicule: Honda Civic 2019\nOccupants: Famille Thompson\n- David Thompson (34): Paralysé de la taille vers le bas\n- Lisa Thompson (32): Brûlures graves, récupération prolongée\n- Emma Thompson (7): Blessures crâniennes critiques, déficience cognitive\n- Bébé Lucas (18 mois): Chirurgies multiples requises\n\nSTATUT FAMILIAL: Factures médicales dépassent 2,3 millions $\nEMPLOI DE DAVID: Discontinué (incapable de travailler)\nMAISON: Procédures de forclusion initiées\nPRONOSTIC D'EMMA: Soins à vie requis\n\nDéclaration de Lisa Thompson: 'Un moment a tout changé.'"
+            },
+            "es": {
+              "title": "Reporte del Vehículo Secundario",
+              "description": "REPORTE MÉDICO DE VÍCTIMAS DE COLISIÓN\nSegundo vehículo: Honda Civic 2019\nOcupantes: Familia Thompson\n- David Thompson (34): Paralizado de la cintura hacia abajo\n- Lisa Thompson (32): Quemaduras severas, recuperación prolongada\n- Emma Thompson (7): Lesiones craneales críticas, deterioro cognitivo\n- Bebé Lucas (18 meses): Múltiples cirugías requeridas\n\nESTADO FAMILIAR: Cuentas médicas exceden $2.3 millones\nEMPLEO DE DAVID: Discontinuado (incapaz de trabajar)\nCASA: Procedimientos de ejecución hipotecaria iniciados\nPRONÓSTICO DE EMMA: Cuidado de por vida requerido\n\nDeclaración de Lisa Thompson: 'Un momento lo cambió todo.'"
+            }
+          },
+          "type": "text"
+        },
+        {
+          "id": "evidence12",
+          "content": {
+            "en": {
+              "title": "Witness Statement",
+              "description": "POLICE INTERVIEW - VICTIM STATEMENT\nInterviewee: Sarah Chen, Age 24 (passenger)\nDate of Interview: 3 days post-accident\nCondition: Severe whiplash, psychological trauma\n\nSTATEMENT: 'He consumed three whiskeys at dinner. I asked him not to drive. He responded 'I can handle my liquor.' Then he started racing that BMW, going 90+ mph. I was screaming, asking him to stop.\n\nHe kept shouting 'Watch this!' and 'Isn't this exciting?' When we hit that family... the screaming from their car... I'll never forget it.\n\nI was thrown forward during impact. My seatbelt left deep bruises. Glass shards cut my arms.'"
+            },
+            "fr": {
+              "title": "Déclaration de Témoin",
+              "description": "ENTRETIEN POLICIER - DÉCLARATION DE VICTIME\nInterviewée: Sarah Chen, 24 ans (passagère)\nDate d'entretien: 3 jours après l'accident\nÉtat: Coup du lapin grave, traumatisme psychologique\n\nDÉCLARATION: 'Il a consommé trois whiskies au dîner. J'ai demandé qu'il ne conduise pas. Il a répondu 'Je peux gérer l'alcool.' Puis il a commencé à faire la course avec cette BMW, allant à 90+ mph. Je criais, lui demandais d'arrêter.\n\nIl continuait à crier 'Regarde ça!' et 'N'est-ce pas excitant?' Quand nous avons frappé cette famille... les cris de leur voiture... Je n'oublierai jamais.\n\nJ'ai été projetée vers l'avant lors de l'impact. Ma ceinture de sécurité a laissé de profondes ecchymoses. Des éclats de verre m'ont coupé les bras.'"
+            },
+            "es": {
+              "title": "Declaración de Testigo",
+              "description": "ENTREVISTA POLICIAL - DECLARACIÓN DE VÍCTIMA\nEntrevistada: Sarah Chen, 24 años (pasajera)\nFecha de entrevista: 3 días después del accidente\nCondición: Latigazo cervical severo, trauma psicológico\n\nDECLARACIÓN: 'Consumió tres whiskies en la cena. Le pedí que no manejara. Respondió '¡Que yo controlo!' Luego empezó a correr con ese BMW, yendo a 150+ km/h. Estaba gritando, pidiéndole que parara.\n\nSeguía gritando '¡Mira esto!' y '¿No es emocionante?' Cuando golpeamos a esa familia... los gritos de su auto... Nunca lo olvidaré.\n\nFui lanzada hacia adelante durante el impacto. Mi cinturón de seguridad dejó moretones profundos. Fragmentos de vidrio me cortaron los brazos.'"
+            }
+          },
+          "type": "text"
+        },
+        {
+          "id": "evidence13",
+          "content": {
+            "en": {
+              "title": "Traffic Violation History",
+              "description": "TRAFFIC ENFORCEMENT HISTORY\nLicense: 7BFX891 (SUSPENDED)\nPrior Violations (Last 2 Years):\n- 8 speeding tickets (15+ mph over limit)\n- 2 reckless driving citations\n- 1 DUI (reduced to reckless driving)\n- Racing citation (street racing)\n- Aggressive driving complaint\n\nWITNESS STATEMENTS:\n'He always drove like a maniac' - Co-worker\n'Posted videos of himself doing 120 mph' - Friend\n'Bragged about outrunning police' - Ex-girlfriend\n\nFINAL INCIDENT: 95 MPH in 35 MPH zone, racing, blood alcohol 0.12%"
+            },
+            "fr": {
+              "title": "Historique des Violations de Trafic",
+              "description": "HISTORIQUE D'EXÉCUTION DU TRAFIC\nPermis: 7BFX891 (SUSPENDU)\nViolations antérieures (2 dernières années):\n- 8 contraventions pour excès de vitesse (15+ mph au-dessus de la limite)\n- 2 citations pour conduite imprudente\n- 1 DUI (réduit à conduite imprudente)\n- Citation de course (course de rue)\n- Plainte pour conduite agressive\n\nDÉCLARATIONS DE TÉMOINS:\n'Il conduisait toujours comme un maniaque' - Collègue\n'Postait des vidéos de lui-même faisant 120 mph' - Ami\n'Se vantait de distancer la police' - Ex-petite amie\n\nINCIDENT FINAL: 95 MPH en zone 35 MPH, course, alcool sanguin 0,12%"
+            },
+            "es": {
+              "title": "Historial de Violaciones de Tráfico",
+              "description": "HISTORIAL DE CUMPLIMIENTO DE TRÁFICO\nLicencia: 7BFX891 (SUSPENDIDA)\nViolaciones previas (Últimos 2 años):\n- 8 multas por exceso de velocidad (15+ mph sobre el límite)\n- 2 citaciones por conducción temeraria\n- 1 DUI (reducido a conducción temeraria)\n- Citación por carreras (carreras callejeras)\n- Queja por conducción agresiva\n\nDECLARACIONES DE TESTIGOS:\n'Siempre manejaba como un maníaco' - Compañero de trabajo\n'Publicaba videos de sí mismo yendo a 120 mph' - Amigo\n'Se jactaba de escapar de la policía' - Ex-novia\n\nINCIDENTE FINAL: 95 MPH en zona de 35 MPH, carreras, alcohol en sangre 0.12%"
+            }
+          },
+          "type": "text"
+        }
+      ]
+    }
+  }
+}
