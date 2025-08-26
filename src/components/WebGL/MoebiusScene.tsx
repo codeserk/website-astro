@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Effects, useFBO } from '@react-three/drei'
 import { extend, useFrame, useThree } from '@react-three/fiber'
 import { SSAOPass } from 'three-stdlib'
@@ -5,8 +6,8 @@ import { SSAOPass } from 'three-stdlib'
 import { useRef, type FC } from 'react'
 import { DepthTexture } from 'three'
 import { MoebiusPass } from '~/modules/webgl/shaders/moebius/moebius.pass'
-import { normalMaterial } from '~/modules/webgl/shaders/normal/normal.shader'
 import { WebGLGLTFModel } from './GLTFModel'
+import { normalMaterial } from '~/modules/webgl/shaders/normal/normal.shader'
 
 extend({ SSAOPass })
 extend({ MoebiusPass })
@@ -14,9 +15,10 @@ extend({ MoebiusPass })
 interface Props {
   readonly src: string
   readonly name?: string
+  readonly isToon?: boolean
 }
 
-export const MoebiusScene: FC<Props> = ({ src, name }) => {
+export const MoebiusScene: FC<Props> = ({ src, name, isToon }) => {
   const ground = useRef()
 
   const amplitude = useRef(1)
@@ -61,7 +63,7 @@ export const MoebiusScene: FC<Props> = ({ src, name }) => {
       <directionalLight position={[-1, 5, 0]} intensity={1} color="#999" target={ground.current} />
       <directionalLight position={[1, 5, 0]} intensity={1} color="#999" target={ground.current} />
 
-      <WebGLGLTFModel src={src} name={name} />
+      <WebGLGLTFModel src={src} isToon={isToon} name={name} />
 
       <Effects>
         <moebiusPass

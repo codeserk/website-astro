@@ -56,6 +56,25 @@ const lastProjects = (await getCollection('project'))
   })
   .slice(0, 8)
 
+const lastModels = (await getCollection('model'))
+  .filter((model) => model.data.featuredImage && model.data.status !== 'abandoned')
+  .sort((a, b) => {
+    const dateA = a.data.publishedAt ?? a.data.createdAt
+    const dateB = b.data.publishedAt ?? b.data.createdAt
+    if (dateA && !dateB) {
+      return -1
+    }
+    if (!dateA && dateB) {
+      return 1
+    }
+    if (!dateA && !dateB) {
+      return 0
+    }
+
+    return dayjs(dateA).isAfter(dayjs(dateB)) ? -1 : 1
+  })
+  .slice(0, 8)
+
 const frameworks = (await getCollection('framework')).sort(
   (a, b) => (a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER),
 )
@@ -105,12 +124,14 @@ const career = (await getCollection('career')).sort((a, b) => {
             strings: [
               'Software Engineer',
               '<strong>Backend</strong> developer',
-              '<a href="https://nestjs.com/" target="__blank" rel="noreferrer noopener">NestJS</a> big Fan',
+              '<strong>GO</strong> biggest fan',
+              '<a href="https://nestjs.com/" target="__blank" rel="noreferrer noopener">NestJS</a> pro',
               '<strong>Frontend</strong> developer',
               '<a href="https://reactnative.dev/" target="__blank" rel="noreferrer noopener">React Native</a> lover!',
               '<strong>DevOps</strong> initiated',
               '<strong>Game</strong> developer (as <em>hobby</em>)',
-              '<strong>iOS</strong> and <strong>Android</strong> learner',
+              '<strong>iOS</strong> and <strong>Android</strong> dev',
+              '<strong>Blender</strong> <em>newbie</em>',
               '<em>Cat</em> enthusiast! :3',
             ],
             typeSpeed: 100,
@@ -287,6 +308,17 @@ const career = (await getCollection('career')).sort((a, b) => {
           <a href="/project">More projects...</a>
         </div>
       </section>
+
+      <section>
+        <a href="/model"><h2>Models 🎪</h2></a>
+        <p>I've recently started learning 3D modeling with Blender. Here are some of the models I've created so far.</p>
+
+        <PageLinksGrid links={lastModels} />
+
+        <div class="more">
+          <a href="/model">More models...</a>
+        </div>
+      </section>
     </div>
   </LayoutContainer>
 </Layout>
@@ -365,6 +397,15 @@ const career = (await getCollection('career')).sort((a, b) => {
         @media (min-width: 640px) {
           font-size: 4em;
         }
+      }
+
+      > p {
+        margin-bottom: 1em;
+        text-align: center;
+        max-width: 600px;
+        font-size: 0.9em;
+        opacity: 0.9;
+        margin: auto;
       }
 
       .more {

@@ -36,13 +36,13 @@ void main() {
   vec2 uv = vUv;
   vec2 texel = vec2(1.0 / resolution.x, 1.0 / resolution.y);
 
-  float outlineThickness = 1.2;
-  vec4 outlineColor = vec4(0.0, 0.0, 0.0, 1.0);
+  float outlineThickness = 2.0;
 
   vec2 displacement = vec2((hash(gl_FragCoord.xy) * sin(gl_FragCoord.y * 0.05)), (hash(gl_FragCoord.xy) * cos(gl_FragCoord.x * 0.05))) * 2.0 / resolution.xy;
   vec2 hatchetDisplacement = vec2((hash(gl_FragCoord.xy) * cos(gl_FragCoord.y * 0.0009)), (hash(gl_FragCoord.xy) * 0.0)) / resolution.xy;
 
   float depth = readDepth(tDepth, vUv);
+  vec4 outlineColor = texture2D(tDiffuse, vUv) * 0.5; // vec4(0.0, 0.0, 0.0, 1.0);
   vec4 pixelColor = texture2D(tDiffuse, vUv);
 
   float depth00 = readDepth(tDepth, vUv + displacement + outlineThickness * texel * vec2(-1, 1));
@@ -175,10 +175,13 @@ void main() {
       if(pixelLuma > 0.7 && value > 1.0 - 0.001) {
         pixelColor = outlineColor;
       }
-      // if(pixelLuma >= 0.7 && value > 1.0 - 0.05) {
-      //   pixelColor = outlineColor;
-      // }
+
+      // pixelColor = vec4(1.0, 0.5, 0.5, 1.0);
+      if(pixelLuma >= 0.7 && value > 1.0 - 0.01) {
+        // pixelColor = outlineColor;
+      }
     }
+
 
     // if(pixelLuma <= 0.8 && depth <= 0.99) {
     //   if(sin(2.0 * ((vUv.y + vUv.x) * steps) * PI) > 0.95) {
@@ -199,7 +202,8 @@ void main() {
   }
 
   vec4 color = mix(pixelColor, outlineColor, outline);
-  vec4 saturatedColor = clamp(color, (1.0 - pixelLuma) * 0.2, pixelLuma * 1.5);
+  // vec4 saturatedColor = clamp(color, (1.0 - pixelLuma) * 0.2, pixelLuma * 1.5);
+  vec4 saturatedColor = clamp(color, (1.5 - pixelLuma) * 0.1, pixelLuma * 5.5);
 
   gl_FragColor = vec4(saturatedColor.x, saturatedColor.y, saturatedColor.z, 1.0);
 }

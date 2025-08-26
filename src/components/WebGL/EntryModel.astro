@@ -15,7 +15,7 @@ const { entry } = Astro.props
 {
   entry.data.src && (
     <Container layout="two-columns">
-      <WebGLModel src={entry.data.src} models={entry.data.models} client:only="react" />
+      <WebGLModel src={entry.data.src} isToon={entry.data.isToon} models={entry.data.models} client:only="react" />
     </Container>
   )
 }

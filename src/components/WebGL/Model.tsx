@@ -4,10 +4,11 @@ import { MoebiusScene } from './MoebiusScene'
 
 interface Props {
   readonly src: string
+  readonly isToon?: boolean
   readonly models?: string[]
 }
 
-export const WebGLModel: FC<Props> = ({ src, models }) => {
+export const WebGLModel: FC<Props> = ({ src, isToon, models }) => {
   const [model, setModel] = useState<string | undefined>()
   const [isMobile, setIsSmall] = useState(false)
 
@@ -41,7 +42,7 @@ export const WebGLModel: FC<Props> = ({ src, models }) => {
         </select>
       )}
       <WebGLCanvas size={size}>
-        <MoebiusScene src={src} name={model} />
+        <MoebiusScene src={src} isToon={isToon} name={model} />
       </WebGLCanvas>
     </div>
   )

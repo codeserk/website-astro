@@ -1,13 +1,14 @@
 import { useGLTF } from '@react-three/drei'
 import { useEffect, useState, type FC } from 'react'
-import { Light, Mesh, MeshBasicMaterial, MeshToonMaterial, Object3D } from 'three'
+import { Light, Mesh, MeshToonMaterial, Object3D } from 'three'
 
 interface Props {
   readonly src: string
+  readonly isToon?: boolean
   readonly name?: string
 }
 
-export const WebGLGLTFModel: FC<Props> = ({ src, name }) => {
+export const WebGLGLTFModel: FC<Props> = ({ src, isToon, name }) => {
   const gltf = useGLTF(src)
 
   const [lights, setLights] = useState<Light[]>([])
@@ -35,8 +36,10 @@ export const WebGLGLTFModel: FC<Props> = ({ src, name }) => {
           child.castShadow = true
           child.receiveShadow = child.name.includes('Floor')
 
-          child.material = new MeshToonMaterial({ color: child.material?.color })
-          // child.material = new MeshBasicMaterial({ color: child.material?.color })
+          const material = child.material
+          if (isToon) {
+            child.material = new MeshToonMaterial({ color: material?.color, map: material?.map })
+          }
         }
       })
 

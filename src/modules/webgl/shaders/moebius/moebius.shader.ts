@@ -15,7 +15,7 @@ export const moebiusShader: ShaderMaterialParameters = {
     frequency: { value: 0.05 },
     amplitude: { value: 2.0 },
     shadowType: { value: 3.0 },
-    tick: { value: 0.0 }
+    tick: { value: 0.0 },
   },
   vertexShader,
   fragmentShader,

@@ -1,6 +1,7 @@
 ---
 import type { Entry } from '~/utils/content'
 import UnityGame from './UnityGame.astro'
+import Unity6Game from './Unity6Game.astro'
 import WebGame from './WebGame.astro'
 
 interface Props {
@@ -12,4 +13,5 @@ const game = entry.data.game
 ---
 
 {game?.type === 'Unity' && game.src && <UnityGame src={game.src} aspectRatio={game.aspectRatio} />}
+{game?.type === 'Unity6' && game.src && <Unity6Game src={game.src} aspectRatio={game.aspectRatio} />}
 {game?.type === 'Web' && game.src && <WebGame src={game.src} aspectRatio={game.aspectRatio} />}
