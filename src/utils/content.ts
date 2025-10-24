@@ -1,5 +1,5 @@
 import type { ImageMetadata } from 'astro'
-import { getCollection, getEntryBySlug, type ContentEntryMap } from 'astro:content'
+import { getCollection, getEntry, type ContentEntryMap } from 'astro:content'
 import dayjs from 'dayjs'
 import { remark } from 'remark'
 import stripMarkdown from 'strip-markdown'
@@ -121,7 +121,7 @@ export async function getEntryFromReference(ref?: string): Promise<Entry | undef
   const [collection, ...slugs] = parts as [Collection, string[]]
   const slug = slugs.join('/')
 
-  return (await getEntryBySlug(collection, slug)) as Entry
+  return (await getEntry(collection, slug)) as Entry
 }
 
 export async function getEntriesFromReferences(refs?: EntryReference[]): Promise<Entry[]> {
