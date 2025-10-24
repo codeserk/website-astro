@@ -27,6 +27,7 @@ import {
 } from '../../../utils/content'
 import Game from '~/components/Game/Game.astro'
 import EntryModel from '~/components/WebGL/EntryModel.astro'
+import { WebGLModel } from '~/components/WebGL/Model'
 
 export async function getStaticPaths() {
   const COLLECTIONS = [
@@ -101,7 +102,7 @@ const createdAt = getEntryCreatedAt(entry)
           </div>
         )
       }
-      <Content components={{ a: Link, img: Image }} />
+      <Content components={{ a: Link, img: Image, WebGLModel }} />
     </PageContent>
 
     <AstroGallery items={galleryImages} />

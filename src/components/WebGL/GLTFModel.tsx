@@ -35,6 +35,7 @@ export const WebGLGLTFModel: FC<Props> = ({ src, isToon, name }) => {
           child.geometry.computeVertexNormals()
           child.castShadow = true
           child.receiveShadow = child.name.includes('Floor')
+          console.log(child)
 
           const material = child.material
           if (isToon) {

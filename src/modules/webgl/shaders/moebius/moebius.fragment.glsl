@@ -36,7 +36,7 @@ void main() {
   vec2 uv = vUv;
   vec2 texel = vec2(1.0 / resolution.x, 1.0 / resolution.y);
 
-  float outlineThickness = 2.0;
+  float outlineThickness = 1.0;
 
   vec2 displacement = vec2((hash(gl_FragCoord.xy) * sin(gl_FragCoord.y * 0.05)), (hash(gl_FragCoord.xy) * cos(gl_FragCoord.x * 0.05))) * 2.0 / resolution.xy;
   vec2 hatchetDisplacement = vec2((hash(gl_FragCoord.xy) * cos(gl_FragCoord.y * 0.0009)), (hash(gl_FragCoord.xy) * 0.0)) / resolution.xy;
@@ -98,7 +98,7 @@ void main() {
   if(shadowType == 3.0) {
     float steps = 80.0;
     float stepsMod = 11.7;
-    float thickness = 0.5;
+    float thickness = 0.1;
 
     // if(pixelLuma <= 0.5 && depth <= 0.99) {
     //   if(sin(2.0 * ((-hatchetDisplacement.y - hatchetDisplacement.x - vUv.y + vUv.x) * steps) * PI) > 0.0) {
@@ -208,4 +208,4 @@ void main() {
   gl_FragColor = vec4(saturatedColor.x, saturatedColor.y, saturatedColor.z, 1.0);
 }
 
-#include <tonemapping_fragment>
+// #include <tonemapping_fragment>

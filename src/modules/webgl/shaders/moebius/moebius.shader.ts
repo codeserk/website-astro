@@ -12,8 +12,8 @@ export const moebiusShader: ShaderMaterialParameters = {
     resolution: {
       value: new Vector2(),
     },
-    frequency: { value: 0.05 },
-    amplitude: { value: 2.0 },
+    frequency: { value: 50.05 },
+    amplitude: { value: 50.0 },
     shadowType: { value: 3.0 },
     tick: { value: 0.0 },
   },

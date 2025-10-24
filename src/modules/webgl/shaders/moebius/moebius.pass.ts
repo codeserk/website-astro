@@ -26,8 +26,8 @@ export class MoebiusPass extends Pass {
     this.frequency = args?.frequency
     this.amplitude = args?.amplitude
     this.resolution = new Vector2(
-      2000 * Math.min(window.devicePixelRatio, 2),
-      2000 * Math.min(window.devicePixelRatio, 2),
+      2048 * Math.min(window.devicePixelRatio, 2),
+      2048 * Math.min(window.devicePixelRatio, 2),
     )
   }
 

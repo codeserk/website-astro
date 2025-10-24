@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useState, type FC } from 'react'
 import { WebGLCanvas } from './Canvas'
 import { MoebiusScene } from './MoebiusScene'
+import type { CameraProps } from './WebGL.types'
 
 interface Props {
   readonly src: string
   readonly isToon?: boolean
+  readonly effect: 'moebius' | 'moebius-no-outline'
   readonly models?: string[]
+  readonly camera?: CameraProps
 }
 
-export const WebGLModel: FC<Props> = ({ src, isToon, models }) => {
+export const WebGLModel: FC<Props> = ({ src, isToon, effect, models, camera }) => {
   const [model, setModel] = useState<string | undefined>()
   const [isMobile, setIsSmall] = useState(false)
 
@@ -41,8 +44,9 @@ export const WebGLModel: FC<Props> = ({ src, isToon, models }) => {
           ))}
         </select>
       )}
-      <WebGLCanvas size={size}>
-        <MoebiusScene src={src} isToon={isToon} name={model} />
+
+      <WebGLCanvas size={size} camera={camera}>
+        <MoebiusScene src={src} isToon={isToon} effect={effect} name={model} />
       </WebGLCanvas>
     </div>
   )
