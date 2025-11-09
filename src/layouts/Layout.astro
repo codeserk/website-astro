@@ -391,6 +391,7 @@ const { seo } = Astro.props
         //   body: JSON.stringify({ type: 'View', name: window.location.pathname, projectId: '6853d2a6a0f5c5dcba7b5245' }),
         // })
 
+        console.log(encodeURIComponent(document.referrer))
         fetch('https://api-ingester.press.codeserk.es/api/v2/events', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
