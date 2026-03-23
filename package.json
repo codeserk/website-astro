@@ -22,6 +22,7 @@
     "@astrojs/react": "^4.4.0",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^6.0.2",
+    "@codeserk/forge-stats": "^0.0.1",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.7",
     "astro": "^5.15.1",

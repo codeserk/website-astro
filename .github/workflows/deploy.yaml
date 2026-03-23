@@ -13,11 +13,14 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
       - name: Install, build, and upload your site
         uses: withastro/action@v2
+        env:
+          PUBLIC_STATS_SDK: ${{ secrets.PUBLIC_STATS_SDK }}
 
   deploy:
     needs: build
