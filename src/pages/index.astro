@@ -13,7 +13,7 @@ import LayoutContainer from '~/components/Page/PageContainer.astro'
 import PageContent from '~/components/Page/PageContent.astro'
 import PageLinksGrid from '~/components/Page/PageLinksGrid.astro'
 import ProgressBar from '~/components/ProgressBar.astro'
-import { sortEntries } from '~/utils/content'
+import { getEntryIsNotDraft, sortEntries } from '~/utils/content'
 import HomeLanguages from '../components/Page/Home/HomeLanguages.astro'
 import TypedStrings from '../components/TypedStrings'
 import Layout from '../layouts/Layout.astro'
@@ -38,7 +38,7 @@ const lastChallenges = (await getCollection('challenge'))
   })
   .slice(0, 2)
 const lastProjects = (await getCollection('project'))
-  .filter((project) => project.data.featuredImage && project.data.status !== 'abandoned')
+  .filter((project) => project.data.featuredImage && project.data.status !== 'abandoned' && getEntryIsNotDraft(project))
   .sort((a, b) => {
     const dateA = a.data.endDate ?? a.data.startDate
     const dateB = b.data.endDate ?? b.data.startDate

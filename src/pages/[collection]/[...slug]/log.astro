@@ -9,7 +9,13 @@ import PageHeader from '~/components/Page/PageHeader.astro'
 import PageLogs from '~/components/Page/Logs/PageLogs.astro'
 import PageMeta from '~/components/Page/PageMeta.astro'
 import Layout from '~/layouts/Layout.astro'
-import { getEntrySummary, getEntryBreadcrumbs, getEntryLink, getEntrySummaryContent } from '~/utils/content'
+import {
+  getEntryIsNotDraft,
+  getEntrySummary,
+  getEntryBreadcrumbs,
+  getEntryLink,
+  getEntrySummaryContent,
+} from '~/utils/content'
 
 export async function getStaticPaths() {
   const COLLECTIONS = [
@@ -28,7 +34,7 @@ export async function getStaticPaths() {
   const data = await Promise.all(
     COLLECTIONS.map(async (collection) => ({
       collection,
-      entries: await getCollection(collection),
+      entries: await getCollection(collection, getEntryIsNotDraft),
     })),
   )
 
