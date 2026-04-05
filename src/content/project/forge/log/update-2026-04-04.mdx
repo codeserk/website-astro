@@ -1,0 +1,15 @@
+---
+name: 'Sessions, dimensions config, and Docker improvements'
+createdAt: 2026-04-04
+references:
+  - language/go
+  - language/typescript
+  - technology/docker
+---
+
+- Unified server Dockerfile (ARG APP_NAME + BuildKit cache mounts)
+- Fixed stats MVs and time stats queries
+- Session expanded rows with event activity timeline
+- Aggregation dimensions config UI + stats config API
+- Event dimension limiter (cardinality capping)
+- Journey improvements: 6 steps, per-step limit selector

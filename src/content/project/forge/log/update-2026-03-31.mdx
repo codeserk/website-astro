@@ -1,0 +1,10 @@
+---
+name: 'Infrastructure and ClickHouse fixes'
+createdAt: 2026-03-31
+references:
+  - language/go
+  - database/clickhouse
+---
+
+- Moved secrets/config to shared Terraform resources, simplified helm charts
+- Fixed InsertOne missing TTLHours/Bucket, simplified InsertMany, added tests

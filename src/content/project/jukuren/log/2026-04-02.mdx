@@ -1,0 +1,15 @@
+---
+name: Signals migration - fixes + testing setup
+status: draft
+publishedAt: 2026-04-02
+references:
+  - framework/react
+  - language/typescript
+---
+
+- Finishing signals migration: utils, repository store, BaseDrawer, routes pagination
+- Reactivity bugs found and fixed (useEffect deps needing .value, useMemo deps, isLoadingKey)
+- Removing unused mobile app
+- Setting up Playwright from scratch: config, e2e scripts, data-test attributes added to all pages
+- First e2e tests: login, settings (labels, zones, clients, users, companies, rates, preferences)
+- First unit tests: store tests with jest, utility function tests
