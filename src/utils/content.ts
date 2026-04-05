@@ -105,7 +105,7 @@ export function getEntryCollectionConfig(entry?: Entry): CollectionConfig {
 }
 
 export async function getEntryFromReference(ref?: string): Promise<Entry | undefined> {
-  if (!ref) {
+  if (!ref || ref.includes('://')) {
     return
   }
 
@@ -214,7 +214,17 @@ export async function getAllEntries(collections: Collection[] = COLLECTIONS): Pr
 }
 
 export async function getAllLogEntries(): Promise<Entry[]> {
-  return (await getAllEntries()).filter((entry) => getEntryIsLog(entry.slug))
+  const allEntries = await getAllEntries()
+  const rootEntriesByRef = new Map(allEntries.filter(getEntryIsRoot).map((e) => [getEntryReference(e), e]))
+
+  return allEntries.filter((entry) => {
+    if (!getEntryIsLog(entry.slug)) {
+      return false
+    }
+    const parentRef = entry.slug.replace(/\/log\/.+$/, '')
+    const parent = rootEntriesByRef.get(`${entry.collection}/${parentRef}`)
+    return !parent || getEntryIsNotDraft(parent)
+  })
 }
 
 export async function getReferencesForEntry(entry?: Entry, collections: Collection[] = COLLECTIONS): Promise<Entry[]> {
@@ -236,7 +246,7 @@ export async function getReferencesForEntry(entry?: Entry, collections: Collecti
   // Other nodes
   const allEntries = await getAllEntries(collections)
   return allEntries
-    .filter((it) => getEntryIsRoot(it))
+    .filter((it) => getEntryIsRoot(it) && getEntryIsNotDraft(it))
     .sort(entrySortFn)
     .filter((it) => {
       return (
@@ -397,6 +407,12 @@ export function getEntryBreadcrumbs(entry: Entry): BreadcrumbLink[] {
 
 export function getEntryIsRoot(entry: Entry): boolean {
   return entry.slug.split('/').length === 1
+}
+
+const SHOW_DRAFTS = import.meta.env.SHOW_DRAFTS === 'true'
+
+export function getEntryIsNotDraft(entry: Entry): boolean {
+  return SHOW_DRAFTS || entry.data?.status !== 'draft'
 }
 
 export function getEntryIsLog(slug?: string): boolean {
