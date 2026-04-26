@@ -1,0 +1,22 @@
+---
+name: 'Compound aggregation dimensions'
+createdAt: 2026-04-06
+references:
+  - language/go
+  - language/typescript
+  - framework/react
+  - database/clickhouse
+---
+
+- Compound aggregation dimensions - dimensions can now have multiple keys (e.g. Country + AppVersion)
+- Type is always prepended to every dimension for filtering by event type
+- Dimension limiter still works per-key, rejected values become "other"
+- GroupBy support in stats queries - filter by one dimension, aggregate by another
+- New config page at /stats/config/aggregation-dimensions with dimension slots counter
+- Moved stats config endpoint from stats module to project module (PATCH /projects/{id}/stats-config)
+- Project store now handles stats config updates, auto-updates project signal
+- MaxValues changed from free input to select (5, 10, 20, 40, 80, 160)
+- Dimension slots calculation: product of maxValues per dimension, summed across all
+- Removed cache from getEventTypeSummaries to fix stale config after updates
+- Fixed MongoDB omitempty bug that prevented clearing dimensions with empty array
+- 20 event time stats tests, 8 project repo tests, 23 dimension limiter tests

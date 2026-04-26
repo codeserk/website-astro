@@ -20,7 +20,7 @@ Later on, I started working at [Square 1](career/square1) where they were starti
 
 However, I discovered it wasn't that great for enterprise (and huge) applications when I joined [Coosto](career/coosto).
 
-- There is no easy way to create consumers for message brokers, so we had to use another language for that part, which had to make http request to the PHP API, not great.
+- There is no easy way to create consumers for message brokers, so we had to use another language for that part, which had to make http requests to the PHP API, not great.
 - It's request-based and every time it gets a request the **WHOLE APPLICATION** is bootstrapped. That means: new redis connections, new database connections, new everything. That was often translated to _Too many connections_ kind of errors.
 - _Not sure about the latest versions_, but it was very difficult to use types. I remember we defined that certain method had to return `boolean` and that threw **RUNTIME ERRORS** because certain variable (which was actually a `boolean`), didn't look like a `boolean` for the executor.
 

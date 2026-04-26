@@ -1,0 +1,57 @@
+---
+name: Pixodoro
+featuredImage: /project/pixodoro/icon.png
+progress: 60
+status: published
+startDate: 2026-03-15
+references:
+  - development/web
+  - development/mobile
+  - development/desktop
+  - language/typescript
+  - language/go
+  - framework/react
+  - framework/react-native
+  - technology/expo
+  - technology/wails
+  - technology/pwa
+links:
+  - name: Privacy
+    href: /project/pixodoro/privacy-policy
+---
+
+A productivity timer based on the [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique), with a pixel art aesthetic.
+
+## Content
+
+## Why another Pomodoro app?
+
+There are plenty of Pomodoro apps out there - [Forest](https://www.forestapp.cc/), [Be Focused Pro](https://apps.apple.com/app/be-focused-pro/id961632517), [Focus Keeper Pro](https://apps.apple.com/app/focus-keeper-pro/id867374917)... But none of them felt _right_ for me. I wanted something that looked like it came out of a Game Boy, ran everywhere, and didn't lock my data behind a subscription.
+
+So I built **Pixodoro** - a Pomodoro timer with a retro pixel art UI, dithered backgrounds and all.
+
+## Multi-platform from the start
+
+One of the main goals was to make this work **everywhere**. The app runs on:
+
+- **Web** as a [](technology/pwa), so you can install it directly from the browser.
+- **Desktop** using [](technology/wails) with a [](language/go) backend - lightweight and native-feeling.
+- **Mobile** with [](framework/react-native) and [](technology/expo).
+- **Terminal** using [Ink](https://github.com/vadimdemedes/ink), because why not.
+
+All platforms share the same core through a `@wren/app` package. This means when I add a feature, it lands on every platform without re-implementing the business logic - I just need to adapt the views.
+
+## Features
+
+The app has grown quite a bit since v0.1.0:
+
+- Customizable timers for work, break and long break phases
+- Session history tracking and daily goals
+- Sound effects and ticking sounds with volume control
+- Desktop notifications for phase transitions
+- Cloud sync via Google Drive with **client-side encryption** - your data stays yours
+- Keyboard shortcuts for everything
+- i18n support (English and Spanish for now)
+- Light and dark themes
+- Onboarding flow for new users
+- In-app changelog

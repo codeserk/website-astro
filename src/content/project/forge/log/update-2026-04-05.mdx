@@ -1,0 +1,17 @@
+---
+name: 'Event drawer, expandable rows, and responsive views'
+createdAt: 2026-04-05
+references:
+  - language/typescript
+  - framework/react
+---
+
+- Event detail drawer with scrollable sections (meta, session timeline, raw data)
+- Clickable events everywhere - tables, lists, timelines all open the drawer
+- ExpandableListItem shared component with CSS-hide trick to avoid re-fetching
+- ResponsiveView component replacing CSS media queries for table/list switching
+- Shared UserDetailsList and EventUserName components
+- Session events cache in event store (useMapStore) to avoid duplicate API calls
+- User expanded row with 2-column layout (meta + top events/sessions)
+- Event summaries expanded row with 2-column layout (meta + activity timeline)
+- Deep signals for reactive drawer content updates

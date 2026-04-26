@@ -2,7 +2,7 @@
 import { type AnyEntryMap, getCollection } from 'astro:content'
 import Container from '../Container.astro'
 import SocialLinks from './SocialLinks.astro'
-import { getEntryIsRoot, sortEntries } from '~/utils/content'
+import { getEntryIsNotDraft, getEntryIsRoot, sortEntries } from '~/utils/content'
 import { Image } from 'astro:assets'
 
 const COLLECTIONS = [
@@ -19,7 +19,7 @@ const COLLECTIONS = [
 const data = await Promise.all(
   COLLECTIONS.map(async (collection) => ({
     collection,
-    entries: await sortEntries(await getCollection(collection, getEntryIsRoot)),
+    entries: await sortEntries(await getCollection(collection, (e) => getEntryIsRoot(e) && getEntryIsNotDraft(e))),
   })),
 )
 

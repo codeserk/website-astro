@@ -1,0 +1,20 @@
+---
+name: 'v0.3.0 - Settings overhaul'
+createdAt: 2026-03-29
+references:
+  - language/typescript
+  - language/go
+  - technology/wails
+---
+
+This was a big one! Lots of quality-of-life improvements.
+
+First, **notifications** - the app now tells you when a phase changes, even if it's running in the background. This was the most requested feature from the few friends testing it.
+
+I added auto-start options too, so breaks (and work phases) can start automatically. No more clicking "start" every time.
+
+Data export is now possible in JSON and CSV formats. Not the most exciting feature, but important if you want to analyze your productivity outside the app.
+
+**i18n support** landed too - English and Spanish for now. The setup is clean enough that adding more languages should be straightforward.
+
+And the big one: the **desktop app** via [](technology/wails) with a [](language/go) backend! This was my first time using Wails, and I'm impressed - it feels much more native than Electron, and the binary size is _tiny_ in comparison.
