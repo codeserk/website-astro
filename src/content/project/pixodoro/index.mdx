@@ -9,12 +9,9 @@ references:
   - development/mobile
   - development/desktop
   - language/typescript
-  - language/go
+  - language/golang
   - framework/react
   - framework/react-native
-  - technology/expo
-  - technology/wails
-  - technology/pwa
 links:
   - name: Privacy
     href: /project/pixodoro/privacy-policy
@@ -35,8 +32,8 @@ So I built **Pixodoro** - a Pomodoro timer with a retro pixel art UI, dithered b
 One of the main goals was to make this work **everywhere**. The app runs on:
 
 - **Web** as a [](technology/pwa), so you can install it directly from the browser.
-- **Desktop** using [](technology/wails) with a [](language/go) backend - lightweight and native-feeling.
-- **Mobile** with [](framework/react-native) and [](technology/expo).
+- **Desktop** using [](technology/wails) with a [](language/golang) backend - lightweight and native-feeling.
+- **Mobile** with [](framework/react-native) and [](framework/react-native).
 - **Terminal** using [Ink](https://github.com/vadimdemedes/ink), because why not.
 
 All platforms share the same core through a `@wren/app` package. This means when I add a feature, it lands on every platform without re-implementing the business logic - I just need to adapt the views.
