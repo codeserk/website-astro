@@ -1,0 +1,44 @@
+---
+name: Simurg
+featuredImage: /project/simurg/featured.png
+status: wip
+progress: 25
+startDate: 2026-04-01
+references:
+  - language/c
+  - language/typescript
+  - development/web
+  - development/game
+---
+
+A native renderer for **apps and games** on a single [](language/c) core - the same `signals`-first [](language/typescript) code runs on the web, Linux desktop, PinePhone, macOS, or a terminal.
+
+_Simurg_ started as two separate things that I only later realized should be the same thing :)
+
+## The first thing - a React Native replacement
+
+I wanted a UI runtime with `signals` as a **first-class primitive** (not bolted on like in [](framework/react)), really efficient, cross-OS, and especially _good on Linux + PinePhone_ because nobody else seems to care.
+
+The runtime itself was originally going to be in [](language/rust). But here's the thing: **any low-level language for the app layer forces you to ship WebAssembly to the browser**, and `wasm` doesn't run great on the cheapest mobile devices. The whole point of this project is **not leaving those users behind** - the ones who would benefit most from a free, efficient alternative. So the app layer has to be [](language/typescript), plain and simple, so the browser can just interpret it. No [](language/rust), no [](language/golang), no `wasm` required to use the thing.
+
+## The second thing - a game
+
+I wanted to make a very ambitious game called _Albatross_ _(still on my plate)_. I started prototyping it in [](framework/unity), tried to move it to _Godot_. I _love_ [](framework/unity) and it's the engine I've used the most, but I have a **real conflict** with it: it's commercial and there are some practices I'm not OK with. _Godot_ wasn't quite there either, some limitations made me uncertain :/
+
+So I decided I'd just **write the engine myself**, in code, no closed editor. The options I tried:
+
+- `Bevy` in [](language/rust) -> compile times **destroyed me**
+- [](language/cpp) -> also slow to compile, and the complexity was _wild_
+- [](language/c) -> the surprise winner. The philosophy is almost the same as [Go](language/golang) _(my favorite language to date)_ but **no GC** and full control over every byte
+
+## Then they collapsed into one thing
+
+While building the game engine I realized: a renderer that mounts native nodes for a game can mount native nodes for an app the same way. **UI layer + game engine are just modes of the same `C` core**, neither side limits the other:
+
+- Run only the UI layer -> a [](framework/react-native) replacement
+- Run only the game side -> a [](framework/unity)-shaped engine
+- Run both -> whatever this thing is :)
+
+## The name
+
+Named after the _Simurg_ from Attar's _Conference of the Birds_: thirty birds set out to find their king, cross seven valleys, and discover that **together they ARE the Simurg**. _Si murgh_ literally means _thirty birds_. The point being: no single platform / no single corporate king owns your software. Pretty much the vibe of the whole portfolio (:

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/** @ts-expect-error */
+// @ts-expect-error astro/runtime is internal and has no public type declarations
 import { renderJSX } from 'astro/runtime/server/jsx'
 import { jsx as h } from 'astro/jsx-runtime'
 import { transform, __unsafeHTML } from 'ultrahtml'

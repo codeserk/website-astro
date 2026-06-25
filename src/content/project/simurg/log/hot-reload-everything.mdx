@@ -1,0 +1,20 @@
+---
+name: 'Hot reload on every layer'
+status: draft
+createdAt: 2026-06-21
+references:
+  - language/c
+  - language/typescript
+---
+
+If I'm going to spend a year writing this thing, I want the **iteration loop to feel instant**. So every layer of the engine hot-reloads on save:
+
+- **UI / TSX** -> the JSX bundle re-evals inside the wasm and the reactive runtime _(written in [](language/typescript))_ re-mounts the diffed tree. Same trick the desktop dev binary uses
+- **Native [](language/c) code** -> the game ships as a `.dylib` next to the shell binary. On every save, the shell re-`dlopen`s the new dylib _(with a generation-suffixed copy per load to defeat macOS dyld same-path pinning, that was a fun afternoon)_
+- **Shaders** -> `.glsl` edits regenerate the `.glsl.h` header, `dev-watch.sh` fingerprints the UBO layout and decides between hot reload _(shader body only)_ or full reload _(struct changed)_
+- **Scenes** -> `scene_reload` reads the `.scene.json` again and reconciles entities in place. Move a ship, adjust a spawner, no restart
+- **Audio assets** -> `filewatch` on the voice + track files, the running mix picks up the new note instantly
+
+The whole loop is driven by a tiny `dev-watch.sh` that writes `.reload-hot` / `.reload-full` signal files. The engine watches those files and dispatches the right reload phase.
+
+End result: I can have the game running, the music playing, and edit a shader, a `C` system, the JSX HUD, **and a scene** at the same time, watching the changes land without losing a frame :)

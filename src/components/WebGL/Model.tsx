@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState, type FC } from 'react'
 import { WebGLCanvas } from './Canvas'
 import { MoebiusScene } from './MoebiusScene'
+import { DitherScene } from './DitherScene'
 import type { CameraProps } from './WebGL.types'
 
 interface Props {
   readonly src: string
   readonly isToon?: boolean
-  readonly effect: 'moebius' | 'moebius-no-outline'
+  readonly effect: 'moebius' | 'moebius-no-outline' | 'dither'
   readonly models?: string[]
   readonly camera?: CameraProps
 }
@@ -46,7 +47,11 @@ export const WebGLModel: FC<Props> = ({ src, isToon, effect, models, camera }) =
       )}
 
       <WebGLCanvas size={size} camera={camera}>
-        <MoebiusScene src={src} isToon={isToon} effect={effect} name={model} />
+        {effect === 'dither' ? (
+          <DitherScene src={src} isToon={isToon} name={model} />
+        ) : (
+          <MoebiusScene src={src} isToon={isToon} effect={effect} name={model} />
+        )}
       </WebGLCanvas>
     </div>
   )

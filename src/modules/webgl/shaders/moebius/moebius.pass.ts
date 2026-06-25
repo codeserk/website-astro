@@ -14,7 +14,13 @@ export class MoebiusPass extends Pass {
   private readonly amplitude: number
   private readonly frequency: number
 
-  constructor(args?: any) {
+  constructor(args?: {
+    depthRenderTarget: WebGLRenderTarget<Texture>
+    normalRenderTarget: WebGLRenderTarget<Texture>
+    camera: Camera
+    frequency: number
+    amplitude: number
+  }) {
     super()
 
     this.material = new ShaderMaterial(moebiusShader)

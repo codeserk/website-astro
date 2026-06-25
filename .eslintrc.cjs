@@ -73,6 +73,11 @@ module.exports = {
     {
       files: ['*.md', '*.mdx'],
       extends: ['plugin:mdx/recommended'],
+      rules: {
+        // MDX parser can't see JSX component usage like `<Image>`, so imports
+        // for components appear unused even when they're rendered.
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
     },
   ],
 }

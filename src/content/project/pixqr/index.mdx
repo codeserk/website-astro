@@ -1,0 +1,32 @@
+---
+name: PixQR
+status: draft
+startDate: 2025-01-01
+progress: 70
+references:
+  - development/web
+  - language/go
+  - language/typescript
+  - framework/react
+  - technology/wasm
+---
+
+Draft page for PixQR - an image-based QR code generator.
+
+Key points to cover:
+
+- What it does: generates QR codes where every module is shaped and colored by a source image - not a logo overlay, the whole QR _is_ the image
+- Fully client-side: Go compiled to WASM, images never leave the browser
+- Free with no watermarks, no accounts, no server
+- Supports multiple dot shapes (circle, square, rounded, diamond, star, hexagon, pixel)
+- Edge detection to preserve image detail in the QR structure
+- Adjustable error correction, version, and brightness
+- Download as PNG (SVG/EPS planned)
+
+Suggested structure:
+
+1. Brief intro - what PixQR does and why it exists (competitors charge for things that cost nothing when client-side)
+2. How it works - URL + image in, artistic scannable QR out, all processed locally via WASM
+3. Features list - shapes, edge detection, auto-background, flip strength, all sizes/EC levels
+4. Privacy angle - zero data leaves your device
+5. Tech stack mention - Go WASM, React, signal-based stores

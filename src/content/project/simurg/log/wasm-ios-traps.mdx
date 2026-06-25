@@ -1,0 +1,18 @@
+---
+name: 'Wasm + iOS Safari: full of traps'
+status: draft
+createdAt: 2026-06-24
+references:
+  - development/web
+---
+
+I assumed `wasm` on mobile would _Just Work_. **Yep, very naive of me.**
+
+The traps I tripped on:
+
+- `iOS Safari` stack overflow during JSX eval. `-O0` blew `QuickJS`'s dispatch recursion past Apple's wasm stack limit. `-O2` at link fixed it _(and dropped the binary 13.5 MB -> 3.8 MB as a free bonus)_
+- Touch events did **literally nothing**. `iOS` doesn't reliably synthesize `mousedown` from a touch, had to wire `touchstart` myself
+- Taps landed on the **wrong button**. `targetX` is CSS pixels, hit-test runs in canvas-buffer pixels, `iOS` shrinks the canvas via CSS. Multiply by `canvas.width / canvas.clientWidth` and we're good
+- The default emscripten shell is **REALLY ugly**. Replaced with a 1.3 KB centered-canvas shell
+
+_Just Works_, eventually (:

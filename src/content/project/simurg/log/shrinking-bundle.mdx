@@ -1,0 +1,18 @@
+---
+name: '370 MB -> 17 MB without losing quality'
+status: draft
+createdAt: 2026-06-25
+references:
+  - development/web
+---
+
+First wasm bundle I built was a clean **370 MB**. A piano sample is a 10 s stereo `44.1 kHz` `WAV` and we ship one per key. Not _quite_ portfolio material :upsidedown:
+
+How I got to **17 MB**:
+
+- **Subset preload.** `bash + jq` script reads each track's notes, picks only the sampler slots actually used. `~70` samples -> `19`
+- **Trim length.** Source samples are 10 s sustained notes, but the sampler has its own release envelope. Tail past 2 s is wasted bytes. Wrote a `30-line` host `C` tool using the engine's own `wav_read_mono_f32`
+- **Mono on disk.** The sampler downmixes anyway. Halve the bytes for free
+- **FLAC**: aborted. `miniaudio` decodes FLAC but only encodes `WAV`, and `ffmpeg` isn't on the build host. Not worth vendoring `libFLAC` for `6 MB`
+
+Loads in a few seconds even on `4G`. Good enough :)

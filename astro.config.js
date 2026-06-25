@@ -20,6 +20,9 @@ export default defineConfig({
   prefetch: true,
   site: 'https://www.codeserk.es',
   markdown: {
+    // Astro's default smartypants converts ' -> ' (U+2019) which renders
+    // oddly on mobile with the site font. Keep ASCII apostrophes everywhere.
+    smartypants: false,
     remarkPlugins: [remarkToc, remarkGemoji, remarkShrugPlugin, remarkModifiedTime],
     rehypePlugins: [rehypeAccessibleEmojis],
   },
