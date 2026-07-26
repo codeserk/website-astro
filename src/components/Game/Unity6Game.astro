@@ -5,14 +5,15 @@ import ProgressBar from '../ProgressBar.astro'
 interface Props {
   readonly src: string
   readonly aspectRatio?: string
+  readonly maxWidth?: number
 }
 
-const { src, aspectRatio = '3/2' } = Astro.props
+const { src, aspectRatio = '3/2', maxWidth = 600 } = Astro.props
 // eslint-disable-next-line no-eval
 const calculatedAspectRatio = eval(aspectRatio)
 ---
 
-<div class="UnityGame">
+<div class="UnityGame" data-src={src}>
   <Container layout="full">
     <h2 class="section-header">Game 🎮</h2>
 
@@ -31,8 +32,14 @@ const calculatedAspectRatio = eval(aspectRatio)
   </Container>
 </div>
 
-<script define:vars={{ src, aspectRatio: calculatedAspectRatio }}>
+<script define:vars={{ src, aspectRatio: calculatedAspectRatio, maxWidth }}>
   document.addEventListener('astro:page-load', () => {
+    const root = document.querySelector('.UnityGame')
+    if (!root || root.dataset.src !== src || root.dataset.initialized) {
+      return
+    }
+    root.dataset.initialized = 'true'
+
     // Elements
     const overlayMenu = document.querySelector('.UnityGame .overlay-menu')
     const loader = document.querySelector('.UnityGame .ProgressBar')
@@ -61,7 +68,7 @@ const calculatedAspectRatio = eval(aspectRatio)
     }
 
     function adjustCanvas() {
-      const width = Math.min(600, window.outerWidth - 20)
+      const width = Math.min(maxWidth, window.outerWidth - 20)
       const height = Math.min(window.outerHeight - 20, width / aspectRatio)
       canvasContainer.style.width = `${width}px`
       canvasContainer.style.height = `${height}px`
@@ -95,6 +102,17 @@ const calculatedAspectRatio = eval(aspectRatio)
 
       document.body.appendChild(script)
     }
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        if (unityInstance) {
+          unityInstance.Quit()
+          unityInstance = undefined
+        }
+      },
+      { once: true },
+    )
 
     // Handle events
     playButton?.addEventListener('click', () => {

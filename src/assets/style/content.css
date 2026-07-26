@@ -207,6 +207,9 @@
   .center {
     margin: auto;
   }
+  pre.center {
+    text-align: center;
+  }
 
   &.remark-first-paragraph {
     > p:nth-child(1) {

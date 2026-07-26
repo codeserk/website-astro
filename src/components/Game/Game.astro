@@ -13,5 +13,5 @@ const game = entry.data.game
 ---
 
 {game?.type === 'Unity' && game.src && <UnityGame src={game.src} aspectRatio={game.aspectRatio} />}
-{game?.type === 'Unity6' && game.src && <Unity6Game src={game.src} aspectRatio={game.aspectRatio} />}
+{game?.type === 'Unity6' && game.src && <Unity6Game src={game.src} aspectRatio={game.aspectRatio} maxWidth={game.maxWidth} />}
 {game?.type === 'Web' && game.src && <WebGame src={game.src} aspectRatio={game.aspectRatio} />}

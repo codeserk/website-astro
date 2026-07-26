@@ -12,7 +12,7 @@ const { src, aspectRatio = '3/2' } = Astro.props
 const calculatedAspectRatio = eval(aspectRatio)
 ---
 
-<div class="UnityGame">
+<div class="UnityGame" data-src={src}>
   <Container layout="full">
     <h2 class="section-header">Game 🎮</h2>
 
@@ -33,6 +33,12 @@ const calculatedAspectRatio = eval(aspectRatio)
 
 <script define:vars={{ src, aspectRatio: calculatedAspectRatio }}>
   document.addEventListener('astro:page-load', () => {
+    const root = document.querySelector('.UnityGame')
+    if (!root || root.dataset.src !== src || root.dataset.initialized) {
+      return
+    }
+    root.dataset.initialized = 'true'
+
     // Elements
     const overlayMenu = document.querySelector('.UnityGame .overlay-menu')
     const loader = document.querySelector('.UnityGame .ProgressBar')
@@ -95,6 +101,17 @@ const calculatedAspectRatio = eval(aspectRatio)
 
       document.body.appendChild(script)
     }
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        if (unityInstance) {
+          unityInstance.Quit()
+          unityInstance = undefined
+        }
+      },
+      { once: true },
+    )
 
     // Handle events
     playButton?.addEventListener('click', () => {
