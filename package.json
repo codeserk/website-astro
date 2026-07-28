@@ -27,6 +27,8 @@
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/tailwind": "^6.0.2",
     "@codeserk/forge-stats": "^0.0.1",
+    "@hackernoon/pixel-icon-library": "^1.1.0",
+    "@nsmr/pixelart-react": "^2.0.0",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "astro": "^5.15.1",

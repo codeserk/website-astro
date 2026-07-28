@@ -147,7 +147,7 @@ const career = (await getCollection('career')).sort((a, b) => {
   <LayoutContainer full overlay>
     <div class="sections">
       <section>
-        <h2><a href="/about-me">About Me 🐱</a></h2>
+        <h2><a href="/about-me">About Me :cat:</a></h2>
 
         <PageContent layout="small">
           <AboutMeContent components={{ a: Link, img: Image }} />
@@ -155,7 +155,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/journal"><h2>Journal 📝</h2></a>
+        <a href="/journal"><h2>Journal :memo:</h2></a>
 
         <LogsJournal combineDates max={3} />
 
@@ -165,7 +165,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/blog"><h2>Blog 📺</h2></a>
+        <a href="/blog"><h2>Blog :tv:</h2></a>
 
         <PageLinksGrid links={recentArticles} />
 
@@ -175,7 +175,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/language"><h2>Languages 👓</h2></a>
+        <a href="/language"><h2>Languages :glasses:</h2></a>
 
         <HomeLanguages />
       </section>
@@ -191,7 +191,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/career"><h2>Career ☎︎</h2></a>
+        <a href="/career"><h2>Career :phone:</h2></a>
 
         <PageLinksGrid links={career} component={PageCareerLink} />
       </section>
@@ -300,7 +300,7 @@ const career = (await getCollection('career')).sort((a, b) => {
       </section>
 
       <section>
-        <a href="/project"><h2>Projects 🎵</h2></a>
+        <a href="/project"><h2>Projects :music-note:</h2></a>
 
         <PageLinksGrid links={lastProjects} />
 

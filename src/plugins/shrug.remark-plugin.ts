@@ -5,10 +5,24 @@ import type { Plugin } from 'unified'
 export const remarkShrugPlugin: Plugin<null[], Root> = () => {
   function transformer(tree: Nodes): void {
     findAndReplace(tree, [
-      '/shrug',
-      (): string => {
-        return '¯\\_(ツ)_/¯'
-      },
+      [
+        '/shrug',
+        (): string => {
+          return '¯\\_(ツ)_/¯'
+        },
+      ],
+      [
+        '/anguish',
+        (): string => {
+          return '>_<'
+        },
+      ],
+      [
+        '/cry',
+        (): string => {
+          return ':_'
+        },
+      ],
     ])
   }
 

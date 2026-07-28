@@ -8,7 +8,7 @@ const { name, href } = Astro.props
 ---
 
 <a class={`link ${name}`} href={href} target="_blank">
-  {name === 'github' ? <img class="icon" src="/image/social/github.png" alt="GitHub" /> : <span class="icon">➿</span>}
+  {name === 'github' ? <img class="icon" src="/image/social/github.png" alt="GitHub" /> : <span class="icon">:loop:</span>}
   {name}
 </a>
 
@@ -21,11 +21,20 @@ const { name, href } = Astro.props
     gap: 12px;
 
     .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 24px;
       width: 24px;
       height: 24px;
       margin-bottom: 5px;
       text-align: center;
+    }
+
+    .icon :global(.pixel-icon) {
+      display: block;
+      margin: 0 !important;
+      vertical-align: unset;
     }
 
     &.website {
