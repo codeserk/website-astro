@@ -27,7 +27,7 @@ export const WebGLCanvas: FC<Props> = ({ size, camera, children }) => {
 
           <OrbitControls target={camera?.target} />
           <PerspectiveCamera makeDefault position={cameraPosition} near={0.001} far={1000} />
-          <CanvasDebug />
+          {import.meta.env.DEV && <CanvasDebug />}
         </Suspense>
       </Canvas>
     </>
