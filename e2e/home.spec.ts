@@ -93,4 +93,12 @@ test.describe('Home page', () => {
       await expect(section).toBeVisible()
     })
   })
+
+  test('should display the closing note', async ({ page }) => {
+    // Arrange
+    const note = page.getByText('Thanks for visiting my portfolio')
+
+    // Assert
+    await expect(note).toBeVisible()
+  })
 })

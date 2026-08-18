@@ -13,12 +13,7 @@ interface Props {
 const { item } = Astro.props
 ---
 
-<PageLink
-  title={item.data.name}
-  heading="h4"
-  link={`/${item.collection}/${item.slug}`}
-  image={item.data.featuredImage}
-/>
+<PageLink title={item.data.name} heading="h4" link={`/${item.collection}/${item.id}`} image={item.data.featuredImage} />
 
 <style>
   .yearsLearning {

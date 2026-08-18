@@ -20,8 +20,8 @@ const { entry } = Astro.props
 const config = getEntryCollectionConfig(entry)
 const image = await getEntryImage(entry)
 const references = await getReferencesForEntry(entry, config.referencesInPage)
-const showCreatedAt = config.showCreatedAt || getEntryIsLog(entry.slug)
-const showInitials = config.showInitials && !getEntryIsLog(entry.slug)
+const showCreatedAt = config.showCreatedAt || getEntryIsLog(entry.id)
+const showInitials = config.showInitials && !getEntryIsLog(entry.id)
 const createdAt = showCreatedAt ? getEntryCreatedAt(entry) : undefined
 ---
 

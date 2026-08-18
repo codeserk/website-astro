@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from 'astro:content'
+import { getCollection, getEntry, render } from 'astro:content'
 import dayjs from 'dayjs'
 import Block from '~/components/Block.astro'
 import Container from '~/components/Container.astro'
@@ -19,7 +19,7 @@ import TypedStrings from '../components/TypedStrings'
 import Layout from '../layouts/Layout.astro'
 
 const aboutMe = await getEntry('page', 'about-me')
-const { Content: AboutMeContent } = await aboutMe.render()
+const { Content: AboutMeContent } = await render(aboutMe)
 
 const recentArticles = (await sortEntries(await getCollection('blog'))).slice(0, 2)
 const lastChallenges = (await getCollection('challenge'))
@@ -207,7 +207,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                 frontendFrameworks.map((framework) => (
                   <div class="web-technologies-item">
                     <h4>
-                      <a href={`/framework/${framework.slug}`}>{framework.data.name}</a>
+                      <a href={`/framework/${framework.id}`}>{framework.data.name}</a>
                     </h4>
                     <ProgressBar text={framework.data.status} percent={framework.data.knowledge} />
                     <EntrySummary entry={framework} />
@@ -220,7 +220,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                 frontendTechnologies.map((technology) => (
                   <div class="web-technologies-item">
                     <h4>
-                      <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
+                      <a href={`/technology/${technology.id}`}>{technology.data.name}</a>
                     </h4>
                     <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
                     <EntrySummary entry={technology} />
@@ -234,7 +234,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                 devOpsTechnologies.map((technology) => (
                   <div class="web-technologies-item">
                     <h4>
-                      <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
+                      <a href={`/technology/${technology.id}`}>{technology.data.name}</a>
                     </h4>
                     <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
                     <EntrySummary entry={technology} />
@@ -248,7 +248,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                 backendFrameworks.map((framework) => (
                   <div class="web-technologies-item">
                     <h4>
-                      <a href={`/framework/${framework.slug}`}>{framework.data.name}</a>
+                      <a href={`/framework/${framework.id}`}>{framework.data.name}</a>
                     </h4>
                     <ProgressBar text={framework.data.status} percent={framework.data.knowledge} />
                     <EntrySummary entry={framework} />
@@ -261,7 +261,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                 databases.map((database) => (
                   <div class="web-technologies-item">
                     <h4>
-                      <a href={`/database/${database.slug}`}>{database.data.name}</a>
+                      <a href={`/database/${database.id}`}>{database.data.name}</a>
                     </h4>
                     <ProgressBar text={database.data.status} percent={database.data.knowledge} />
                     <EntrySummary entry={database} />
@@ -274,7 +274,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                 messageBrokers.map((messageBroker) => (
                   <div class="web-technologies-item">
                     <h4>
-                      <a href={`/message-broker/${messageBroker.slug}`}>{messageBroker.data.name}</a>
+                      <a href={`/message-broker/${messageBroker.id}`}>{messageBroker.data.name}</a>
                     </h4>
                     <ProgressBar text={messageBroker.data.status} percent={messageBroker.data.knowledge} />
                     <EntrySummary entry={messageBroker} />
@@ -287,7 +287,7 @@ const career = (await getCollection('career')).sort((a, b) => {
                 backendTechnologies.map((technology) => (
                   <div class="web-technologies-item">
                     <h4>
-                      <a href={`/technology/${technology.slug}`}>{technology.data.name}</a>
+                      <a href={`/technology/${technology.id}`}>{technology.data.name}</a>
                     </h4>
                     <ProgressBar text={technology.data.status} percent={technology.data.knowledge} />
                     <EntrySummary entry={technology} />

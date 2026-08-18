@@ -17,9 +17,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run preview',
+    command: 'npm run build && npm run preview',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
-    env: { SHOW_DRAFTS: 'false' },
+    env: { SHOW_DRAFTS: 'false', ASTRO_PREVIEW_BACKGROUND: '1' },
   },
 })

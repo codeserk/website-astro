@@ -8,7 +8,13 @@ const { name, href } = Astro.props
 ---
 
 <a class={`link ${name}`} href={href} target="_blank">
-  {name === 'github' ? <img class="icon" src="/image/social/github.png" alt="GitHub" /> : <span class="icon">:loop:</span>}
+  {
+    name === 'github' ? (
+      <img class="icon" src="/image/social/github.png" alt="GitHub" />
+    ) : (
+      <span class="icon">:loop:</span>
+    )
+  }
   {name}
 </a>
 

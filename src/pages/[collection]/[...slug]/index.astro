@@ -1,5 +1,5 @@
 ---
-import { getCollection, type AnyEntryMap } from 'astro:content'
+import type { AnyEntryMap } from 'astro:content'
 import ContentMarkdown from '~/components/Content/ContentMarkdown.astro'
 import AstroGallery from '~/components/Content/Gallery.astro'
 import Image from '~/components/Content/Image.astro'
@@ -20,10 +20,10 @@ import {
   getEntryCreatedAt,
   getEntryGalleryImages,
   getEntryImage,
-  getEntryIsNotDraft,
   getEntryRenderContent,
   getEntrySummary,
   getEntrySummaryContent,
+  getPublishedEntries,
   getReferencesForEntry,
 } from '../../../utils/content'
 import Game from '~/components/Game/Game.astro'
@@ -48,13 +48,13 @@ export async function getStaticPaths() {
   const data = await Promise.all(
     COLLECTIONS.map(async (collection) => ({
       collection,
-      entries: await getCollection(collection, getEntryIsNotDraft),
+      entries: await getPublishedEntries(collection),
     })),
   )
 
   const result = data.flatMap(({ collection, entries }) =>
     entries?.map((entry: any) => ({
-      params: { collection, slug: entry.slug },
+      params: { collection, slug: entry.id },
       props: { collection, entry },
     })),
   )

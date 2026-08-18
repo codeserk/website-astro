@@ -53,8 +53,8 @@ const url = Astro.url.pathname
               {entries.map((it) => (
                 <nav>
                   <a
-                    class:list={{ active: url.startsWith(`/${collection}/${it.slug}`) }}
-                    href={`/${collection}/${it.slug}`}>
+                    class:list={{ active: url.startsWith(`/${collection}/${it.id}`) }}
+                    href={`/${collection}/${it.id}`}>
                     <h3> {it.data.name}</h3>
                   </a>
                 </nav>
@@ -71,7 +71,7 @@ const url = Astro.url.pathname
           {
             pages.map((it) => (
               <nav>
-                <a class:list={{ active: url.startsWith(`/${it.slug}`) }} href={`/${it.slug}`}>
+                <a class:list={{ active: url.startsWith(`/${it.id}`) }} href={`/${it.id}`}>
                   <h3>{it.data.name}</h3>
                 </a>
               </nav>

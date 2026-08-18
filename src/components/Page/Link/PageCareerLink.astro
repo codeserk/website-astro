@@ -50,7 +50,7 @@ const imageMeta = await getImageMetadata(image)
     </PageMetaBlock>
 
     <div class="PageCareeerLink_blockContainer">
-      <Block title={item.data.name} link={`/career/${item.slug}`} padding="small" shadow>
+      <Block title={item.data.name} link={`/career/${item.id}`} padding="small" shadow>
         {
           imageMeta && (
             <Image

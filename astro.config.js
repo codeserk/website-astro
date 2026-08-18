@@ -1,3 +1,4 @@
+import { unified } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
 import { defineConfig } from 'astro/config'
 import { existsSync, readdirSync, readFileSync } from 'fs'
@@ -5,7 +6,6 @@ import { join } from 'path'
 import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis'
 import remarkToc from 'remark-toc'
 import react from '@astrojs/react'
-import tailwind from '@astrojs/tailwind'
 import { remarkShrugPlugin } from './src/plugins/shrug.remark-plugin'
 import { remarkIconPlugin } from './src/plugins/icon.remark-plugin'
 
@@ -135,15 +135,16 @@ export default defineConfig({
   markdown: {
     // Astro's default smartypants converts ' -> ' (U+2019) which renders
     // oddly on mobile with the site font. Keep ASCII apostrophes everywhere.
-    smartypants: false,
-    remarkPlugins: [remarkToc, remarkIconPlugin, remarkGemoji, remarkShrugPlugin, remarkModifiedTime],
-    rehypePlugins: [rehypeAccessibleEmojis],
+    processor: unified({
+      smartypants: false,
+      remarkPlugins: [remarkToc, remarkIconPlugin, remarkGemoji, remarkShrugPlugin, remarkModifiedTime],
+      rehypePlugins: [rehypeAccessibleEmojis],
+    }),
   },
   integrations: [
     mdx(),
     react(),
 
-    tailwind(),
     sitemap({
       serialize(item) {
         // TODO - add changemod when is possible

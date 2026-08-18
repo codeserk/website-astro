@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { collection, entry } = Astro.props
-const entries = await getEntryLogs(collection, entry.slug)
+const entries = await getEntryLogs(collection, entry.id)
 ---
 
 {
@@ -21,7 +21,7 @@ const entries = await getEntryLogs(collection, entry.slug)
 
       <Container layout="small">
         {entries.map((it) => (
-          <PageLog entry={it} isCurrent={it.slug === entry.slug} />
+          <PageLog entry={it} isCurrent={it.id === entry.id} />
         ))}
       </Container>
     </div>

@@ -23,7 +23,7 @@ const { previous, next } = await getNearEntries(collection, entry)
             <div class="link previous">
               <PageLink
                 title={'< PREV'}
-                link={`/${previous.collection}/${previous.slug}`}
+                link={`/${previous.collection}/${previous.id}`}
                 image={previous.data.featuredImage}
                 summary={previous.data.name}
               />
@@ -33,7 +33,7 @@ const { previous, next } = await getNearEntries(collection, entry)
             <div class="link next">
               <PageLink
                 title={'NEXT >'}
-                link={`/${next.collection}/${next.slug}`}
+                link={`/${next.collection}/${next.id}`}
                 image={next.data.featuredImage}
                 summary={next.data.name}
               />

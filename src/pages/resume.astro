@@ -10,7 +10,7 @@ import ReferencesList from '~/components/ReferencesList.astro'
 import Layout from '~/layouts/Layout.astro'
 import { getEntryImage, getEntrySummaryContent } from '~/utils/content'
 
-const baseURL = Astro.site
+const baseURL = Astro.site?.href.replace(/\/$/, '')
 
 const social = [
   { label: '➿', link: 'https://www.codeserk.es', title: 'www.codeserk.es' },
@@ -181,7 +181,7 @@ const education = await Promise.all(
                   <div class="skills-section">
                     {block.map((item: any) => (
                       <div class="skill item">
-                        <a href={`${baseURL}/${item.collection}/${item.slug}`} class="item-name">
+                        <a href={`${baseURL}/${item.collection}/${item.id}`} class="item-name">
                           <h3 class="label">{item.data.name}</h3>
                         </a>
                         <ProgressBar percent={item.data.knowledge} text={`${item.data.yearsLearning} years`} small />
@@ -237,7 +237,7 @@ const education = await Promise.all(
 
                     <div class="item-header-info">
                       <div class="title">
-                        <a href={`${baseURL}career/${item.slug}`}>
+                        <a href={`${baseURL}/career/${item.id}`}>
                           <h3>{item.data.name}</h3>
                         </a>
                         {item.data.position && <span class="position">{item.data.position}</span>}

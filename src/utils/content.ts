@@ -1,5 +1,5 @@
 import type { ImageMetadata } from 'astro'
-import { getCollection, getEntry, type ContentEntryMap } from 'astro:content'
+import { getCollection, getEntry, render, type ContentEntryMap } from 'astro:content'
 import dayjs from 'dayjs'
 import { remark } from 'remark'
 import stripMarkdown from 'strip-markdown'
@@ -218,10 +218,10 @@ export async function getAllLogEntries(): Promise<Entry[]> {
   const rootEntriesByRef = new Map(allEntries.filter(getEntryIsRoot).map((e) => [getEntryReference(e), e]))
 
   return allEntries.filter((entry) => {
-    if (!getEntryIsLog(entry.slug)) {
+    if (!getEntryIsLog(entry.id)) {
       return false
     }
-    const parentRef = entry.slug.replace(/\/log\/.+$/, '')
+    const parentRef = entry.id.replace(/\/log\/.+$/, '')
     const parent = rootEntriesByRef.get(`${entry.collection}/${parentRef}`)
     return !parent || getEntryIsNotDraft(parent)
   })
@@ -250,8 +250,8 @@ export async function getReferencesForEntry(entry?: Entry, collections: Collecti
     .sort(entrySortFn)
     .filter((it) => {
       return (
-        directReferences.includes(`${it.collection}/${it.slug}`) ||
-        it.data.references?.includes(`${entry.collection}/${entry.slug}`)
+        directReferences.includes(`${it.collection}/${it.id}`) ||
+        it.data.references?.includes(`${entry.collection}/${entry.id}`)
       )
     })
 }
@@ -263,29 +263,29 @@ export async function getEntryRenderContent(entry: Entry): Promise<any> {
     return RENDER_CACHE[link]
   }
 
-  const value = await entry.render()
+  const value = await render(entry)
   RENDER_CACHE[link] = value
 
   return value
 }
 
 export function getEntryLink(entry: Entry): string {
-  return `/${entry.collection}/${entry.slug}`
+  return `/${entry.collection}/${entry.id}`
 }
 export function getEntryReference(entry: Entry): string {
-  return `${entry.collection}/${entry.slug}`
+  return `${entry.collection}/${entry.id}`
 }
 
 export function getLogEntryParentLink(entry: Entry): string {
-  if (getEntryIsLog(entry.slug)) {
-    return `/${entry.collection}/${entry.slug.replace(/\/log.+/, '')}`
+  if (getEntryIsLog(entry.id)) {
+    return `/${entry.collection}/${entry.id.replace(/\/log.+/, '')}`
   }
 
   return getEntryLink(entry)
 }
 
 export async function getLogEntryParent(entry: Entry): Promise<Entry> {
-  if (!getEntryIsLog(entry.slug)) {
+  if (!getEntryIsLog(entry.id)) {
     return entry
   }
 
@@ -293,8 +293,8 @@ export async function getLogEntryParent(entry: Entry): Promise<Entry> {
 }
 
 export function getEntryLogLink(entry: Entry): string {
-  if (getEntryIsLog(entry.slug)) {
-    return `/${entry.collection}/${entry.slug.replace(/\/log.+/, '/log')}`
+  if (getEntryIsLog(entry.id)) {
+    return `/${entry.collection}/${entry.id.replace(/\/log.+/, '/log')}`
   }
 
   return `${getEntryLink(entry)}/log`
@@ -394,7 +394,7 @@ export async function getEntrySummary(entry: Entry, onlyExplicit = true): Promis
 }
 
 export function getEntryBreadcrumbs(entry: Entry): BreadcrumbLink[] {
-  const parts = entry.slug.split('/').slice(0, -1) as string[]
+  const parts = entry.id.split('/').slice(0, -1) as string[]
   return parts.reduce(
     (result, part) => {
       const last = result[result.length - 1]?.link ?? '/'
@@ -406,7 +406,7 @@ export function getEntryBreadcrumbs(entry: Entry): BreadcrumbLink[] {
 }
 
 export function getEntryIsRoot(entry: Entry): boolean {
-  return entry.slug.split('/').length === 1
+  return entry.id.split('/').length === 1
 }
 
 const SHOW_DRAFTS = import.meta.env.SHOW_DRAFTS === 'true'
@@ -423,6 +423,20 @@ export function getEntryIsLog(slug?: string): boolean {
   return slug?.includes('/log') ?? false
 }
 
+/**
+ * Lists the entries of a collection that should get a page: published entries,
+ * minus the logs whose parent entry is a draft.
+ *
+ * @param collection collection to read
+ * @returns the entries safe to publish
+ */
+export async function getPublishedEntries(collection: Collection): Promise<Entry[]> {
+  const entries = await getCollection(collection, getEntryIsNotDraft)
+  const roots = new Set(entries.filter(getEntryIsRoot).map((entry) => entry.id))
+
+  return entries.filter((entry) => !getEntryIsLog(entry.id) || roots.has(entry.id.replace(/\/log\/.+$/, '')))
+}
+
 export async function getEntryLogs(collection: Collection, slug: string): Promise<Entry[]> {
   let entrySlug = slug
   if (getEntryIsLog(slug)) {
@@ -434,7 +448,7 @@ export async function getEntryLogs(collection: Collection, slug: string): Promis
         .reverse()[0] ?? ''
   }
 
-  const entries = await getCollection(collection, (it) => it.slug.includes(`${entrySlug}/log/`))
+  const entries = await getCollection(collection, (it) => it.id.includes(`${entrySlug}/log/`))
 
   return entries.sort(entrySortFn)
 }
@@ -499,13 +513,13 @@ export async function getNearEntries(collection: Collection, entry: Entry): Prom
 }
 
 async function getNearEntriesFromLogs(collection: Collection, entry: Entry): Promise<NearEntries> {
-  if (!getEntryIsLog(entry.slug)) {
+  if (!getEntryIsLog(entry.id)) {
     return {}
   }
 
-  const entrySlug = entry.slug?.split('/').slice(0, -2).reverse()[0]
+  const entrySlug = entry.id?.split('/').slice(0, -2).reverse()[0]
   const logs = await getEntryLogs(collection, entrySlug)
-  const currentIndex = logs.findIndex((it) => it.slug === entry.slug)
+  const currentIndex = logs.findIndex((it) => it.id === entry.id)
 
   return {
     previous: logs[currentIndex + 1],

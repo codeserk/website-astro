@@ -19,7 +19,7 @@ const Heading = heading ?? 'h3'
 
 <div class="PageLog">
   <Heading class:list={['title', { current: isCurrent }]}>
-    <a href={`/${entry.collection}/${entry.slug}`}>{entry.data.name}</a>
+    <a href={`/${entry.collection}/${entry.id}`}>{entry.data.name}</a>
   </Heading>
 
   <div class="content">{(<ContentMarkdown content={summary} />)}</div>
