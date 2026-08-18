@@ -1,0 +1,35 @@
+---
+name: Mini Jam 217 - May I Fly
+links:
+  - name: itch.io
+    href: https://codeserk.itch.io/may-i-fly
+featuredImage: project/mini-jam-217/logo.png
+startDate: 2026-08-14
+endDate: 2026-08-16
+progress: 100
+status: completed
+references:
+  - development/game
+  - language/c
+game:
+  type: Web
+  src: /game/mini-jam-217/index.html
+  aspectRatio: 540/960
+  maxWidth: 540
+---
+
+You are a rock that wished to fly. The wish is granted, on one condition: **keep beating your wings or you come down**.
+
+## May I fly?
+
+One button. That's the whole game.
+
+Every beat you land pushes you higher. The tempo never changes; the question is whether you can keep hitting it. The rock talks on the way up, and something much older talks back.
+
+Made in a weekend for Mini Jam 217, theme _whimsy_. My whimsy is a stone with delusions of grandeur, apparently.
+
+## The technical bit
+
+This one runs on [](/project/simurg), my own [](language/c) engine, so **no Unity, no Godot, no editor**. The whole picture is **one fragment shader** driven by a single `altitude` uniform: near-1-bit through a Bayer dither, no sprites anywhere. The audio too: synthesised in `C`, mixed by the same altitude.
+
+Play it here or in [itch.io](https://codeserk.itch.io/may-i-fly) (:

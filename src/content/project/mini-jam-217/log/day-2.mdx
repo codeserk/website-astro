@@ -1,0 +1,21 @@
+---
+name: Day 2, a rock that wants to fly
+featuredImage: project/mini-jam-217/day-2/climb.png
+createdAt: 2026-08-15
+---
+
+Saturday, first day with actual code. The pitch from Friday fitted in one line: you are a rock, you get wings, and the wings only last while you keep beating them in time. One button and nothing else.
+
+## No sprites, no meshes, no textures
+
+The entire picture is **one fragment shader** (`scene.glsl`, which by the end had grown a pile of includes: `ground`, `weather`, `moon`, `stars`, `sun`...). Mountain, rain, sea, clouds, moon, stars: all of it comes out of a single `altitude` uniform through a 4x4 Bayer dither, so the sky changes band by band as you climb.
+
+![bordered md alt:The mountain in the rain, over the water](/project/mini-jam-217/day-2/start.png)
+
+Best decision of the jam: **no asset pipeline** means nothing to import and nothing to wait for. Change a number, see the sky change.
+
+## The ride, tested headless
+
+The other half of the day went into `leap`, the pure logic: the beat window, the wish breaking, and gravity that scales with your apex. Zero engine dependency, so **the whole loop is unit tested** without opening a window. Sounds like overkill for a jam, but it's the opposite: I could tune the difficulty curve from tests instead of playing the game 200 times :D
+
+End of the day: it climbs, it breaks, it falls. It's silent, but it works.
