@@ -1,0 +1,14 @@
+---
+name: 'Onboarding and getting it to the store'
+createdAt: 2026-04-25
+references:
+  - language/typescript
+  - framework/react-native
+  - technology/fastlane
+---
+
+Settings restructured, an onboarding flow, the history list with date headers, and `@nest/changelog` so the app can show what changed inside itself.
+
+Then [](technology/fastlane) for the Android builds and the Play Store upload, with lanes for local builds, beta and promoting beta to production. The app uses `Expo` with prebuild instead of the managed workflow, so the Gradle builds are direct and `fastlane` behaves like it would on any native project.
+
+Marketing scenes too, in a `@nest/scenes` package with its own preview app, so the store screenshots come out of the code instead of out of a screenshot session.

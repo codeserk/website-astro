@@ -1,0 +1,11 @@
+---
+name: 'Sync without a server'
+createdAt: 2026-04-18
+references:
+  - language/typescript
+  - development/web
+---
+
+Cloud sync through Google Drive, encrypted on the client, in a new `@nest/storage` package next to `@nest/payments`.
+
+I didn't want to run a backend for this. It's a timer, and the history is a few kilobytes of your own data. Putting it in your drive means there's nothing to host, nothing to pay for and nothing of yours on a machine of mine. The encryption is there so it stays that way even inside your account.

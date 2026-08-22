@@ -1,10 +1,12 @@
 ---
-name: 'Infrastructure and ClickHouse fixes'
+name: 'Shared secrets in Terraform, and a bug in InsertOne'
 createdAt: 2026-03-31
 references:
-  - language/go
+  - language/golang
   - database/clickhouse
+  - technology/terraform
 ---
 
-- Moved secrets/config to shared Terraform resources, simplified helm charts
-- Fixed InsertOne missing TTLHours/Bucket, simplified InsertMany, added tests
+Moved the secrets and the config to shared [](technology/terraform) resources. Every chart had its own copy of the same values, which was fine with three services and stupid with sixteen. The [](technology/helm) charts got a lot smaller after that.
+
+Then a real bug: `InsertOne` was not setting `TTLHours` and `Bucket`, so single inserts were writing rows that behave differently from the ones written in batch. `InsertMany` got simplified while I was there, and both have tests now.

@@ -2,12 +2,12 @@
 name: Pixodoro
 featuredImage: /project/pixodoro/icon.png
 progress: 60
-status: published
-startDate: 2026-03-15
+status: draft
+startDate: 2026-04-14
 references:
   - development/web
-  - development/mobile
-  - development/desktop
+  - development/android
+  - development/ios
   - language/typescript
   - language/golang
   - framework/react
@@ -17,38 +17,29 @@ links:
     href: /project/pixodoro/privacy-policy
 ---
 
-A productivity timer based on the [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique), with a pixel art aesthetic.
+A pomodoro timer that looks like it came out of a Game Boy. It's literally a timer, so it's free, and it runs on every screen I have.
 
 ## Content
 
-## Why another Pomodoro app?
+## Why
 
-There are plenty of Pomodoro apps out there - [Forest](https://www.forestapp.cc/), [Be Focused Pro](https://apps.apple.com/app/be-focused-pro/id961632517), [Focus Keeper Pro](https://apps.apple.com/app/focus-keeper-pro/id867374917)... But none of them felt _right_ for me. I wanted something that looked like it came out of a Game Boy, ran everywhere, and didn't lock my data behind a subscription.
+There are plenty of pomodoro apps - [Forest](https://www.forestapp.cc/), [Be Focused Pro](https://apps.apple.com/app/be-focused-pro/id961632517), [Focus Keeper Pro](https://apps.apple.com/app/focus-keeper-pro/id867374917) - and most of them want a subscription for themes, stats or sync. For a thing that counts to 25 minutes.
 
-So I built **Pixodoro** - a Pomodoro timer with a retro pixel art UI, dithered backgrounds and all.
+The other reason is that I wanted an excuse to build the same app four times.
 
-## Multi-platform from the start
+## Everywhere
 
-One of the main goals was to make this work **everywhere**. The app runs on:
+It's a monorepo, and all the business logic - the timer, the phases, the history, the settings - lives in a `core` that knows nothing about the screen it will end up on. Every platform is views on top of it:
 
-- **Web** as a [](technology/pwa), so you can install it directly from the browser.
-- **Desktop** using [](technology/wails) with a [](language/golang) backend - lightweight and native-feeling.
-- **Mobile** with [](framework/react-native) and [](framework/react-native).
-- **Terminal** using [Ink](https://github.com/vadimdemedes/ink), because why not.
+- **Web**, [](framework/react) Native for Web, installable as a `PWA`.
+- **Mobile**, [](framework/react-native) with `Expo`, [](development/android) and [](development/ios).
+- **Desktop**, `Wails` with a [](language/golang) backend, living in the menu bar and hiding itself when it loses focus.
+- **Terminal**, a prototype with [Ink](https://github.com/vadimdemedes/ink) reusing the same stores, mostly because I wanted to know if it would work. It did.
 
-All platforms share the same core through a `@wren/app` package. This means when I add a feature, it lands on every platform without re-implementing the business logic - I just need to adapt the views.
+So a feature gets written once, in the core, and then it exists everywhere. Bringing it to another platform is adapting views, not re-implementing anything. The terminal build is the proof that it works: same core, same stores, rendered with text instead of pixels.
 
-## Features
+## What it does
 
-The app has grown quite a bit since v0.1.0:
+Configurable work, break and long break phases, session history with daily goals, sounds and ticking, notifications when a phase ends, keyboard shortcuts, English and Spanish, light and dark theme, onboarding, and an in-app changelog.
 
-- Customizable timers for work, break and long break phases
-- Session history tracking and daily goals
-- Sound effects and ticking sounds with volume control
-- Desktop notifications for phase transitions
-- Cloud sync via Google Drive with **client-side encryption** - your data stays yours
-- Keyboard shortcuts for everything
-- i18n support (English and Spanish for now)
-- Light and dark themes
-- Onboarding flow for new users
-- In-app changelog
+Sync is through Google Drive, encrypted client side. It's your drive, I never see anything, and I don't have to run a server for it.

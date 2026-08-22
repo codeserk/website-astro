@@ -1,0 +1,14 @@
+---
+name: 'Menu bar and a terminal, because why not'
+createdAt: 2026-04-16
+references:
+  - language/typescript
+  - language/golang
+  - framework/react
+---
+
+Timer persistence and signal-native components first, then the history store with its screen, phase tabs and daily goal.
+
+The fun part came after. A desktop build with `Wails` and a [](language/golang) backend that sits in the menu bar, and a terminal prototype with `Ink` and `better-sqlite3`. Both reuse the same `@wren/core` stores, and the terminal one took an evening.
+
+I didn't need a terminal version of a pomodoro app. I wanted to know if the core was really independent from the view, and there is no better test than rendering it with text.

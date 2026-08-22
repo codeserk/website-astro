@@ -1,0 +1,13 @@
+---
+name: 'Dither reveal, and a real database'
+createdAt: 2026-05-16
+references:
+  - language/typescript
+  - framework/react-native
+---
+
+Screens and modals now appear with a dithered reveal instead of a fade. It's a `reveal` prop on `View`, and `ScreenView`, `Modal` and the onboarding use it. The whole app is pixel art, a smooth opacity fade was the one thing that looked out of place.
+
+Storage moved to `WatermelonDB` on mobile, and `maestro` runs the flows on a real device.
+
+Small ones: skeletons fade instead of popping, sharing an export goes through the native sheet, and ticking is off by default now. I like the tick, most people apparently find it stressful.

@@ -1,10 +1,11 @@
 ---
-name: 'Event summaries aggregation'
+name: 'Event summaries'
 createdAt: 2026-04-02
 references:
-  - language/go
+  - language/golang
   - database/clickhouse
 ---
 
-- Event summaries aggregation endpoint, migration, store, and UI
-- Fix session tops MVs: insert-triggered + dedup sessions_completed
+Event summaries: endpoint, migration, store and UI. One row per event type with its totals, instead of asking for the raw events every time you open the page.
+
+I also had to fix the session tops. They were built as _refreshable_ views, which is the same mistake I keep paying for in this project, so now they are insert-triggered like the rest. Sessions needed a dedup on `sessions_completed` on top, a session can be completed more than once and I was counting it twice.

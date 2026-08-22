@@ -1,19 +1,78 @@
 ---
 name: Forge
-progress: 40
-status: draft
-startDate: 2026-01-01
+featuredImage: project/forge.png
+progress: 60
+status: published
+startDate: 2024-12-04
 references:
   - development/web
+  - development/software-architecture
+  - language/golang
   - language/typescript
-  - language/go
   - framework/react
-  - database/clickhouse
-  - technology/grpc
+  - technology/kubernetes
+  - technology/terraform
   - technology/docker
+  - database/mongodb
+  - database/clickhouse
+  - message-broker/nats
+  - technology/helm
+  - database/redis
 ---
 
-- Self-hosted analytics and event tracking platform, privacy-first alternative
-- Full-stack: Go backend + ClickHouse for time-series, React/Preact signals frontend
-- Cover: event pipeline, session tracking, stats engine (MVs, tops, summaries), journey visualization (Sankey), dashboard UI, infra (Docker, Terraform, K8s)
-- Mention motivation: why build your own analytics?
+Self-hosted analytics that I actually own. A `Go` backend writing events into [](database/clickhouse), a [](framework/react) dashboard on top, and everything deployed to my own [](technology/kubernetes) cluster with [](technology/helm) and [](technology/terraform).
+
+## Content
+
+## How it started
+
+This started as [](project/press), a long time ago: a `CMS` that collects the content from different sources like [](technology/wordpress) and serves it from one place. That project decayed and was never finished, but the idea is still around. It had different legs, and two of them were media and statistics.
+
+Statistics was the leg I actually needed, so that's the one I started. The repository is still called `press.io` because of that. It ended up being more ambitious than the original idea, so at some point I rebranded everything: `Press` stayed as the content part and Forge is the whole thing.
+
+The reason I needed it: I was using [Plausible](https://plausible.io/) for the statistics of my sites and I liked it, but `500k` events was around `49€/month`. That was for [](project/i-ching), a free app I built for fun, so paying that every month was never going to happen.
+
+The trick that makes it cheap is that I don't keep the events. Saving every single one of them is madness, so I aggregate when the row is written and then the event is gone. That has caveats and it means I have to decide _upfront_ what I want to measure, but it's the reason the same volume costs me a few euros instead of fifty.
+
+Getting there was **SLOW**. The first version of the stats was built on _refreshable_ materialized views and that was the wrong idea, so a good part of the early commits are migrations and rollbacks around that. I wrote about that in the [](database/clickhouse) page. Once the stats became insert-triggered, a benchmark inserting millions of events stayed stable in `CPU` and memory, and the queries came back immediately.
+
+## How it works
+
+Events come in through a small public API, get pushed into a queue, and workers turn them into rows in [](database/clickhouse). The dashboard never queries raw events: everything it shows comes from _materialized views_ that are kept up to date as the data lands.
+
+The backend is a handful of tiny binaries that share the same codebase, one `cmd` per process:
+
+- **api-public** - the endpoint the outside world talks to.
+- **api-events** - event ingestion, the only part that needs to be fast.
+- **api-internal** - what the dashboard uses.
+- **worker-event-writer**, **worker-event-processor** - the ingestion pipeline.
+- **worker-journeys**, **worker-insights**, **worker-report** - the aggregations.
+
+Each one is its own container with its own [](technology/helm) chart, so I can give the ingestion path more memory than the report generator without touching anything else.
+
+## Why Go
+
+The first version of the ingestion path was going to be [](framework/nestjs), like everything else I write. Then I measured both, and the numbers are in the [](language/golang) page. I'm paying for the machine myself, so that decided it.
+
+## Data
+
+- [](database/clickhouse) for everything time-series: events, sessions, stats, journeys. Materialized views do the aggregation work at write time.
+- [](database/mongodb) for the boring stuff: projects, users, configuration.
+- [](message-broker/nats) _(JetStream)_ as the queue between the API and the workers.
+- `Valkey` _(a fork of [](database/redis))_ for caching.
+
+## Infrastructure
+
+[](technology/terraform) drives [](technology/kubernetes) and [](technology/helm), so every chart is a resource in the same plan. Two modules: the shared stateful services, and the app - instantiated once for `staging` and once for `production`.
+
+Backups go to `S3` on a cron, with a restore drill so I know they are real, and a `Grafana` dashboard ships as part of the deployment.
+
+## Status
+
+`Stats` is the part that works and the one I use every day. The rest of [Forge](https://forge.codeserk.es/) is still on the way:
+
+- **Studio** - generate marketing assets from the content. Not available yet.
+- **Content** - the `CMS` from [](project/press). Mostly a dream for now.
+- **Text** - translations for a codebase.
+
+The current work is _datasources_: pulling metrics from `Prometheus`, `Loki` and `Google Play` so the same dashboard can show them next to the web analytics.

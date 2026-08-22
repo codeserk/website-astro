@@ -1,15 +1,15 @@
 ---
-name: 'Sessions, dimensions config, and Docker improvements'
+name: 'One Dockerfile, and capping cardinality'
 createdAt: 2026-04-04
 references:
-  - language/go
+  - language/golang
   - language/typescript
   - technology/docker
+  - database/clickhouse
 ---
 
-- Unified server Dockerfile (ARG APP_NAME + BuildKit cache mounts)
-- Fixed stats MVs and time stats queries
-- Session expanded rows with event activity timeline
-- Aggregation dimensions config UI + stats config API
-- Event dimension limiter (cardinality capping)
-- Journey improvements: 6 steps, per-step limit selector
+There is one [](technology/docker) file for the whole server now, with `ARG APP_NAME` picking which binary to build and `BuildKit` cache mounts so it doesn't compile everything from scratch every time. Sixteen almost-identical Dockerfiles is sixteen places to forget a change.
+
+The dimension limiter is the interesting one. A dimension with too many distinct values ruins a table in [](database/clickhouse), so the limiter caps how many values each one keeps and everything else falls into `other`. It's a lossy decision and I'd rather take it on purpose than discover the table is slow in three months.
+
+Also: stats materialized views and time stats queries fixed again, sessions have expanded rows with the event timeline inside, there is a config UI for the aggregation dimensions, and journeys go up to 6 steps with a per-step limit.

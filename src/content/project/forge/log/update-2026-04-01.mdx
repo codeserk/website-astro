@@ -1,11 +1,14 @@
 ---
-name: 'Emoji picker, tops tests, and device fields'
+name: 'Emoji picker and tests for the tops'
 createdAt: 2026-04-01
 references:
-  - language/go
+  - language/golang
   - language/typescript
+  - framework/react
 ---
 
-- Redesigned IconSelect as emoji picker (search, categories, virtual grid)
-- Integration tests for tops MVs (type, user, geo, device, referrer, sessions)
-- Added app/device fields, Data map\[string]any, client-overridable geo/device
+`IconSelect` is now an emoji picker with search, categories and a virtual grid. The virtual grid is not optional, rendering every emoji at once makes the whole page crawl.
+
+The important part of the day is less fun: integration tests for the tops materialized views, all of them - type, user, geo, device, referrer and sessions. These are the queries the dashboard lives on and I had been changing them without any safety net.
+
+Events also carry app and device fields now, plus a free `Data map[string]any`, and the client can override geo and device if it knows better than the server.

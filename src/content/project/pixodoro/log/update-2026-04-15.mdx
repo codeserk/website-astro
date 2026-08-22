@@ -1,0 +1,13 @@
+---
+name: 'Pixel art, and a UI package I deleted the same day'
+createdAt: 2026-04-15
+references:
+  - language/typescript
+  - framework/react
+---
+
+Brought the fonts and the `CSS` variables from `press.io` and put the brutalist pixel look on the timer and the settings. Then I extracted the primitives into a `@nest/ui-web` package so the app would stop carrying inline styles around.
+
+And by the end of the day I threw it away. `@nest/ui-web` was web only, which meant the mobile app would need its own copy of everything, which is exactly what I was trying to avoid. Rewrote the whole web app on `@nest/ui` instead and dropped `styled-components` and `antd` with it. Annoying, but better on day two than on month two.
+
+Also i18n, English and Spanish, with the language in the settings store.

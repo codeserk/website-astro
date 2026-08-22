@@ -1,17 +1,15 @@
 ---
-name: 'Event drawer, expandable rows, and responsive views'
+name: 'The event drawer, and not re-fetching everything'
 createdAt: 2026-04-05
 references:
   - language/typescript
   - framework/react
 ---
 
-- Event detail drawer with scrollable sections (meta, session timeline, raw data)
-- Clickable events everywhere - tables, lists, timelines all open the drawer
-- ExpandableListItem shared component with CSS-hide trick to avoid re-fetching
-- ResponsiveView component replacing CSS media queries for table/list switching
-- Shared UserDetailsList and EventUserName components
-- Session events cache in event store (useMapStore) to avoid duplicate API calls
-- User expanded row with 2-column layout (meta + top events/sessions)
-- Event summaries expanded row with 2-column layout (meta + activity timeline)
-- Deep signals for reactive drawer content updates
+Events are clickable everywhere now - tables, lists, timelines - and they all open the same detail drawer, with its meta, the session timeline and the raw data in scrollable sections.
+
+Making them clickable is easy, the problem is what happens after. Expanding a row unmounted and mounted the content again, so every open was a new request for data I already had. `ExpandableListItem` now hides with `CSS` instead of unmounting, and the event store keeps the session events in a `useMapStore` cache. Same clicks, a lot fewer calls.
+
+`ResponsiveView` replaced the media queries that were switching between table and list. Doing that in `CSS` meant both were in the DOM at all times, which is exactly what I was trying to avoid above.
+
+The rest is components: shared `UserDetailsList` and `EventUserName`, expanded rows for users and summaries in two columns, and deep signals so the drawer updates while it's open.

@@ -6,4 +6,6 @@ references:
   - framework/react
 ---
 
-- Journeys page with Sankey chart, portal tooltips, responsive labels
+The journeys page is live. It draws a `Sankey` chart with the paths people take between events, so instead of counting how many times something happened you can see what happened _before_ and _after_ it.
+
+Two annoying parts. The tooltips had to be rendered in a portal, otherwise the chart clips them as soon as they go outside its box. And the labels needed their own responsive handling, because on a narrow screen they overlap into something unreadable.
