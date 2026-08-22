@@ -18,7 +18,7 @@ const tooltip = ''
       data-tooltip={tooltip}
       class:list={['Reference reference', { block, tooltip: false }, entryToUse.collection]}
       href={`/${entryToUse.collection}/${entryToUse.id}`}>
-      {entryToUse.data.name}
+      {entryToUse.data.shortName ?? entryToUse.data.name}
     </a>
   )
 }
