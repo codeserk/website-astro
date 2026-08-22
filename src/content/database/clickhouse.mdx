@@ -1,0 +1,25 @@
+---
+slug: clickhouse
+name: ClickHouse
+featuredImage: database/clickhouse.png
+order: 2
+status: adopted
+knowledge: 70
+yearsLearning: 2
+references:
+  - development/web
+  - development/software-architecture
+links:
+  - name: Website
+    href: https://clickhouse.com/
+---
+
+Very fast _columnar_ database, this is where all the statistics of [](project/forge) live.
+
+My first contact with `clickhouse` was not good. I was self-hosting [Sentry](https://sentry.io/) at that time, and the deployment is composed by many containers, one of them was this thing called `clickhouse`. I had no idea what that was, I assumed it was some infrastructure helper, for a while I was convinced it was a message broker. It was eating a lot of resources and it was annoying me, so I spent some time trying to remove it to make my installation smaller. I didn't manage (:
+
+Years after that I started using [Plausible](https://plausible.io/) for my statistics, a cool yet simple tool, and I was impressed with the volume of events they were handling, so I went to investigate how they do it. And there it was again, `clickhouse`. This time I read about it for real: it was a database all along, a columnar database. The closest thing I had seen was [](database/cassandra) in [](career/coosto), but I didn't work with it so much, was the db and the code no one wants to touch.
+
+That investigation ended with me building [](project/forge), my own analytics, the full story is in that page. That's when I had to learn this database properly, and the first commits were slow going because I didn't get yet how `clickhouse` wants to work: I built all the stats using _refreshable_ materialized views, with my own rules on top to track which was the last dataset refreshed. Big mistake. A good part of the early migrations is me insisting and insisting on that idea, until I gave up, the commit is literally `Use non-refreshable MV` (november 2025). Now everything happens at insert time, write the event --> the stats are written too.
+
+After that I made a benchmark inserting MILLIONS of events to see how it behaves. The CPU was fine, the memory was fine too, and the stats queries kept coming back immediately. clickhouse **IS KING**.

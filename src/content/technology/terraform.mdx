@@ -1,0 +1,47 @@
+---
+slug: terraform
+name: Terraform
+featuredImage: technology/terraform.png
+order: 4
+status: adopted
+knowledge: 70
+yearsLearning: 3
+scopes:
+  - devops
+references:
+  - technology/kubernetes
+  - technology/docker
+  - technology/aws
+  - technology/helm
+  - database/clickhouse
+links:
+  - name: Website
+    href: https://developer.hashicorp.com/terraform
+---
+
+Infrastructure written down and versioned, so I can recreate a whole environment from the repo instead of remembering what I clicked.
+
+## Content
+
+## How I use it
+
+Not for [](technology/aws) resources, which is what everybody shows in the tutorials. In [](project/forge) it drives the [](technology/kubernetes) and [](technology/helm) providers, so **every chart is a terraform resource**. No `helm install` by hand, and I don't have to wonder if staging is running an older version of something.
+
+## Two modules, nothing else
+
+- `shared` - the stateful things that only exist once: `MongoDB`, [](database/clickhouse), [](message-broker/nats), their persistence and their backups.
+- `app` - everything that belongs to one environment. It gets instantiated twice, `staging` and `production`, with a different domain and its own credentials.
+
+Same code both times, different `tfvars`. I rebuild `staging` from zero when I feel like it, and that habit has caught a few things that only worked in production because someone had clicked them once.
+
+## State
+
+The state lives in the cluster itself _(`backend "kubernetes"`)_, in a secret. One less bucket to create, one less thing to pay for. It also means the cluster config is the only credential I need to touch it.
+
+I'm not sure I'd do this for a team of twenty. For a project I run myself it's been fine.
+
+## What I'd do differently
+
+Making every single value a variable. Half of them have never changed since I wrote them, and they only make the module harder to read.
+
+And `terraform` + [](technology/helm) together is slower to iterate on than plain [](technology/helm), that's the price. Worth it for something you rebuild often, probably annoying if you're just poking at one chart :)

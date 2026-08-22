@@ -1,0 +1,69 @@
+---
+slug: software-architecture
+name: Software Architecture
+shortName: Architecture
+featuredImage: project/forge.png
+order: 0
+knowledge: 90
+yearsLearning: 5+
+status: professional
+references:
+  - development/web
+  - language/golang
+  - framework/nestjs
+  - technology/kubernetes
+  - technology/terraform
+  - technology/docker
+  - technology/aws
+  - technology/openapi
+  - message-broker/kafka
+  - technology/helm
+---
+
+I design systems and then I build them. An architecture that never reaches _production_ is just a nice diagram, and I've seen enough of those.
+
+## Content
+
+## As simple as possible
+
+**Pick the boring option.** Every fancy technology is one more thing you have to operate, monitor and explain to the next person. If fifty lines of your own code can replace it, do that instead.
+
+The cool third parties usually come with a monthly bill too, and that one is easy to forget: you sign up once, it's cheap at the beginning, and a year later it's just there in the invoice every month.
+
+Same with splitting services: do it when there's a real reason _(different scaling, different team, different lifecycle)_. _It feels cleaner_ doesn't count tho :)
+
+## Efficiency is a design decision
+
+I pick the stack with **numbers**: response times, pods needed for the same traffic and, above all, **memory**. `RAM` is what fills a node first, and it's what decides how many machines you end up paying for. [](language/golang) over [](language/javascript) on the backend came from measuring exactly that: same traffic, a fraction of the memory.
+
+## Infrastructure
+
+[](technology/kubernetes) for everything that runs, [](technology/terraform) for everything that exists. Everything written down and versioned, so any environment can be recreated from the repo.
+
+I know [](technology/aws) well enough - I ran [](career/belorder)'s infra on it for years, `ECS`, `Route53`, load balancers and friends - and I'll happily use it when a client wants it and is fine paying for it. For my own things I avoid it. It's the same servers with a much bigger bill.
+
+What works best for me is a provider that gives you **managed** [](technology/kubernetes), like [OVHcloud](https://www.ovhcloud.com/). Someone else takes care of the control plane, the upgrades and all the low level mess, and I get to work on the [](technology/kubernetes) layer and above, which is the part I actually care about. Same [](technology/terraform), same charts, a fraction of the price.
+
+## Code structure
+
+I don't really care which convention a team picks, I care that there is **one** and that everybody follows it. Agreeing on where things live, what a folder means and what is allowed to import what is usually the first thing I push for, and once it's agreed it goes into the linter so we don't discuss it again.
+
+In `Go` I've been refining mine for a while, mostly to keep features isolated and stop modules from coupling to each other. I wrote it down in the [](language/golang) [project structure](/language/golang#project-structure) section.
+
+## Rules instead of reviews
+
+Anything I have to repeat in a code review becomes a linter rule. Not the generic ones - **very specific rules about how our code is written**, and I write them myself.
+
+For [](framework/react) I maintain my own `eslint` plugin with around twenty custom rules: one component per file, no barrel `index` files, a fixed order for the sections inside a component, a naming prefix per folder, no functions declared outside the component, no inline callbacks in lists, `styled-components` instead of `style` props or stylesheets, and a bunch of rules for `signals` _(how props are typed, batching writes, using `peek` inside handlers)_.
+
+For `Go` it's `golangci-lint` with a long list enabled and tuned: `gci` enforces the exact import sections we use _(standard, external, aliases, local module)_ with no comments between them, `funcorder` fixes where constructors and methods go, `errname` forces the `Err` prefix on sentinel errors, `depguard` decides which packages we can import at all.
+
+Once a rule is in the linter, nobody has to remember it. That's what keeps conventions alive when the team grows, I think.
+
+## Where
+
+[](career/coosto) is where I learnt how these systems behave at scale: a proper _micro-services_ environment, with events flowing between services through [](message-broker/kafka) and [](message-broker/rabbitmq). A great place to see which boundaries hold and which ones make ten people wait for each other.
+
+At [](career/belorder) I've been the architect since 2021: I decided how the pieces fit together and then wrote most of them, from the [](technology/kubernetes) setup to the [](technology/openapi) contracts between the apps.
+
+[](project/forge) is where I own the whole thing end to end: the decisions, the [](technology/helm) charts, the [](technology/terraform) side, the deployment. A `Go` backend split into small binaries, each one with its own chart. Most of the opinions above got tested there.

@@ -1,0 +1,26 @@
+---
+slug: nats
+name: NATS
+featuredImage: message-broker/nats.png
+order: 3
+status: adopted
+knowledge: 65
+yearsLearning: 2
+references:
+  - development/web
+  - development/software-architecture
+  - language/golang
+  - career/coosto
+  - message-broker/rabbitmq
+  - message-broker/kafka
+  - project/forge
+links:
+  - name: Website
+    href: https://nats.io/
+---
+
+The smallest message broker I've been happy with. One binary, and `JetStream` on top when the messages need to survive a restart.
+
+In [](project/forge) it sits between the ingestion API and the workers. I used [](message-broker/kafka) and [](message-broker/rabbitmq) at [](career/coosto), both are great, but for something this size they were too much machinery to run and to maintain.
+
+The part that made the difference was moving to durable consumers with real acks. Before that, redeploying a worker while events were coming in meant losing them.

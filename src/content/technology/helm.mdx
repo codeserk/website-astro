@@ -1,0 +1,27 @@
+---
+slug: helm
+name: Helm
+featuredImage: technology/helm.png
+order: 5
+status: adopted
+knowledge: 75
+yearsLearning: 6+
+scopes:
+  - devops
+references:
+  - technology/kubernetes
+  - technology/terraform
+  - technology/docker
+  - development/software-architecture
+links:
+  - name: Website
+    href: https://helm.sh/
+---
+
+How I package anything that runs on [](technology/kubernetes). One chart per service, in [](project/forge) that's around 16 of them, one per binary.
+
+I considered a big umbrella chart for all of it. Glad I didn't, having each service with its own values, its own limits and its own lifecycle means I can touch one thing without reading the other fifteen.
+
+The charts also carry the stuff that usually gets forgotten: the cronjobs, the sidecars, even the `Grafana` dashboards as a configmap. If it belongs to the service it goes in the chart, otherwise it ends up in a wiki page nobody updates.
+
+The template language is `Go` templates over `YAML` indentation and it's as bad as it sounds, but every alternative I tried annoyed me more.
