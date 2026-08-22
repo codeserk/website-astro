@@ -3,9 +3,9 @@ schema: language
 name: GoLang
 featuredImage: /language/golang.png
 order: 3
-status: learning
-knowledge: 40
-yearsLearning: 2
+status: adopted
+knowledge: 80
+yearsLearning: 3
 icon: golang
 references:
   - development/web
@@ -15,18 +15,40 @@ GoLang embraces simplicity: _create clean and simple code, and see it running fa
 
 This language can deliver really efficient code in both speed and memory usage. It's a game changer (at least when it's compared with NodeJS). We are talking a difference in _scale_: if we measure NodeJS API durations in _seconds_, (`0.2s`, `0.5s`), we measure `GoLang`'s in `milliseconds` (`0.5ms`, `2ms`) :upsidedown:.
 
-The language itself can look _ugly_ at first, and you might think it's lacking some features (`OOP` stuff seems _limited_), but while I'm learning this language I'm realising that it's like that for a good reason. The language adopts some concepts from classic `OOP` languages, like `interfaces` but it prevents you from making overcomplicated code. _Inheritance_ is fun, yep; but it can often lead to complex (and difficult to manage) code. Thus, this wise _gopher_ won't allow you to do that.
+The language itself can look _ugly_ at first, and you might think it's lacking some features (`OOP` stuff seems _limited_), but after a while working with it I'm convinced it's like that for a good reason. The language adopts some concepts from classic `OOP` languages, like `interfaces` but it prevents you from making overcomplicated code. _Inheritance_ is fun, yep; but it can often lead to complex (and difficult to manage) code. Thus, this wise _gopher_ won't allow you to do that.
 
 - _Does that mean there is no way to design your apps?_
 - _What about the design patterns?_
 - _What about SOLID!?_
 
-Some of these questions are still unanswered for me, but at least I've seen already that **there is a way to design stuff right**, it's just done differently. And, of course, good old web architecture patterns apply here too so it's not all chaos :D
+I had those questions at the beginning. By now it's clear to me that **there is a way to design stuff right**, it's just done differently. And, of course, good old web architecture patterns apply here too so it's not all chaos :D
 
-## Learning
+This is how those patterns ended up looking in my projects:
 
-I've started learning from Go documentation (with examples, and a tour), and I've started a [dummy project](https://github.com/codeserk/training-go) to see the progress. I've bought [this book](https://www.gopl.io/) too, which should help me understand the reasons behind all the decisions that were made.
+## Project structure
 
-[This article](https://eminetto.medium.com/clean-architecture-using-golang-b63587aa5e3f) worked well as starting point to create a _clean architecture_ (based on well-tested web architecture designs).
+I've been refining this one for a while and I'm quite happy with how it ended up. The goal is to keep the features isolated, so modules don't end up coupled with each other. There are mainly 3 blocks of code:
+
+### Internal
+
+Defines the contract for libs and such (`internal/mongo` for example defines all needed to connect and make mongo operations using its driver). Nothing about the domain lives here.
+
+### Modules
+
+All features are grouped in modules (`module/user`). Inside, each individual functionality is declared in one file (`module/user/repository.go` defines the interface), and implemented inside the module's own `features/` folder (`module/user/features/repository/service.go`) which contains the implementation of the interface. Each individual public method is defined in one file (thanks go for supporting this!), and each one has its associated test.
+
+The link between interface and implementation is defined in a submodule (`module/user/usermod`) which exposes ways to instantiate the interfaces using the implementations. This way definition and implementation are never coupled and callers never know _which is the implementation_ as it's **FORBIDDEN** to import from `features/` folder outside the module itself.
+
+### Applications
+
+Defines the user-facing part (`cmd/api-internal`): controllers or whatever the layer exposes and they use services defined in module folder. It's **FORBIDDEN** for this layer to use the `internal/` packages, since they are meant to rely on code defined in modules.
+
+It looks like a lot of folders, and it is, but I don't want to go back :)
+
+## How I got here
+
+I started with the Go documentation (examples and the tour) and a [dummy project](https://github.com/codeserk/training-go) to track the progress, plus [this book](https://www.gopl.io/) to understand the reasons behind the decisions in the language. [This article](https://eminetto.medium.com/clean-architecture-using-golang-b63587aa5e3f) worked well as starting point to create a _clean architecture_ (based on well-tested web architecture designs).
+
+These days it's my default for backends: [](project/forge) runs entirely on it, split into small binaries.
 
 _Way to **Go**_ I guess :)

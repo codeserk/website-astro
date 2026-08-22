@@ -23,11 +23,12 @@ const social = [
   { label: '✉️', link: 'mailto:info@codeserk.es', title: 'Email' },
 ]
 const skillBlockSlugs = [
-  ['language/typescript', 'language/javascript'],
-  ['framework/nestjs', 'framework/react', 'framework/react-native', 'framework/vue'],
+  ['development/software-architecture'],
+  ['language/typescript', 'language/javascript', 'language/golang'],
+  ['framework/nestjs', 'framework/react', 'framework/react-native'],
   ['database/mongodb', 'database/mysql'],
   ['message-broker/rabbitmq', 'message-broker/kafka'],
-  ['technology/docker', 'technology/kubernetes'],
+  ['technology/docker', 'technology/kubernetes', 'technology/aws'],
 ]
 const skillBlocks = await Promise.all(
   skillBlockSlugs.map(
@@ -150,7 +151,7 @@ const education = await Promise.all(
               </div>
               <h1 class="name">José Cámara</h1>
 
-              <div class="title">Full-Stack Engineer</div>
+              <div class="title">Software Architect</div>
             </div>
 
             <div class="details">
@@ -182,7 +183,7 @@ const education = await Promise.all(
                     {block.map((item: any) => (
                       <div class="skill item">
                         <a href={`${baseURL}/${item.collection}/${item.id}`} class="item-name">
-                          <h3 class="label">{item.data.name}</h3>
+                          <h3 class="label">{item.data.shortName ?? item.data.name}</h3>
                         </a>
                         <ProgressBar percent={item.data.knowledge} text={`${item.data.yearsLearning} years`} small />
                       </div>
@@ -208,12 +209,19 @@ const education = await Promise.all(
           <div class="profile">
             <h2>Profile</h2>
             <p>
-              I'm <strong>José Cámara</strong> and I'm passionate about innovative technologies and computer programming.
-              Although the main focus of my career is <a href={`${baseURL}/development/web`}>Web development</a>, I have
-              acquired skills in other areas of development, such as:
-              <a href={`${baseURL}/development/game`}>Games</a>,
-              <a href={`${baseURL}/development/android`}>Android</a> and
-              <a href={`${baseURL}/development/ios`}>iOS</a>.
+              I'm <strong>José Cámara</strong>, a{' '}
+              <a href={`${baseURL}/development/software-architecture`}>software architect</a> with 16 years of experience
+              in <a href={`${baseURL}/development/web`}>Web development</a>. I design systems and then I build them. At{' '}
+              <a href={`${baseURL}/career/belorder`}>Belorder</a> I took the whole platform from architecture to
+              production, covering <em>Frontend</em>, <em>Backend</em> and <em>DevOps</em>. I work with{' '}
+              <a href={`${baseURL}/language/typescript`}>TypeScript</a>,{' '}
+              <a href={`${baseURL}/framework/react`}>React</a> and{' '}
+              <a href={`${baseURL}/framework/react-native`}>React Native</a>, and{' '}
+              <a href={`${baseURL}/framework/nestjs`}>NestJS</a> on the backend, which I am progressively migrating to{' '}
+              <a href={`${baseURL}/language/golang`}>GoLang</a> for its performance and lower resource usage. Some{' '}
+              <a href={`${baseURL}/development/game`}>Games</a>,{' '}
+              <a href={`${baseURL}/development/android`}>Android</a> and{' '}
+              <a href={`${baseURL}/development/ios`}>iOS</a> on the side. Currently working as a freelance.
             </p>
           </div>
 
