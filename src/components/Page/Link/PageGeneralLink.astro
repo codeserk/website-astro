@@ -16,9 +16,10 @@ dayjs.extend(localizedFormat)
 
 interface Props {
   readonly item: Entry
+  readonly eager?: boolean
 }
 
-const { item } = Astro.props
+const { item, eager } = Astro.props
 const config = getEntryCollectionConfig(item)
 const references = await getReferencesForEntry(item, config.referencesInLink)
 const summary = await getEntrySummaryContent(item, false)
@@ -30,6 +31,7 @@ const createdAt = getEntryCreatedAt(item)
   link={`/${item.collection}/${item.id}`}
   image={item.data.featuredImage}
   summary={summary}
+  eager={eager}
 >
   {item.data.status && item.data.progress && <ProgressBar text={item.data.status} percent={item.data.progress} />}
   {item.data.status && item.data.knowledge && <ProgressBar text={item.data.status} percent={item.data.knowledge} />}

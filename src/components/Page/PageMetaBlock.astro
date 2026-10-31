@@ -20,9 +20,20 @@ interface Props {
   readonly image?: ImageMetadata
   readonly imageType?: `${'circled' | 'bordered'} ${'sm' | 'md' | 'lg'}`
   readonly showInitials?: boolean
+  readonly eager?: boolean
 }
 
-const { name, references, createdAt, startDate, endDate, image, imageType = 'bordered md', showInitials } = Astro.props
+const {
+  name,
+  references,
+  createdAt,
+  startDate,
+  endDate,
+  image,
+  imageType = 'bordered md',
+  showInitials,
+  eager,
+} = Astro.props
 
 const showDates = startDate || endDate
 const period = showDates ? extractPeriodFromDates(startDate, endDate) : undefined
@@ -32,13 +43,20 @@ const initials = getEntryNameInitials(name)
 <div class={'pageMetaBlock'}>
   {
     image ? (
-      <Image class:list={[`image`, imageType ?? '']} src={image} width={290} height={290} alt={name} loading="lazy" />
+      <Image
+        class:list={[`image`, imageType ?? '']}
+        src={image}
+        width={290}
+        height={290}
+        alt={name}
+        loading={eager ? 'eager' : 'lazy'}
+      />
     ) : (
       showInitials && <span class:list={[`imagePlaceholder`, imageType ?? '']}>{initials}</span>
     )
   }
 
-  <aside class={'pageMetaBlockContainer'}>
+  <aside class={'pageMetaBlockContainer'} aria-label="Details">
     {
       showDates && (
         <div class={'dateContainer endDateContainer'}>{endDate ? dayjs(endDate).format('YYYY-MM-DD') : 'Now'}</div>

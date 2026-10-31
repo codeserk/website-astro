@@ -15,11 +15,12 @@ interface Props {
   readonly image?: string
   readonly imageType?: `${'circled' | 'bordered'} ${'sm' | 'md' | 'lg'}`
   readonly date?: Date
+  readonly eager?: boolean
 }
 
 dayjs.extend(relativeTime)
 
-const { title, heading, link, summary, image, imageType, date } = Astro.props
+const { title, heading, link, summary, image, imageType, date, eager } = Astro.props
 const timeAgo = date ? dayjs(date).fromNow() : undefined
 const imageTypeClass = imageType ?? 'bordered sm'
 const imageMeta = await getImageMetadata(image)
@@ -39,7 +40,7 @@ const initials = getEntryNameInitials(title)
             width={290}
             height={290}
             alt={title}
-            loading="eager"
+            loading={eager ? 'eager' : 'lazy'}
           />
         ) : (
           <span class={classes('imagePlaceholder', 'image', imageTypeClass)}>{initials}</span>

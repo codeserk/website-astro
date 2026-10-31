@@ -14,9 +14,10 @@ import PageMetaBlock from '../PageMetaBlock.astro'
 
 interface Props {
   readonly item: Entry
+  readonly eager?: boolean
 }
 
-const { item } = Astro.props
+const { item, eager } = Astro.props
 const config = getEntryCollectionConfig(item)
 const references = await getReferencesForEntry(item, config.referencesInLink)
 const summary = await getEntrySummaryContent(item, false)
@@ -42,7 +43,7 @@ const imageMeta = await getImageMetadata(image)
       }
       {
         item.data.website && (
-          <a class="linkWebsite" href={item.data.website} target="_blank">
+          <a class="linkWebsite" href={item.data.website} target="_blank" rel="noopener">
             Website
           </a>
         )
@@ -59,7 +60,7 @@ const imageMeta = await getImageMetadata(image)
               width={150}
               height={150}
               alt={item.data.name}
-              loading="eager"
+              loading={eager ? 'eager' : 'lazy'}
             />
           )
         }

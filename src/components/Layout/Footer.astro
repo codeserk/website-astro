@@ -46,38 +46,38 @@ const url = Astro.url.pathname
       <div class={'linksContainer'}>
         {
           data.map(({ collection, entries }) => (
-            <div class={'links'}>
+            <nav class={'links'} aria-label={collection}>
               <a href={`/${collection}`}>
                 <h2>{collection}</h2>
               </a>
               {entries.map((it) => (
-                <nav>
+                <div class="link">
                   <a
                     class:list={{ active: url.startsWith(`/${collection}/${it.id}`) }}
                     href={`/${collection}/${it.id}`}>
                     <h3> {it.data.name}</h3>
                   </a>
-                </nav>
+                </div>
               ))}
-            </div>
+            </nav>
           ))
         }
 
-        <div class={'links'}>
+        <nav class={'links'} aria-label="Pages">
           <h2>Pages</h2>
-          <nav>
+          <div class="link">
             <a href={`/resume`}><h3>Resume</h3></a>
-          </nav>
+          </div>
           {
             pages.map((it) => (
-              <nav>
+              <div class="link">
                 <a class:list={{ active: url.startsWith(`/${it.id}`) }} href={`/${it.id}`}>
                   <h3>{it.data.name}</h3>
                 </a>
-              </nav>
+              </div>
             ))
           }
-        </div>
+        </nav>
       </div>
     </div>
   </Container>
@@ -212,12 +212,12 @@ const url = Astro.url.pathname
       }
     }
 
-    .links nav {
+    .links .link {
       display: flex;
       flex-direction: column;
     }
 
-    .links nav a {
+    .links .link a {
       position: relative;
       padding-left: 1.5em;
 
@@ -232,13 +232,13 @@ const url = Astro.url.pathname
       }
     }
 
-    .links nav a::before {
+    .links .link a::before {
       content: '├─ ';
       position: absolute;
       left: 0;
     }
 
-    .links nav a:last-child::before {
+    .links .link a:last-child::before {
       content: '└─ ';
     }
   }

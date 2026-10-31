@@ -4,6 +4,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
 
 export interface GalleryImage {
   readonly image: ImageMetadata
@@ -23,7 +24,14 @@ const { items } = Astro.props
       <div class="swiper-wrapper">
         {items.map((item) => (
           <div class="swiper-slide">
-            <img src={item.image.src} alt={item.title} class="bordered responsive" />
+            <Image
+              src={item.image}
+              widths={[480, 960, 1440]}
+              sizes="(max-width: 768px) 100vw, 960px"
+              alt={item.title ?? ''}
+              class="bordered responsive"
+              loading="lazy"
+            />
           </div>
         ))}
       </div>

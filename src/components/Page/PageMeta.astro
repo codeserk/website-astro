@@ -34,6 +34,7 @@ const createdAt = showCreatedAt ? getEntryCreatedAt(entry) : undefined
   startDate={entry.data.startDate}
   endDate={entry.data.endDate}
   showInitials={showInitials}
+  eager
 >
   {entry.data.position && <span slot="before">{entry.data.position}</span>}
   {entry.data.status && entry.data.knowledge && <ProgressBar text={entry.data.status} percent={entry.data.knowledge} />}

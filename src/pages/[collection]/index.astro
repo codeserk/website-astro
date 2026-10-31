@@ -72,7 +72,7 @@ const Component = COMPONENTS_MAP[collection]
     <div class="divider"></div>
 
     <Container layout="full">
-      <PageLinksGrid links={entries ?? []} component={Component} />
+      <PageLinksGrid links={entries ?? []} component={Component} eager />
     </Container>
   </PageContainer>
 </Layout>

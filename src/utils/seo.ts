@@ -52,6 +52,7 @@ export function generateSeoMeta(site: string, params?: SEOParams): any {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const metas: any[] = []
   metas.push({ property: 'og:url', hid: 'og:url', content: url })
+  metas.push({ property: 'og:type', hid: 'og:type', content: 'website' })
   const title = params?.breadcrumbs
     ? [SEO_SITE_NAME, ...params.breadcrumbs.map((it) => capitalize(it.title)), params.title]
         .filter(Boolean)
@@ -77,7 +78,7 @@ export function generateSeoMeta(site: string, params?: SEOParams): any {
   metas.push({ property: 'og:image', hid: 'og:image', content: image })
   metas.push({ property: 'og:image:type', hid: 'og:image:type', content: 'image/png' })
   metas.push({ property: 'og:image:width', hid: 'og:image:width', content: 600 })
-  metas.push({ property: 'og:image:width', hid: 'og:image:height', content: 600 })
+  metas.push({ property: 'og:image:height', hid: 'og:image:height', content: 600 })
   metas.push({ property: 'twitter:image', hid: 'twitter:image', content: image })
 
   // Twitter card
@@ -85,11 +86,34 @@ export function generateSeoMeta(site: string, params?: SEOParams): any {
   metas.push({ property: 'twitter:site', content: 'codeserk.es' })
   metas.push({ property: 'twitter:creator', content: '@codeserk' })
 
-  return { ...head, meta: metas }
+  const structured = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url,
+    image,
+    author: { '@type': 'Person', name: SEO_AUTHOR, url: fixURL(site) },
+  }
+
+  return { ...head, meta: metas, structured }
 }
 
+const DESCRIPTION_MAX_LENGTH = 155
+
+// Cuts at a word so a result page shows the whole description.
 export function getShortDescription(description: string): string {
-  return [description.replace(/<\/?[^>]+(>|$)/g, ''), DEFAULT_SEO_PARAMS.description].join('\n')
+  const text = description
+    .replace(/<\/?[^>]+(>|$)/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+  if (text.length <= DESCRIPTION_MAX_LENGTH) {
+    return text
+  }
+
+  const cut = text.slice(0, DESCRIPTION_MAX_LENGTH - 3)
+
+  return `${cut.slice(0, cut.lastIndexOf(' '))}...`
 }
 
 function capitalize(text: string): string {

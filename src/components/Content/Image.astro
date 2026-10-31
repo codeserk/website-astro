@@ -1,5 +1,10 @@
 ---
+import { Image } from 'astro:assets'
+
 import { getImageMetadata } from '~/utils/content'
+
+const IMAGE_WIDTHS = [320, 640, 1280]
+const IMAGE_SIZES = '(max-width: 768px) 100vw, 800px'
 
 const ALT_REGEX = /alt:([^;]+);?/
 const TITLE_REGEX = /title:([^;]+);?/
@@ -19,21 +24,31 @@ const image = await getImageMetadata(src)
 ---
 
 {
-  src && (
+  image && (
     <>
       {title ? (
         <div class:list={['ImageContainer', className]}>
-          <img
-            src={image?.src}
+          <Image
+            src={image}
+            widths={IMAGE_WIDTHS}
+            sizes={IMAGE_SIZES}
             class:list={['ContentImage', className]}
-            alt={alt}
+            alt={alt ?? ''}
             title={title || alt}
             loading="lazy"
           />
           <p class="title-container">{title}</p>
         </div>
       ) : (
-        <img src={image?.src} class:list={['ContentImage', className]} alt={alt} title={title || alt} loading="lazy" />
+        <Image
+          src={image}
+          widths={IMAGE_WIDTHS}
+          sizes={IMAGE_SIZES}
+          class:list={['ContentImage', className]}
+          alt={alt ?? ''}
+          title={title || alt}
+          loading="lazy"
+        />
       )}
     </>
   )

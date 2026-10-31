@@ -7,10 +7,10 @@ interface Props {
 const { name, href } = Astro.props
 ---
 
-<a class={`link ${name}`} href={href} target="_blank">
+<a class={`link ${name}`} href={href} target="_blank" rel="noopener">
   {
     name === 'github' ? (
-      <img class="icon" src="/image/social/github.png" alt="GitHub" />
+      <img class="icon" src="/image/social/github.png" alt="GitHub" width="24" height="24" loading="lazy" />
     ) : (
       <span class="icon">:loop:</span>
     )

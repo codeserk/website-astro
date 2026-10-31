@@ -6,7 +6,10 @@ interface Props {
 }
 
 const { params } = Astro.props
-const { title, meta } = generateSeoMeta(Astro.site?.toString() ?? 'https://www.codeserk.es', params)
+const { title, meta, link, structured } = generateSeoMeta(Astro.site?.toString() ?? 'https://www.codeserk.es', {
+  ...params,
+  path: params?.path ?? Astro.url.pathname,
+})
 ---
 
 <title>{title}</title>
@@ -32,3 +35,5 @@ const { title, meta } = generateSeoMeta(Astro.site?.toString() ?? 'https://www.c
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
 
 {meta.map((it: any) => <meta {...it} />)}
+{link.map((it: any) => <link {...it} />)}
+<script type="application/ld+json" set:html={JSON.stringify(structured)} />

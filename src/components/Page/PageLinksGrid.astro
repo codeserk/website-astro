@@ -8,9 +8,11 @@ interface Props {
   readonly header?: BreadcrumbLink
   readonly links: Entry[]
   readonly component?: any
+  readonly eager?: boolean
 }
 
-const { header, links, component: LinkComponent = PageGeneralLink } = Astro.props
+const { header, links, component: LinkComponent = PageGeneralLink, eager } = Astro.props
+const eagerLinks = eager ? 2 : 0
 ---
 
 {
@@ -24,8 +26,8 @@ const { header, links, component: LinkComponent = PageGeneralLink } = Astro.prop
 
       <Container layout="full">
         <div class="linksContainer">
-          {links.map((item) => (
-            <LinkComponent item={item} />
+          {links.map((item, index) => (
+            <LinkComponent item={item} eager={index < eagerLinks} />
           ))}
         </div>
       </Container>

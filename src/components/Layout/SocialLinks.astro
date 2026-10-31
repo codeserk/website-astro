@@ -8,11 +8,12 @@ interface Props {
 }
 
 const { absolute, align = 'center', grey } = Astro.props
+const loading = absolute ? 'eager' : 'lazy'
 ---
 
 <div class:list={['socialLinks', { absolute, grey }]}>
-  <a href="https://github.com/codeserk" target="_blank">
-    <Image class="icon image" src="/image/social/github.png" width={50} height={50} alt="GitHub" loading="eager" />
+  <a href="https://github.com/codeserk" target="_blank" rel="noopener">
+    <Image class="icon image" src="/image/social/github.png" width={50} height={50} alt="GitHub" loading={loading} />
   </a>
   <a href="/contribute">
     <Image
@@ -21,25 +22,32 @@ const { absolute, align = 'center', grey } = Astro.props
       width={50}
       height={50}
       alt="BuyMeACoffee"
-      loading="eager"
+      loading={loading}
     />
   </a>
-  <a href="https://www.instagram.com/codeserk.es" target="_blank">
+  <a href="https://www.instagram.com/codeserk.es" target="_blank" rel="noopener">
     <Image
       class="icon image"
       src="/image/social/instagram.png"
       width={50}
       height={50}
       alt="Instagram"
-      loading="eager"
+      loading={loading}
     />
   </a>
-  <a href="https://www.linkedin.com/in/jos%C3%A9-manuel-c%C3%A1mara-iglesias-60b617127/" target="_blank">
-    <Image class="icon image" src="/image/social/linkedin.png" width={50} height={50} alt="LinkedIn" loading="eager" />
+  <a href="https://www.linkedin.com/in/jos%C3%A9-manuel-c%C3%A1mara-iglesias-60b617127/" target="_blank" rel="noopener">
+    <Image
+      class="icon image"
+      src="/image/social/linkedin.png"
+      width={50}
+      height={50}
+      alt="LinkedIn"
+      loading={loading}
+    />
   </a>
 
-  <a href="mailto:info@codeserk.es" target="_blank" aria-label="Email"
-    ><Image class="icon image" src="/image/social/email.png" width={50} height={50} alt="Email" loading="eager" /></a
+  <a href="mailto:info@codeserk.es" target="_blank" rel="noopener" aria-label="Email"
+    ><Image class="icon image" src="/image/social/email.png" width={50} height={50} alt="Email" loading={loading} /></a
   >
 </div>
 

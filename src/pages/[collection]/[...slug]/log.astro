@@ -14,6 +14,7 @@ import {
   getEntryBreadcrumbs,
   getEntryLink,
   getEntrySummaryContent,
+  getEntryLogs,
 } from '~/utils/content'
 
 export async function getStaticPaths() {
@@ -31,10 +32,14 @@ export async function getStaticPaths() {
   ] satisfies (keyof AnyEntryMap)[]
 
   const data = await Promise.all(
-    COLLECTIONS.map(async (collection) => ({
-      collection,
-      entries: await getPublishedEntries(collection),
-    })),
+    COLLECTIONS.map(async (collection) => {
+      const entries = (await getPublishedEntries(collection)) ?? []
+      const logged = await Promise.all(
+        entries.map(async (entry: any) => (await getEntryLogs(collection, entry.id)).length > 0),
+      )
+
+      return { collection, entries: entries.filter((_: any, index: number) => logged[index]) }
+    }),
   )
 
   const result = data.flatMap(({ collection, entries }) =>
@@ -74,7 +79,7 @@ const breadcrumbs = [...getEntryBreadcrumbs(entry), { title: entry.data.name, li
       }
     </PageContent>
 
-    <aside>
+    <aside aria-label="Logs">
       <PageLogs collection={collection} entry={entry} />
     </aside>
   </PageContainer>
