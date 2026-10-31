@@ -17,13 +17,15 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Set the app version
+        run: echo "APP_VERSION=$(date -u +%Y.%m.%d)-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
           node-version: 22
         env:
           PUBLIC_STATS_SDK: ${{ secrets.PUBLIC_STATS_SDK }}
-          PUBLIC_APP_VERSION: ${{ github.sha }}
+          PUBLIC_APP_VERSION: ${{ env.APP_VERSION }}
           FORGE_STATS_CI_SDK: ${{ secrets.FORGE_STATS_CI_SDK }}
 
   deploy:
