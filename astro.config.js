@@ -14,6 +14,7 @@ import { remarkModifiedTime } from './src/plugins/last-modifierd.remark-plugin'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import dayjs from 'dayjs'
 import glsl from 'vite-plugin-glsl'
+import { forgeStats } from '@codeserk/forge-stats-vite'
 import remarkGemoji from 'remark-gemoji'
 
 dayjs.extend(localizedFormat)
@@ -155,6 +156,11 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [glsl(), pixelartIconsPlugin, pixelartIconsAstroPlugin],
+    plugins: [
+      glsl(),
+      pixelartIconsPlugin,
+      pixelartIconsAstroPlugin,
+      forgeStats({ appVersion: process.env.PUBLIC_APP_VERSION ?? 'dev', tokenEnv: 'FORGE_STATS_CI_SDK' }),
+    ],
   },
 })
