@@ -24,7 +24,7 @@
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/react": "^6.0.2",
     "@astrojs/sitemap": "^3.7.2",
-    "@codeserk/forge-stats-web-vitals": "^0.4.1",
+    "@codeserk/forge-stats-web-vitals": "^0.5.0",
     "@hackernoon/pixel-icon-library": "^1.1.0",
     "@nsmr/pixelart-react": "^2.0.0",
     "@react-three/drei": "^9.122.0",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.6",
-    "@codeserk/forge-stats-vite": "^0.4.0",
+    "@codeserk/forge-stats-vite": "^0.5.0",
     "@playwright/test": "1.59.1",
     "@types/three": "0.160.0",
     "@types/uuid": "^10.0.0",

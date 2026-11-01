@@ -6,6 +6,7 @@ if (sdk) {
   init({
     sdk,
     appVersion: import.meta.env.PUBLIC_APP_VERSION ?? 'dev',
+    environment: import.meta.env.PUBLIC_STATS_ENVIRONMENT,
     plugins: [webVitals({ getRoute: () => window.location.pathname })],
   })
   captureGlobalErrors()
