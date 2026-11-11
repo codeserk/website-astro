@@ -2,6 +2,7 @@
 import { type AnyEntryMap, getCollection } from 'astro:content'
 import Container from '../Container.astro'
 import SocialLinks from './SocialLinks.astro'
+import ToptalBadge from '../ToptalBadge.astro'
 import { getEntryIsNotDraft, getEntryIsRoot, sortEntries } from '~/utils/content'
 import { Image } from 'astro:assets'
 
@@ -78,6 +79,10 @@ const url = Astro.url.pathname
             ))
           }
         </nav>
+      </div>
+
+      <div class="toptal">
+        <ToptalBadge />
       </div>
     </div>
   </Container>
@@ -188,6 +193,23 @@ const url = Astro.url.pathname
 
   .image {
     filter: grayscale(100%);
+  }
+
+  .toptal {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    zoom: 0.5;
+    filter: grayscale(100%);
+    opacity: 0.4;
+    transition:
+      filter 0.3s,
+      opacity 0.3s;
+
+    &:hover {
+      filter: none;
+      opacity: 1;
+    }
   }
 
   .linksContainer {
